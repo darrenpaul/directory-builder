@@ -1,0 +1,28 @@
+{
+  "name": "forecast-orm",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "scripts": {
+    "clean": "prettier . --write",
+    "generate": "drizzle-kit generate",
+    "introspect": "drizzle-kit introspect",
+    "migrate": "tsx -r dotenv/config index.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@types/node": "^22.10.1",
+    "dotenv": "^16.4.7",
+    "drizzle-kit": "^0.29.1",
+    "drizzle-orm": "^0.37.0",
+    "pg": "^8.13.1",
+    "postgres": "^3.4.4",
+    "prettier": "^3.3.3",
+    "tsx": "^4.19.2",
+    "typescript": "^5.5.4"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.11.10"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prettier:fix": "prettier --write .",
+    "clean": "yarn prettier:fix && yarn lint:fix"
+  },
+  "dependencies": {
+    "@nuxt/eslint": "0.7.4",
+    "@nuxt/fonts": "0.10.3",
+    "@nuxt/ui": "2.20.0",
+    "@nuxtjs/seo": "2.0.2",
+    "@nuxtjs/supabase": "1.4.5",
+    "@nuxtjs/tailwindcss": "6.12.2",
+    "eslint": "^8.57.0 || ^9.0.0",
+    "nuxt": "^3.15.0",
+    "vue": "latest",
+    "vue-router": "latest"
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
+  "devDependencies": {
+    "@antfu/eslint-config": "^3.12.1",
+    "prettier": "3.4.2",
+    "typescript": "^5.7.2"
+  }
+}
