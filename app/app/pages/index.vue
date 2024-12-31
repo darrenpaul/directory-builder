@@ -110,7 +110,7 @@ defineWebPage({
 	<div class="mb-8">
 		<div class="hero bg-base-200 min-h-screen mb-8">
 			<div class="hero-content text-center">
-				<div class="w-[80ch]">
+				<div class="max-w-[80ch]">
 					<h1 class="text-5xl font-bold mb-4">
 						Find Local Coffee Shops Near You
 					</h1>
@@ -151,30 +151,32 @@ Perfect for digital nomads, students, and coffee enthusiasts
 </li>
 </ul> -->
 
-		<div id="search-form" class="flex gap-4 items-end w-full mb-8">
-			<SearchInput
-				id="business-name"
-				v-model="queryBusinessName"
-				placeholder="Enter a business name"
-			/>
+		<div class="px-4">
+			<div id="search-form" class="flex flex-col lg:flex-row gap-4 items-end w-full mb-8">
+				<SearchInput
+					id="business-name"
+					v-model="queryBusinessName"
+					placeholder="Enter a business name"
+				/>
 
-			<SearchInput
-				id="country-name"
-				v-model="queryCountryName"
-				placeholder="Enter a country name"
-			/>
+				<SearchInput
+					id="country-name"
+					v-model="queryCountryName"
+					placeholder="Enter a country name"
+				/>
 
-			<SearchInput
-				id="city-name"
-				v-model="queryCityName"
-				placeholder="Enter a city name"
-			/>
+				<SearchInput
+					id="city-name"
+					v-model="queryCityName"
+					placeholder="Enter a city name"
+				/>
 
-			<button type="button" class="btn btn-lg btn-primary" @click="onSearch">
-				Search
-			</button>
+				<button type="button" class="btn w-full lg:w-fit btn-lg btn-primary" @click="onSearch">
+					Search
+				</button>
+			</div>
+
+			<PlaceList v-if="placeData" :places="placeData" />
 		</div>
-
-		<PlaceList v-if="placeData" :places="placeData" />
 	</div>
 </template>

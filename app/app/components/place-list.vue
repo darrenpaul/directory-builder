@@ -8,7 +8,7 @@ const props = defineProps({
 </script>
 
 <template>
-	<div class="grid grid-cols-2 gap-6">
+	<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 		<PlaceListItem
 			v-for="place in props.places"
 			:key="place.id"

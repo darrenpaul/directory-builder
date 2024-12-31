@@ -3,7 +3,7 @@ import { homeRoute } from '~/constants/routes'
 </script>
 
 <template>
-	<div class="w-full max-w-screen-2xl mx-auto py-4">
+	<div class="w-full max-w-screen-2xl mx-auto px-4 md:px-0 py-4">
 		<div class="flex justify-between items-center">
 			<div>
 				<NuxtLink class="text-3xl font-bold" :to="homeRoute.path">

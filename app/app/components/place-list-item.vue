@@ -17,7 +17,7 @@ const firstImage = computed(() => {
 
 <template>
 	<div class="card card-side bg-base-100 shadow-md w-full h-64">
-		<figure class="w-96 h-full">
+		<figure class="w-48 lg:w-96 h-full">
 			<NuxtImg
 				v-if="firstImage"
 				:src="firstImage.imageUrl"
@@ -39,7 +39,7 @@ const firstImage = computed(() => {
 					:count="props.place.rating.count"
 				/>
 
-				<div class="flex gap-2">
+				<div class="flex flex-wrap gap-2">
 					<template
 						v-for="attribute in props.place.attributes"
 						:key="attribute.id"
