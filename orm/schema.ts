@@ -4,5 +4,6 @@ import { placeAddress } from './schemas/place-address';
 import { placeAttribute } from './schemas/place-attribute';
 import { placeRating } from './schemas/place-rating';
 import { pageMeta } from './schemas/page-meta';
+import { newsletter } from './schemas/newsletter';
 
-export { place, placeImage, placeAddress, placeAttribute, placeRating,pageMeta };
+export { place, placeImage, placeAddress, placeAttribute, placeRating, pageMeta, newsletter };

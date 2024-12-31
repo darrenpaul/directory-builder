@@ -1,4 +1,4 @@
-import {  pgTable, timestamp, uuid, varchar } from 'drizzle-orm/pg-core';
+import { pgTable, timestamp, uuid, varchar } from 'drizzle-orm/pg-core';
 
 export const pageMeta = pgTable(
   'page_meta',

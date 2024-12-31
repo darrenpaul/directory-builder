@@ -151,7 +151,7 @@ Perfect for digital nomads, students, and coffee enthusiasts
 </li>
 </ul> -->
 
-		<div class="px-4">
+		<div class="w-full max-w-screen-2xl mx-auto">
 			<div id="search-form" class="flex flex-col lg:flex-row gap-4 items-end w-full mb-8">
 				<SearchInput
 					id="business-name"

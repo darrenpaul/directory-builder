@@ -9,3 +9,9 @@ export const pageMetaApiRoute = {
 	path: '/api/page-meta/v1',
 	methods: ['GET'],
 }
+
+export const newsletterApiRoute = {
+	name: 'newsletter',
+	path: '/api/newsletter/v1',
+	methods: ['POST'],
+}
