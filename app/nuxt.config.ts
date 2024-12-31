@@ -18,6 +18,7 @@ export default defineNuxtConfig({
 		'nuxt-svgo',
 		'@nuxt/image',
 	],
+	plugins: ['plugins/posthog.client'],
 	typescript: {
 		strict: true,
 	},
