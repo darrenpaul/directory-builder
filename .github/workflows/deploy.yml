@@ -1,0 +1,118 @@
+name: Deploy to Digital Ocean Droplet
+
+env:
+  PROJECT_NAME: Nearby Coffee
+  DOCKER_CONTAINER: app
+  DROPLET_IP_ADDRESS: 159.65.50.88
+  DOMAIN: nearbycoffee.info
+  PORT_BINDING: 3000:3000
+  NODE_VERSION: 20
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "${{ env.NODE_VERSION }}"
+
+      - name: Generate .env file
+        run: |
+          cat << EOF > .env
+          NUXT_PUBLIC_SUPABASE_PROJECT_URL=${{ secrets.NUXT_PUBLIC_SUPABASE_PROJECT_URL }}
+          NUXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NUXT_PUBLIC_SUPABASE_ANON_KEY }}
+          NUXT_PUBLIC_GOOGLE_MAPS_API_KEY=${{ secrets.NUXT_PUBLIC_GOOGLE_MAPS_API_KEY }}
+          NUXT_PUBLIC_POSTHOT_PUBLIC_KEY=${{ secrets.NUXT_PUBLIC_POSTHOT_PUBLIC_KEY }}
+          NUXT_PUBLIC_POSTHOT_HOST=${{ secrets.NUXT_PUBLIC_POSTHOT_HOST }}
+          SUPABASE_SERVICE_ROLE_KEY=${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          EOF
+
+      - name: Clean up Docker
+        run: |
+          docker system prune -af
+          docker volume prune -f
+
+      - name: Build Docker image app
+        run: make build-production
+
+      - name: Save Docker image to a file
+        run: docker save -o ${{ env.DOCKER_CONTAINER }}.tar app:latest
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_KEY }}
+
+      - name: Clean up Docker
+        run: |
+          docker system prune -af
+          docker volume prune -f
+
+      - name: Copy Docker image to Droplet
+        run: scp -o StrictHostKeyChecking=no ${{ env.DOCKER_CONTAINER }}.tar root@${{ env.DROPLET_IP_ADDRESS }}:/home/
+
+      - name: Copy Environment File to Droplet
+        run: scp -o StrictHostKeyChecking=no .env root@${{env.DROPLET_IP_ADDRESS}}:/home/
+
+      - name: Deploy to Droplet
+        run: |
+          ssh -o StrictHostKeyChecking=no root@${{ env.DROPLET_IP_ADDRESS }} << 'EOF'
+            docker load -i /home/${{ env.DOCKER_CONTAINER }}.tar
+            docker stop ${{ env.DOCKER_CONTAINER }} || true
+            docker rm ${{ env.DOCKER_CONTAINER }} || true
+            docker stop caddy || true
+            docker rm caddy || true
+            docker rm network myapp_network || true
+            docker network create myapp_network || true
+            docker run -d \
+              --name ${{ env.DOCKER_CONTAINER }} \
+              --network myapp_network \
+              --restart unless-stopped \
+              -p ${{ env.PORT_BINDING }} \
+              --env-file /home/.env \
+              ${{ env.DOCKER_CONTAINER }}:latest
+          EOF
+
+      - name: Create Caddyfile
+        run: |
+          ssh -o StrictHostKeyChecking=no root@${{ env.DROPLET_IP_ADDRESS }} << 'EOF'
+            cat > /home/Caddyfile << EOL
+              ${{ env.DOMAIN }} {
+              redir https://www.${{ env.DOMAIN }}{uri}
+            }
+
+              www.${{ env.DOMAIN }} {
+              reverse_proxy ${{ env.DOCKER_CONTAINER }}:3000
+            }
+            EOL
+          EOF
+
+      - name: Start Caddy
+        run: |
+          ssh -o StrictHostKeyChecking=no root@${{ env.DROPLET_IP_ADDRESS }} << 'EOF'
+            docker volume create caddy || true
+            docker run -d \
+              --name caddy \
+              --network myapp_network \
+              --restart unless-stopped \
+              -p 80:80 \
+              -p 443:443 \
+              -v caddy:/data \
+              -v /home/Caddyfile:/etc/caddy/Caddyfile:ro \
+              caddy:latest
+            docker system prune -af
+            docker volume prune -f
+          EOF
