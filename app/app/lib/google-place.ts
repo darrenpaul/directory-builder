@@ -5,13 +5,11 @@ function getLongText(addressComponentData: Record<string, string> | undefined) {
 		return
 	}
 
-	if (Object.keys(addressComponentData).includes('long_name')
-	) {
+	if (Object.keys(addressComponentData).includes('long_name')) {
 		return addressComponentData.long_name
 	}
 
-	if (addressComponentData.longText !== undefined
-	) {
+	if (addressComponentData.longText !== undefined) {
 		return addressComponentData.longText
 	}
 
@@ -19,29 +17,35 @@ function getLongText(addressComponentData: Record<string, string> | undefined) {
 }
 
 export function parseAddressComponent(addressComponents: AddressComponent[]) {
-	const streetNumber = getLongText(addressComponents.find(component =>
-		component.types.includes('street_number'),
-	))
+	const streetNumber = getLongText(
+		addressComponents.find(component =>
+			component.types.includes('street_number'),
+		),
+	)
 
-	const streetName = getLongText(addressComponents.find(component =>
-		component.types.includes('route'),
-	))
+	const streetName = getLongText(
+		addressComponents.find(component => component.types.includes('route')),
+	)
 
-	const city = getLongText(addressComponents.find(component =>
-		component.types.includes('locality'),
-	))
+	const city = getLongText(
+		addressComponents.find(component => component.types.includes('locality')),
+	)
 
-	const state = getLongText(addressComponents.find(component =>
-		component.types.includes('administrative_area_level_1'),
-	))
+	const state = getLongText(
+		addressComponents.find(component =>
+			component.types.includes('administrative_area_level_1'),
+		),
+	)
 
-	const country = getLongText(addressComponents.find(component =>
-		component.types.includes('country'),
-	))
+	const country = getLongText(
+		addressComponents.find(component => component.types.includes('country')),
+	)
 
-	const postalCode = getLongText(addressComponents.find(component =>
-		component.types.includes('postal_code'),
-	))
+	const postalCode = getLongText(
+		addressComponents.find(component =>
+			component.types.includes('postal_code'),
+		),
+	)
 
 	return {
 		streetAddress: [streetNumber, streetName].filter(Boolean).join(' '),
@@ -57,8 +61,6 @@ export function parseGooglePlace(place: Place) {
 		place.addressComponents,
 	)
 
-	console.log(place)
-
 	const images = place?.photos
 		.slice(0, 10)
 		.map((photo: Photo) => photo.getURI({ maxHeight: 1000 }))
@@ -71,11 +73,31 @@ export function parseGooglePlace(place: Place) {
 		rating: place.rating,
 		userRatingCount: place.userRatingCount,
 		attributes: [
-			{ label: 'Dogs Allowed', key: 'allowsDogs', value: place.allowsDogs || false },
-			{ label: 'Has Dine-In', key: 'hasDineIn', value: place.hasDineIn || false },
-			{ label: 'Has Restroom', key: 'hasRestroom', value: place.hasRestroom || false },
-			{ label: 'Has Delivery', key: 'hasDelivery', value: place.hasDelivery || false },
-			{ label: 'Has Takeout', key: 'hasTakeout', value: place.hasTakeout || false },
+			{
+				label: 'Dogs Allowed',
+				key: 'allowsDogs',
+				value: place.allowsDogs || false,
+			},
+			{
+				label: 'Has Dine-In',
+				key: 'hasDineIn',
+				value: place.hasDineIn || false,
+			},
+			{
+				label: 'Has Restroom',
+				key: 'hasRestroom',
+				value: place.hasRestroom || false,
+			},
+			{
+				label: 'Has Delivery',
+				key: 'hasDelivery',
+				value: place.hasDelivery || false,
+			},
+			{
+				label: 'Has Takeout',
+				key: 'hasTakeout',
+				value: place.hasTakeout || false,
+			},
 		],
 		...parsedAddressComponents,
 	}

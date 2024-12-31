@@ -62,9 +62,7 @@ export default defineNuxtConfig({
 	},
 	sitemap: {
 		gzip: true,
-		exclude: [
-			'/confirm/**',
-		],
+		exclude: ['/confirm/**'],
 		sources: [],
 	},
 	schemaOrg: {

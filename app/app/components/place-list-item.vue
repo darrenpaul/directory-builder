@@ -40,17 +40,21 @@ const firstImage = computed(() => {
 				/>
 
 				<div class="flex gap-2">
-					<template v-for="attribute in props.place.attributes" :key="attribute.id">
-						<div v-if="attribute.value" class="badge badge-primary badge-outline">
+					<template
+						v-for="attribute in props.place.attributes"
+						:key="attribute.id"
+					>
+						<div
+							v-if="attribute.value"
+							class="badge badge-primary badge-outline"
+						>
 							{{ attribute.label }}
 						</div>
 					</template>
 				</div>
 			</div>
 
-			<p>
-				{{ props.place.address.city }}, {{ props.place.address.country }}
-			</p>
+			<p>{{ props.place.address.city }}, {{ props.place.address.country }}</p>
 		</div>
 	</div>
 </template>

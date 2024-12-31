@@ -10,9 +10,15 @@ import UrlQueryBuilder from '~/lib/builders/url-query-builder'
 const route = useRoute()
 const router = useRouter()
 
-const queryBusinessName = ref<string | undefined>(route.query.businessName as string || undefined)
-const queryCountryName = ref<string | undefined>(route.query.countryName as string || undefined)
-const queryCityName = ref<string | undefined>(route.query.cityName as string || undefined)
+const queryBusinessName = ref<string | undefined>(
+	(route.query.businessName as string) || undefined,
+)
+const queryCountryName = ref<string | undefined>(
+	(route.query.countryName as string) || undefined,
+)
+const queryCityName = ref<string | undefined>(
+	(route.query.cityName as string) || undefined,
+)
 
 const urlQueryBuilder = new UrlQueryBuilder(placeApiRoute.path)
 const pageMetaUrlQueryBuilder = new UrlQueryBuilder(pageMetaApiRoute.path)
@@ -27,15 +33,15 @@ const queryUrl = computed(() => {
 		.build()
 })
 
-const [{ data: placeData, error: placeError }, { data: pageMetaData }] = await Promise.all([
-	useFetch<Place[]>(queryUrl, {
-		method: 'GET',
-		watch: [queryUrl],
-	}),
-	useFetch<PageMeta>(pageMetaUrlQueryBuilder.withSlug({ slug: 'home' }).build(), {
-		method: 'GET',
-	}),
-])
+const [{ data: placeData, error: placeError }, { data: pageMetaData }] = await Promise.all(
+	[
+		useFetch<Place[]>(queryUrl, { method: 'GET', watch: [queryUrl] }),
+		useFetch<PageMeta>(
+			pageMetaUrlQueryBuilder.withSlug({ slug: 'home' }).build(),
+			{ method: 'GET' },
+		),
+	],
+)
 
 if (placeError.value) {
 	throw createError({
@@ -110,7 +116,10 @@ defineWebPage({
 					</h1>
 
 					<h2 class="mb-4">
-						Looking for the perfect coffee spot? NearbyCoffee.info helps you find local cafés in any city worldwide. Whether you need a cozy study space, a remote work haven, or just your daily caffeine fix, we've got you covered.
+						Looking for the perfect coffee spot? NearbyCoffee.info helps you
+						find local cafés in any city worldwide. Whether you need a cozy
+						study space, a remote work haven, or just your daily caffeine fix,
+						we've got you covered.
 					</h2>
 
 					<h3 class="mb-4 text-xl">
@@ -125,22 +134,22 @@ defineWebPage({
 		</div>
 
 		<!-- <ul class="list-disc list-inside text-left">
-			<li>
-				Search 50,000+ coffee shops across 2,000 cities
-			</li>
-			<li>
-				Filter by features: Wi-Fi, late hours, workspace-friendly
-			</li>
-			<li>
-				Find shops open now near your location
-			</li>
-			<li>
-				Browse local favorites in popular cities like London, New York, and Amsterdam
-			</li>
-			<li>
-				Perfect for digital nomads, students, and coffee enthusiasts
-			</li>
-		</ul> -->
+<li>
+Search 50,000+ coffee shops across 2,000 cities
+</li>
+<li>
+Filter by features: Wi-Fi, late hours, workspace-friendly
+</li>
+<li>
+Find shops open now near your location
+</li>
+<li>
+Browse local favorites in popular cities like London, New York, and Amsterdam
+</li>
+<li>
+Perfect for digital nomads, students, and coffee enthusiasts
+</li>
+</ul> -->
 
 		<div id="search-form" class="flex gap-4 items-end w-full mb-8">
 			<SearchInput

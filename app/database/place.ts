@@ -27,13 +27,11 @@ export async function createPlace(
 		.single<{ id: string }>()
 }
 
-export async function getPlaces(supabaseClient: SupabaseClient, queryParams: Record<string, string>) {
-	const placeAttributesSelectString = [
-		'id',
-		'label',
-		'key',
-		'value',
-	].join(',')
+export async function getPlaces(
+	supabaseClient: SupabaseClient,
+	queryParams: Record<string, string>,
+) {
+	const placeAttributesSelectString = ['id', 'label', 'key', 'value'].join(',')
 
 	const placeImagesSelectString = [
 		'id',
@@ -71,11 +69,17 @@ export async function getPlaces(supabaseClient: SupabaseClient, queryParams: Rec
 	}
 
 	if (queryParams.countryName) {
-		sbQuery.ilike('place_address.country', `%${queryParams.countryName.toLowerCase()}%`)
+		sbQuery.ilike(
+			'place_address.country',
+			`%${queryParams.countryName.toLowerCase()}%`,
+		)
 	}
 
 	if (queryParams.cityName) {
-		sbQuery.ilike('place_address.city', `%${queryParams.cityName.toLowerCase()}%`)
+		sbQuery.ilike(
+			'place_address.city',
+			`%${queryParams.cityName.toLowerCase()}%`,
+		)
 	}
 
 	const { data, error } = await sbQuery.returns<PlaceResponse[]>()
