@@ -55,6 +55,7 @@ export default defineNuxtConfig({
 	},
 	routeRules: {
 		'/': { isr: 3600 },
+		'/contact': { prerender: true },
 	},
 	site: {
 		url: settings.siteUrl,

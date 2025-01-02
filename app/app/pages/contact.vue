@@ -1,12 +1,17 @@
 <script setup lang="ts">
+import type { PageMeta } from '~~/types/page-meta'
+import { pageMetaApiRoute } from '~~/constants/routes-api'
 import settings from '~~/constants/settings'
 import ContactForm from '~/components/contact-form.vue'
+import UrlQueryBuilder from '~/lib/builders/url-query-builder'
 
+const pageMetaUrlQueryBuilder = new UrlQueryBuilder(pageMetaApiRoute.path)
 const route = useRoute()
 
-// const { data } = await useFetch('/api/v1/sanity/contact-page', {
-// 	method: 'GET',
-// })
+const { data: pageMetaData } = await useFetch<PageMeta>(
+	pageMetaUrlQueryBuilder.withSlug({ slug: 'contact' }).build(),
+	{ method: 'GET' },
+)
 
 useHead({
 	link: [
@@ -18,19 +23,19 @@ useHead({
 	],
 })
 
-// useSeoMeta({
-// 	title: data.value.meta.title,
-// 	ogTitle: data.value.meta.title,
-// 	description: data.value.meta.description,
-// 	ogDescription: data.value.meta.description,
-// 	ogImage: data.value.meta.images[0].url,
-// 	twitterCard: 'summary_large_image',
-// })
+useSeoMeta({
+	title: pageMetaData.value?.title || 'Coffee Nearby',
+	ogTitle: pageMetaData.value?.title || 'Coffee Nearby',
+	description: pageMetaData.value?.description || 'Coffee Nearby',
+	ogDescription: pageMetaData.value?.description || 'Coffee Nearby',
+	ogImage: pageMetaData.value?.image || '',
+	twitterCard: 'summary_large_image',
+})
 
-// defineWebPage({
-// 	'@type': 'ContactPage',
-// 	'image': data.value.meta.images[0].url,
-// })
+defineWebPage({
+	'@type': 'ContactPage',
+	'image': pageMetaData.value?.image || '',
+})
 </script>
 
 <template>
