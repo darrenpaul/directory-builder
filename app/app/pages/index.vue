@@ -92,17 +92,17 @@ useHead({
 })
 
 useSeoMeta({
-	title: pageMetaData.value.title,
-	ogTitle: pageMetaData.value.title,
-	description: pageMetaData.value.description,
-	ogDescription: pageMetaData.value.description,
-	ogImage: pageMetaData.value.image,
+	title: pageMetaData.value?.title || 'Coffee Nearby',
+	ogTitle: pageMetaData.value?.title || 'Coffee Nearby',
+	description: pageMetaData.value?.description || 'Coffee Nearby',
+	ogDescription: pageMetaData.value?.description || 'Coffee Nearby',
+	ogImage: pageMetaData.value?.image || '',
 	twitterCard: 'summary_large_image',
 })
 
 defineWebPage({
 	'@type': 'WebPage',
-	'image': pageMetaData.value.image,
+	'image': pageMetaData.value?.image || '',
 })
 </script>
 

@@ -3,7 +3,7 @@ name: Deploy to Digital Ocean Droplet
 env:
   PROJECT_NAME: Nearby Coffee
   DOCKER_CONTAINER: app
-  DROPLET_IP_ADDRESS: 159.65.50.88
+  CLOUD_SERVER_IP_ADDRESS: 142.132.160.202
   DOMAIN: nearbycoffee.info
   PORT_BINDING: 3000:3000
   NODE_VERSION: 20
@@ -54,7 +54,7 @@ jobs:
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.9.0
         with:
-          ssh-private-key: ${{ secrets.SSH_KEY }}
+          ssh-private-key: ${{ secrets.CLOUD_SERVER_SSH_KEY }}
 
       - name: Clean up Docker
         run: |
@@ -62,14 +62,14 @@ jobs:
           docker volume prune -f
 
       - name: Copy Docker image to Droplet
-        run: scp -o StrictHostKeyChecking=no ${{ env.DOCKER_CONTAINER }}.tar root@${{ env.DROPLET_IP_ADDRESS }}:/home/
+        run: scp -o StrictHostKeyChecking=no ${{ env.DOCKER_CONTAINER }}.tar root@${{ env.CLOUD_SERVER_IP_ADDRESS }}:/home/
 
       - name: Copy Environment File to Droplet
-        run: scp -o StrictHostKeyChecking=no .env root@${{env.DROPLET_IP_ADDRESS}}:/home/
+        run: scp -o StrictHostKeyChecking=no .env root@${{env.CLOUD_SERVER_IP_ADDRESS}}:/home/
 
       - name: Deploy to Droplet
         run: |
-          ssh -o StrictHostKeyChecking=no root@${{ env.DROPLET_IP_ADDRESS }} << 'EOF'
+          ssh -o StrictHostKeyChecking=no root@${{ env.CLOUD_SERVER_IP_ADDRESS }} << 'EOF'
             docker load -i /home/${{ env.DOCKER_CONTAINER }}.tar
             docker stop ${{ env.DOCKER_CONTAINER }} || true
             docker rm ${{ env.DOCKER_CONTAINER }} || true
@@ -88,7 +88,7 @@ jobs:
 
       - name: Create Caddyfile
         run: |
-          ssh -o StrictHostKeyChecking=no root@${{ env.DROPLET_IP_ADDRESS }} << 'EOF'
+          ssh -o StrictHostKeyChecking=no root@${{ env.CLOUD_SERVER_IP_ADDRESS }} << 'EOF'
             cat > /home/Caddyfile << EOL
               ${{ env.DOMAIN }} {
               redir https://www.${{ env.DOMAIN }}{uri}
@@ -102,7 +102,7 @@ jobs:
 
       - name: Start Caddy
         run: |
-          ssh -o StrictHostKeyChecking=no root@${{ env.DROPLET_IP_ADDRESS }} << 'EOF'
+          ssh -o StrictHostKeyChecking=no root@${{ env.CLOUD_SERVER_IP_ADDRESS }} << 'EOF'
             docker volume create caddy || true
             docker run -d \
               --name caddy \
