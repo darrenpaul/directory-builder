@@ -1,5 +1,4 @@
 import { serverSupabaseServiceRole } from '#supabase/server'
-import isEmail from 'validator/lib/isEmail'
 import { createNewsletter } from '~~/database/newsletter'
 
 export default defineEventHandler(async (event) => {
@@ -11,7 +10,9 @@ export default defineEventHandler(async (event) => {
 
 	const { emailAddress } = body
 
-	if (!isEmail(emailAddress)) {
+	const emailRegex = /^[\w.%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i
+
+	if (!emailRegex.test(emailAddress)) {
 		throw createError({
 			statusCode: 400,
 			statusMessage: 'Invalid email address',
