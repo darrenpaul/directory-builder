@@ -17,6 +17,8 @@ function getLongText(addressComponentData: Record<string, string> | undefined) {
 }
 
 export function parseAddressComponent(addressComponents: AddressComponent[]) {
+	console.log(addressComponents)
+
 	const streetNumber = getLongText(
 		addressComponents.find(component =>
 			component.types.includes('street_number'),
@@ -28,7 +30,26 @@ export function parseAddressComponent(addressComponents: AddressComponent[]) {
 	)
 
 	const city = getLongText(
-		addressComponents.find(component => component.types.includes('locality')),
+		addressComponents.find((component) => {
+			if (component.types.includes('locality')) {
+				return component
+			}
+
+			if (component.types.includes('administrative_area_level_2')) {
+				return component
+			}
+
+			if (component.types.includes('postal_town')) {
+				return component
+			}
+
+			if (component.types.includes('sublocality_level_1')) {
+				return component
+			}
+
+			return ''
+		},
+		),
 	)
 
 	const state = getLongText(
@@ -72,6 +93,7 @@ export function parseGooglePlace(place: Place) {
 		images,
 		rating: place.rating,
 		userRatingCount: place.userRatingCount,
+		website: place.websiteURI,
 		attributes: [
 			{
 				label: 'Dogs Allowed',

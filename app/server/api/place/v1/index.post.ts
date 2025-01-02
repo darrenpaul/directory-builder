@@ -22,13 +22,18 @@ export default defineEventHandler(async (event) => {
 		rating,
 		userRatingCount,
 		attributes,
+		website,
 	} = body
 
 	const { data, error } = await createPlace(supabase, {
 		googlePlaceId,
 		displayName,
 		postalCode,
+		website,
 	})
+
+	console.log(data)
+	console.log(error)
 
 	if (error) {
 		throw createError({

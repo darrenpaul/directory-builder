@@ -2,6 +2,7 @@ export interface PlaceResponse {
 	id: string
 	slug: string
 	name: string
+	website: string
 	address: PlaceAddress[]
 	images: PlaceImage[]
 	rating: PlaceRating[]
@@ -19,6 +20,7 @@ export interface Place {
 	id: string
 	slug: string
 	name: string
+	website: string
 	address: PlaceAddress
 	images: PlaceImage[]
 	rating: PlaceRating

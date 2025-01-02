@@ -116,7 +116,7 @@ async function onCreatePlaceRequest() {
 
 <template>
 	<div>
-		<button class="btn btn-primary" @click="openModal">
+		<button class="btn btn-neutral" @click="openModal">
 			Submit Coffee Shop
 		</button>
 

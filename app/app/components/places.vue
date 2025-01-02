@@ -5,21 +5,25 @@ import { parseGooglePlace } from '~/lib/google-place'
 
 const { coords } = useGeolocation()
 
-const lat = ref<number | null>()
-const lng = ref<number | null>()
+const latLng = ref<string | null>()
 
 async function onFindPlacesNearby() {
-	console.log('find places nearby')
-	if (!lat.value || !lng.value) {
+	if (!latLng.value) {
 		return
 	}
 
-	const { Place, SearchNearbyRankPreference }
+	const { Place }
     = (await google.maps.importLibrary('places')) as google.maps.PlacesLibrary
 
+	const [lat, lng] = latLng.value.split(',')
+
+	if (!lat || !lng) {
+		return
+	}
+
 	const center = new google.maps.LatLng(
-		lat.value,
-		lng.value,
+		Number.parseFloat(lat),
+		Number.parseFloat(lng),
 	)
 
 	const request = {
@@ -42,22 +46,23 @@ async function onFindPlacesNearby() {
 			'hasRestroom',
 			'hasDelivery',
 			'hasTakeout',
+			'websiteURI',
 		],
 		locationRestriction: {
 			center,
-			radius: 1000,
+			radius: 500,
 		},
 		includedPrimaryTypes: ['cafe'],
-		maxResultCount: 5,
-		rankPreference: SearchNearbyRankPreference.POPULARITY,
+		maxResultCount: 10,
 		language: 'en',
 		region: 'za',
 	}
 
 	const { places } = await Place.searchNearby(request)
-
 	if (places.length) {
 		const parsedPlaces = places.map(parseGooglePlace)
+
+		console.log(parsedPlaces)
 
 		await Promise.all(
 			parsedPlaces.map(place =>
@@ -72,8 +77,7 @@ async function onFindPlacesNearby() {
 
 watch(coords, () => {
 	if (coords.value) {
-		lat.value = coords.value.latitude
-		lng.value = coords.value.longitude
+		latLng.value = `${coords.value.latitude},${coords.value.longitude}`
 	}
 })
 </script>
@@ -82,30 +86,18 @@ watch(coords, () => {
 	<div>
 		<div class="flex gap-3 items-end">
 			<div class="input-group">
-				<label class="label" for="lat">Latitude</label>
+				<label class="label" for="lat-lng">Latitude, Longitude</label>
 
 				<input
-					id="lat"
-					v-model="lat"
-					name="lat"
+					id="lat-lng"
+					v-model="latLng"
+					name="lat-lng"
 					type="text"
 					class="input input-bordered w-full"
 				>
 			</div>
 
-			<div class="input-group">
-				<label class="label" for="lng">Longitude</label>
-
-				<input
-					id="lng"
-					v-model="lng"
-					name="lng"
-					type="text"
-					class="input input-bordered w-full"
-				>
-			</div>
-
-			<button class="btn btn-primary" @click="onFindPlacesNearby">
+			<button class="btn btn-neutral" @click="onFindPlacesNearby">
 				Find Places Nearby
 			</button>
 		</div>

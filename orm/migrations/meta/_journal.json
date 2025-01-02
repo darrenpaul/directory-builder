@@ -57,6 +57,13 @@
       "when": 1735823006677,
       "tag": "0007_wooden_morlun",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1735823627798,
+      "tag": "0008_good_junta",
+      "breakpoints": true
     }
   ]
 }

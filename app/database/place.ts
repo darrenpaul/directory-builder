@@ -13,13 +13,14 @@ export async function createPlace(
 		googlePlaceId: string
 		displayName: string
 		postalCode: string
+		website: string | undefined | null
 	},
 ) {
 	const now = new Date()
 
 	const slug = generateSlug(payload)
 
-	return supabaseClient
+	const { data, error } = await supabaseClient
 		.from(DatabaseTable.PLACE)
 		.upsert({
 			slug,
@@ -27,7 +28,24 @@ export async function createPlace(
 			updated_at: now,
 			google_place_id: payload.googlePlaceId,
 			name: payload.displayName,
+			website: payload.website,
 		}, { onConflict: 'google_place_id' })
+		.select('id,googlePlaceId:google_place_id')
+		.single<{ id: string, googlePlaceId: string }>()
+
+	if (error) {
+		return { data, error }
+	}
+
+	return await supabaseClient
+		.from(DatabaseTable.PLACE)
+		.update({
+			slug,
+			updated_at: now,
+			name: payload.displayName,
+			website: payload.website,
+		})
+		.eq('google_place_id', data.googlePlaceId)
 		.select('id,googlePlaceId:google_place_id')
 		.single<{ id: string, googlePlaceId: string }>()
 }
@@ -61,6 +79,7 @@ export async function getPlaces(
 		'id',
 		'slug',
 		'name:name',
+		'website:website',
 		`address:place_address!inner(${placeAddressSelectString})`,
 		`images:place_image!inner(${placeImagesSelectString})`,
 		`rating:place_rating!inner(${placeRatingSelectString})`,
@@ -87,7 +106,7 @@ export async function getPlaces(
 		)
 	}
 
-	const { data, error } = await sbQuery.returns<PlaceResponse[]>()
+	const { data, error } = await sbQuery.order('created_at', { ascending: false }).returns<PlaceResponse[]>()
 
 	return { data, error }
 }

@@ -3,7 +3,6 @@ import type { PageMeta } from '~~/types/page-meta'
 import type { Place } from '~~/types/place'
 import { pageMetaApiRoute, placeApiRoute } from '~~/constants/routes-api'
 import settings from '~~/constants/settings'
-import NoEntriesFoundForm from '~/components/no-entries-found-form.vue'
 import PageLander from '~/components/page-lander.vue'
 import PlaceList from '~/components/place-list.vue'
 import SearchInput from '~/components/search-input.vue'
@@ -82,6 +81,22 @@ async function onSearch() {
 	})
 }
 
+const countryNames = computed(() => {
+	const countries: string[] = []
+
+	if (!placeData.value) {
+		return []
+	}
+
+	placeData.value.forEach((place) => {
+		if (!countries.includes(place.address.country)) {
+			countries.push(place.address.country)
+		}
+	})
+
+	return countries
+})
+
 useHead({
 	link: [
 		{
@@ -154,15 +169,18 @@ Perfect for digital nomads, students, and coffee enthusiasts
 
 				<button
 					type="button"
-					class="btn w-full lg:w-fit btn-lg btn-primary"
+					class="btn w-full lg:w-fit btn-lg btn-neutral"
 					@click="onSearch"
 				>
 					Search
 				</button>
 			</div>
 
-			<PlaceList v-if="placeData && placeData.length > 0" :places="placeData" />
-			<NoEntriesFoundForm v-else />
+			<PlaceList v-if="placeData" class="mb-8" :places="placeData.slice(0, 10)" label="Latest Coffee Shops" />
+
+			<template v-for="country in countryNames" :key="country">
+				<PlaceList v-if="placeData" class="mb-8" :places="placeData.filter((place) => place.address.country === country)" :label="`Coffee Shops in ${country}`" />
+			</template>
 		</div>
 	</div>
 </template>

@@ -22,16 +22,27 @@ const firstImage = computed(() => {
 				v-if="firstImage"
 				:src="firstImage.imageUrl"
 				:alt="props.place.name"
-				class="w-96 object-cover"
+				class="w-96 h-full object-cover"
 			/>
 			<IconNoImage v-else filled :font-controlled="false" class="w-24 h-24" />
 		</figure>
 
 		<div class="card-body w-full">
 			<div class="h-full flex flex-col gap-2">
-				<h2 class="card-title truncate">
-					{{ props.place.name }}
-				</h2>
+				<div class="flex">
+					<h2 class="card-title truncate w-full">
+						{{ props.place.name }}
+					</h2>
+
+					<NuxtLink
+						v-if="props.place.website" :to="props.place.website" class="btn btn-sm btn-outline btn-neutral w-fit"
+						:title="props.place.name"
+						target="_blank"
+						:aria-label="`${props.place.name} website`"
+					>
+						View
+					</NuxtLink>
+				</div>
 
 				<StarRating
 					:id="props.place.id"

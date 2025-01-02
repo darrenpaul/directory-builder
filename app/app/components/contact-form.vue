@@ -106,7 +106,7 @@ async function onSubmit(event: Event) {
 
 		<button
 			:disabled="!canSendMessage"
-			class="btn btn-primary px-6 mb-3 lg:mb-0 w-full"
+			class="btn btn-neutral px-6 mb-3 lg:mb-0 w-full"
 		>
 			Send
 		</button>

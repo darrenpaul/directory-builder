@@ -26,7 +26,7 @@
 				Discover Your Next Favorite Coffee Shop
 			</h3>
 
-			<NuxtLink to="#search-form" class="btn btn-lg btn-primary">
+			<NuxtLink to="#search-form" class="btn btn-lg btn-neutral">
 				Find Coffee
 			</NuxtLink>
 		</div>

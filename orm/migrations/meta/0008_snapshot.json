@@ -1,6 +1,6 @@
 {
-  "id": "3b536a62-d8af-4e60-8408-6c9430c28827",
-  "prevId": "52178632-3a7f-45ba-9b41-efa9bd59cdad",
+  "id": "ad711f44-71b8-46b5-92c5-3148e365c6f8",
+  "prevId": "3d4ec5f3-ed03-41a3-9594-5ae1b2797ff2",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -104,7 +104,9 @@
         "newsletter_email_address_unique": {
           "name": "newsletter_email_address_unique",
           "nullsNotDistinct": false,
-          "columns": ["email_address"]
+          "columns": [
+            "email_address"
+          ]
         }
       },
       "policies": {},
@@ -166,7 +168,9 @@
         "page_meta_slug_unique": {
           "name": "page_meta_slug_unique",
           "nullsNotDistinct": false,
-          "columns": ["slug"]
+          "columns": [
+            "slug"
+          ]
         }
       },
       "policies": {},
@@ -202,6 +206,12 @@
           "primaryKey": false,
           "notNull": true
         },
+        "website": {
+          "name": "website",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
         "updated_at": {
           "name": "updated_at",
           "type": "timestamp (6) with time zone",
@@ -222,12 +232,16 @@
         "place_google_place_id_unique": {
           "name": "place_google_place_id_unique",
           "nullsNotDistinct": false,
-          "columns": ["google_place_id"]
+          "columns": [
+            "google_place_id"
+          ]
         },
         "place_slug_unique": {
           "name": "place_slug_unique",
           "nullsNotDistinct": false,
-          "columns": ["slug"]
+          "columns": [
+            "slug"
+          ]
         }
       },
       "policies": {},
@@ -300,8 +314,12 @@
           "name": "place_address_place_id_place_id_fk",
           "tableFrom": "place_address",
           "tableTo": "place",
-          "columnsFrom": ["place_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "place_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -311,7 +329,9 @@
         "place_address_place_id_unique": {
           "name": "place_address_place_id_unique",
           "nullsNotDistinct": false,
-          "columns": ["place_id"]
+          "columns": [
+            "place_id"
+          ]
         }
       },
       "policies": {},
@@ -332,6 +352,12 @@
         "place_id": {
           "name": "place_id",
           "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "slug": {
+          "name": "slug",
+          "type": "varchar",
           "primaryKey": false,
           "notNull": true
         },
@@ -367,14 +393,26 @@
           "name": "place_attribute_place_id_place_id_fk",
           "tableFrom": "place_attribute",
           "tableTo": "place",
-          "columnsFrom": ["place_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "place_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
+      "uniqueConstraints": {
+        "place_attribute_slug_unique": {
+          "name": "place_attribute_slug_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "slug"
+          ]
+        }
+      },
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": true
@@ -422,8 +460,12 @@
           "name": "place_image_place_id_place_id_fk",
           "tableFrom": "place_image",
           "tableTo": "place",
-          "columnsFrom": ["place_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "place_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -433,7 +475,9 @@
         "place_image_image_url_unique": {
           "name": "place_image_image_url_unique",
           "nullsNotDistinct": false,
-          "columns": ["image_url"]
+          "columns": [
+            "image_url"
+          ]
         }
       },
       "policies": {},
@@ -484,8 +528,12 @@
           "name": "place_rating_place_id_place_id_fk",
           "tableFrom": "place_rating",
           "tableTo": "place",
-          "columnsFrom": ["place_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "place_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -495,7 +543,9 @@
         "place_rating_place_id_unique": {
           "name": "place_rating_place_id_unique",
           "nullsNotDistinct": false,
-          "columns": ["place_id"]
+          "columns": [
+            "place_id"
+          ]
         }
       },
       "policies": {},

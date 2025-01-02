@@ -99,7 +99,7 @@ async function onNewsletterSubmit() {
 						class="input input-bordered join-item"
 					>
 					<button
-						class="btn btn-primary join-item"
+						class="btn btn-neutral join-item"
 						type="button"
 						@click="onNewsletterSubmit"
 					>
