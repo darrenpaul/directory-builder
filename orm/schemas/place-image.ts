@@ -8,7 +8,7 @@ export const placeImage = pgTable(
     placeId: uuid('place_id')
       .notNull()
       .references(() => place.id, { onDelete: 'cascade' }),
-    imageUrl: varchar('image_url').notNull(),
+    imageUrl: varchar('image_url').notNull().unique(),
     sortOrder: integer('sort_order').notNull().default(0),
     createdAt: timestamp('created_at', { precision: 6, withTimezone: true }).notNull(),
   },

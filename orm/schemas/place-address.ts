@@ -7,7 +7,8 @@ export const placeAddress = pgTable(
     id: uuid('id').defaultRandom().primaryKey(),
     placeId: uuid('place_id')
       .notNull()
-      .references(() => place.id, { onDelete: 'cascade' }),
+      .references(() => place.id, { onDelete: 'cascade' })
+      .unique(),
     coordinates: varchar('coordinates').notNull(),
     streetAddress: varchar('street_address').notNull(),
     city: varchar('city').notNull(),

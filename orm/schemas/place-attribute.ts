@@ -8,6 +8,7 @@ export const placeAttribute = pgTable(
     placeId: uuid('place_id')
       .notNull()
       .references(() => place.id, { onDelete: 'cascade' }),
+    slug: varchar('slug').notNull().unique(),
     label: varchar('label').notNull(),
     key: varchar('key').notNull(),
     value: boolean('value').notNull().default(false),

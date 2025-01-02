@@ -27,6 +27,7 @@ export default defineEventHandler(async (event) => {
 	const { data, error } = await createPlace(supabase, {
 		googlePlaceId,
 		displayName,
+		postalCode,
 	})
 
 	if (error) {

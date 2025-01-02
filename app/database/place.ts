@@ -3,28 +3,33 @@ import type { PlaceResponse } from '~~/types/place'
 import { kebabCase } from 'lodash-es'
 import { DatabaseTable } from '~~/constants/database-table'
 
+function generateSlug({ displayName, postalCode }: { displayName: string, postalCode: string }) {
+	return `${kebabCase(displayName)}-${postalCode}`
+}
+
 export async function createPlace(
 	supabaseClient: SupabaseClient,
 	payload: {
 		googlePlaceId: string
 		displayName: string
+		postalCode: string
 	},
 ) {
 	const now = new Date()
 
-	const slug = kebabCase(payload.displayName)
+	const slug = generateSlug(payload)
 
 	return supabaseClient
 		.from(DatabaseTable.PLACE)
-		.insert({
+		.upsert({
 			slug,
 			created_at: now,
 			updated_at: now,
 			google_place_id: payload.googlePlaceId,
 			name: payload.displayName,
-		})
-		.select('id')
-		.single<{ id: string }>()
+		}, { onConflict: 'google_place_id' })
+		.select('id,googlePlaceId:google_place_id')
+		.single<{ id: string, googlePlaceId: string }>()
 }
 
 export async function getPlaces(

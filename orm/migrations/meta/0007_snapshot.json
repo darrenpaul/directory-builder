@@ -1,6 +1,6 @@
 {
-  "id": "923b8d42-a2df-4928-9eae-d52d50a8a2d8",
-  "prevId": "f2149878-9ebc-4575-b192-5a45ff933214",
+  "id": "3d4ec5f3-ed03-41a3-9594-5ae1b2797ff2",
+  "prevId": "3b536a62-d8af-4e60-8408-6c9430c28827",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -104,7 +104,9 @@
         "newsletter_email_address_unique": {
           "name": "newsletter_email_address_unique",
           "nullsNotDistinct": false,
-          "columns": ["email_address"]
+          "columns": [
+            "email_address"
+          ]
         }
       },
       "policies": {},
@@ -166,7 +168,9 @@
         "page_meta_slug_unique": {
           "name": "page_meta_slug_unique",
           "nullsNotDistinct": false,
-          "columns": ["slug"]
+          "columns": [
+            "slug"
+          ]
         }
       },
       "policies": {},
@@ -219,10 +223,19 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
+        "place_google_place_id_unique": {
+          "name": "place_google_place_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "google_place_id"
+          ]
+        },
         "place_slug_unique": {
           "name": "place_slug_unique",
           "nullsNotDistinct": false,
-          "columns": ["slug"]
+          "columns": [
+            "slug"
+          ]
         }
       },
       "policies": {},
@@ -295,14 +308,26 @@
           "name": "place_address_place_id_place_id_fk",
           "tableFrom": "place_address",
           "tableTo": "place",
-          "columnsFrom": ["place_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "place_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
+      "uniqueConstraints": {
+        "place_address_place_id_unique": {
+          "name": "place_address_place_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "place_id"
+          ]
+        }
+      },
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": true
@@ -321,6 +346,12 @@
         "place_id": {
           "name": "place_id",
           "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "slug": {
+          "name": "slug",
+          "type": "varchar",
           "primaryKey": false,
           "notNull": true
         },
@@ -356,14 +387,26 @@
           "name": "place_attribute_place_id_place_id_fk",
           "tableFrom": "place_attribute",
           "tableTo": "place",
-          "columnsFrom": ["place_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "place_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
+      "uniqueConstraints": {
+        "place_attribute_slug_unique": {
+          "name": "place_attribute_slug_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "slug"
+          ]
+        }
+      },
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": true
@@ -411,14 +454,26 @@
           "name": "place_image_place_id_place_id_fk",
           "tableFrom": "place_image",
           "tableTo": "place",
-          "columnsFrom": ["place_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "place_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
+      "uniqueConstraints": {
+        "place_image_image_url_unique": {
+          "name": "place_image_image_url_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "image_url"
+          ]
+        }
+      },
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": true
@@ -467,14 +522,26 @@
           "name": "place_rating_place_id_place_id_fk",
           "tableFrom": "place_rating",
           "tableTo": "place",
-          "columnsFrom": ["place_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "place_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
+      "uniqueConstraints": {
+        "place_rating_place_id_unique": {
+          "name": "place_rating_place_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "place_id"
+          ]
+        }
+      },
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": true

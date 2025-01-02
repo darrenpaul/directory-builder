@@ -1,6 +1,6 @@
 {
-  "id": "923b8d42-a2df-4928-9eae-d52d50a8a2d8",
-  "prevId": "f2149878-9ebc-4575-b192-5a45ff933214",
+  "id": "52178632-3a7f-45ba-9b41-efa9bd59cdad",
+  "prevId": "923b8d42-a2df-4928-9eae-d52d50a8a2d8",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -219,6 +219,11 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
+        "place_google_place_id_unique": {
+          "name": "place_google_place_id_unique",
+          "nullsNotDistinct": false,
+          "columns": ["google_place_id"]
+        },
         "place_slug_unique": {
           "name": "place_slug_unique",
           "nullsNotDistinct": false,

@@ -1,16 +1,25 @@
 <script setup lang="ts">
+import { useGeolocation } from '@vueuse/core'
 import { placeApiRoute } from '~~/constants/routes-api'
 import { parseGooglePlace } from '~/lib/google-place'
 
-async function testPlaces() {
+const { coords } = useGeolocation()
+
+const lat = ref<number | null>()
+const lng = ref<number | null>()
+
+async function onFindPlacesNearby() {
+	console.log('find places nearby')
+	if (!lat.value || !lng.value) {
+		return
+	}
+
 	const { Place, SearchNearbyRankPreference }
     = (await google.maps.importLibrary('places')) as google.maps.PlacesLibrary
 
 	const center = new google.maps.LatLng(
-		// coords.value.latitude,
-		// coords.value.longitude,
-		48.211221,
-		16.37257,
+		lat.value,
+		lng.value,
 	)
 
 	const request = {
@@ -36,7 +45,7 @@ async function testPlaces() {
 		],
 		locationRestriction: {
 			center,
-			radius: 500,
+			radius: 1000,
 		},
 		includedPrimaryTypes: ['cafe'],
 		maxResultCount: 5,
@@ -60,12 +69,45 @@ async function testPlaces() {
 		)
 	}
 }
+
+watch(coords, () => {
+	if (coords.value) {
+		lat.value = coords.value.latitude
+		lng.value = coords.value.longitude
+	}
+})
 </script>
 
 <template>
 	<div>
-		<button class="btn btn-primary" @click="testPlaces">
-			Test Place
-		</button>
+		<div class="flex gap-3 items-end">
+			<div class="input-group">
+				<label class="label" for="lat">Latitude</label>
+
+				<input
+					id="lat"
+					v-model="lat"
+					name="lat"
+					type="text"
+					class="input input-bordered w-full"
+				>
+			</div>
+
+			<div class="input-group">
+				<label class="label" for="lng">Longitude</label>
+
+				<input
+					id="lng"
+					v-model="lng"
+					name="lng"
+					type="text"
+					class="input input-bordered w-full"
+				>
+			</div>
+
+			<button class="btn btn-primary" @click="onFindPlacesNearby">
+				Find Places Nearby
+			</button>
+		</div>
 	</div>
 </template>

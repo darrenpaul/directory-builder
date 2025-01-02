@@ -11,10 +11,10 @@ export async function createPlaceRating(
 ) {
 	const now = new Date()
 
-	return supabaseClient.from(DatabaseTable.PLACE_RATING).insert({
+	return supabaseClient.from(DatabaseTable.PLACE_RATING).upsert({
 		place_id: payload.placeId,
 		score: payload.score,
 		count: payload.count,
 		created_at: now,
-	})
+	}, { onConflict: 'place_id' })
 }

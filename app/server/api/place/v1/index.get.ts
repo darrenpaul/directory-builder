@@ -13,11 +13,5 @@ export default defineEventHandler(async (event) => {
 		return [] as Place[]
 	}
 
-	return data.map((place) => {
-		return {
-			...place,
-			address: place.address[0],
-			rating: place.rating[0],
-		} as Place
-	})
+	return data
 })

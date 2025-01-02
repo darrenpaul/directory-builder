@@ -4,7 +4,7 @@ export const place = pgTable(
   'place',
   {
     id: uuid('id').defaultRandom().primaryKey(),
-    googlePlaceId: varchar('google_place_id').notNull(),
+    googlePlaceId: varchar('google_place_id').notNull().unique(),
     name: varchar('name').notNull(),
     slug: varchar('slug').notNull().unique(),
     updatedAt: timestamp('updated_at', { precision: 6, withTimezone: true }).notNull(),

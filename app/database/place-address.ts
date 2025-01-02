@@ -15,7 +15,7 @@ export async function createPlaceAddress(
 ) {
 	const now = new Date()
 
-	return supabaseClient.from(DatabaseTable.PLACE_ADDRESS).insert({
+	return supabaseClient.from(DatabaseTable.PLACE_ADDRESS).upsert({
 		place_id: payload.placeId,
 		coordinates: payload.coordinates,
 		street_address: payload.streetAddress,
@@ -24,5 +24,5 @@ export async function createPlaceAddress(
 		country: payload.country,
 		postal_code: payload.postalCode,
 		created_at: now,
-	})
+	}, { onConflict: 'place_id' })
 }
