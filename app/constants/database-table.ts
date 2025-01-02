@@ -4,6 +4,8 @@ export enum DatabaseTable {
 	PLACE_ADDRESS = 'place_address',
 	PLACE_RATING = 'place_rating',
 	PLACE_ATTRIBUTE = 'place_attribute',
+	PLACE_REQUEST = 'place_request',
 	PAGE_META = 'page_meta',
 	NEWSLETTER = 'newsletter',
+	CONTACT = 'contact',
 }

@@ -4,6 +4,18 @@ export const placeApiRoute = {
 	methods: ['POST'],
 }
 
+export const placeRequestApiRoute = {
+	name: 'place-request',
+	path: '/api/place-request/v1',
+	methods: ['POST'],
+}
+
+export const contactApiRoute = {
+	name: 'contact',
+	path: '/api/contact/v1',
+	methods: ['POST'],
+}
+
 export const pageMetaApiRoute = {
 	name: 'page-meta',
 	path: '/api/page-meta/v1',

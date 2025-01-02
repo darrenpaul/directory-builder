@@ -95,10 +95,14 @@ async function onNewsletterSubmit() {
 						v-model="emailAddress"
 						name="email"
 						type="email"
-						placeholder="username@site.com"
+						placeholder="john@example.com"
 						class="input input-bordered join-item"
 					>
-					<button class="btn btn-primary join-item" type="button" @click="onNewsletterSubmit">
+					<button
+						class="btn btn-primary join-item"
+						type="button"
+						@click="onNewsletterSubmit"
+					>
 						Subscribe
 					</button>
 				</div>

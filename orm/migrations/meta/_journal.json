@@ -15,6 +15,27 @@
       "when": 1735677266704,
       "tag": "0001_condemned_captain_universe",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1735809470863,
+      "tag": "0002_eminent_green_goblin",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1735809557747,
+      "tag": "0003_wonderful_kang",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1735814013849,
+      "tag": "0004_opposite_cyclops",
+      "breakpoints": true
     }
   ]
 }

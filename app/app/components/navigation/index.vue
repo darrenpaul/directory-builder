@@ -1,17 +1,24 @@
 <script setup lang="ts">
-import { homeRoute } from '~/constants/routes'
+import IconBrand from '~~/assets/icons/brand.svg'
+import SubmitCoffeeShop from '~/components/submit-coffee-shop.vue'
+import { homeRoute, navigationRoutes } from '~/constants/routes'
 </script>
 
 <template>
-	<div class="w-full max-w-screen-2xl mx-auto px-4 md:px-0 py-4">
+	<div class="w-full mx-auto px-4 md:px-16 py-4 shadow">
 		<div class="flex justify-between items-center">
 			<div>
-				<NuxtLink class="text-3xl font-bold" :to="homeRoute.path">
+				<NuxtLink
+					class="text-3xl font-bold flex items-center gap-3"
+					:to="homeRoute.path"
+				>
+					<IconBrand class="text-4xl" />
+
 					Nearby Coffee
 				</NuxtLink>
 			</div>
 
-			<!-- <div class="flex items-center gap-8">
+			<div class="flex items-center gap-8">
 				<NuxtLink
 					v-for="route in navigationRoutes"
 					:key="route.name"
@@ -20,10 +27,8 @@ import { homeRoute } from '~/constants/routes'
 					{{ route.label }}
 				</NuxtLink>
 
-				<button class="btn btn-primary">
-					Test Place
-				</button>
-			</div> -->
+				<SubmitCoffeeShop />
+			</div>
 		</div>
 	</div>
 </template>

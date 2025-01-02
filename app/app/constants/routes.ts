@@ -4,10 +4,10 @@ export const homeRoute = {
 	path: '/',
 }
 
-export const aboutRoute = {
-	name: 'about',
-	label: 'About',
-	path: '/about',
+export const contactRoute = {
+	name: 'contact',
+	label: 'Contact',
+	path: '/contact',
 }
 
 export const listingRoute = {
@@ -16,4 +16,4 @@ export const listingRoute = {
 	path: '/coffee-shops',
 }
 
-export const navigationRoutes = [homeRoute, aboutRoute, listingRoute]
+export const navigationRoutes = [homeRoute, contactRoute]
