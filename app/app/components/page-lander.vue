@@ -10,7 +10,7 @@
 			/>
 		</div>
 
-		<div class="text-center mx-auto max-w-[80ch]">
+		<div class="text-center mx-auto max-w-[80ch] px-4">
 			<h1 class="text-5xl font-bold mb-4">
 				Find Local Coffee Shops Near You
 			</h1>

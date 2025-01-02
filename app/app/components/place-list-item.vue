@@ -17,20 +17,20 @@ const firstImage = computed(() => {
 
 <template>
 	<div class="card card-side bg-base-100 shadow-md w-full h-64">
-		<figure class="w-48 lg:w-96 h-full">
+		<figure class="w-48 lg:w-96 h-full flex-shrink-0">
 			<NuxtImg
 				v-if="firstImage"
 				:src="firstImage.imageUrl"
 				:alt="props.place.name"
-				class="w-96 h-full object-cover"
+				class="w-48 lg:w-96 h-full object-cover"
 			/>
 			<IconNoImage v-else filled :font-controlled="false" class="w-24 h-24" />
 		</figure>
 
-		<div class="card-body w-full">
-			<div class="h-full flex flex-col gap-2">
-				<div class="flex">
-					<h2 class="card-title truncate w-full">
+		<div class="card-body overflow-y-auto h-full no-scrollbar">
+			<div class="h-fit flex flex-col gap-2">
+				<div class="flex flex-col lg:flex-row gap-2 ">
+					<h2 class="text-2xl font-bold w-full">
 						{{ props.place.name }}
 					</h2>
 
@@ -69,3 +69,13 @@ const firstImage = computed(() => {
 		</div>
 	</div>
 </template>
+
+<style scoped>
+.no-scrollbar {
+    -ms-overflow-style: none; /* IE/Edge */
+    scrollbar-width: none; /* Firefox */
+}
+.no-scrollbar::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, newer Edge */
+}
+</style>

@@ -15,7 +15,7 @@ const props = defineProps({
 			{{ props.label }}
 		</p>
 
-		<div v-if="props.places.length > 0" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+		<div v-if="props.places.length > 0" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 			<PlaceListItem
 				v-for="place in props.places"
 				:key="place.id"
