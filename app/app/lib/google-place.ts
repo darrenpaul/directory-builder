@@ -17,8 +17,6 @@ function getLongText(addressComponentData: Record<string, string> | undefined) {
 }
 
 export function parseAddressComponent(addressComponents: AddressComponent[]) {
-	console.log(addressComponents)
-
 	const streetNumber = getLongText(
 		addressComponents.find(component =>
 			component.types.includes('street_number'),
@@ -48,8 +46,7 @@ export function parseAddressComponent(addressComponents: AddressComponent[]) {
 			}
 
 			return ''
-		},
-		),
+		}),
 	)
 
 	const state = getLongText(

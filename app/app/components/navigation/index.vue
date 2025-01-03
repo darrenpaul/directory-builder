@@ -36,17 +36,14 @@ import { homeRoute, navigationRoutes } from '~/constants/routes'
 				</div>
 
 				<div class="drawer-side">
-					<label for="mobile-drawer" aria-label="close sidebar" class="drawer-overlay" />
+					<label
+						for="mobile-drawer"
+						aria-label="close sidebar"
+						class="drawer-overlay"
+					/>
 					<ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
-						<li
-
-							v-for="route in navigationRoutes"
-							:key="route.name"
-						>
-							<NuxtLink
-
-								:to="route.path"
-							>
+						<li v-for="route in navigationRoutes" :key="route.name">
+							<NuxtLink :to="route.path">
 								{{ route.label }}
 							</NuxtLink>
 						</li>

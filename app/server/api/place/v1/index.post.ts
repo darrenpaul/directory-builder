@@ -32,9 +32,6 @@ export default defineEventHandler(async (event) => {
 		website,
 	})
 
-	console.log(data)
-	console.log(error)
-
 	if (error) {
 		throw createError({
 			statusCode: 500,

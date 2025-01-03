@@ -3,7 +3,13 @@ import type { PlaceResponse } from '~~/types/place'
 import { kebabCase } from 'lodash-es'
 import { DatabaseTable } from '~~/constants/database-table'
 
-function generateSlug({ displayName, postalCode }: { displayName: string, postalCode: string }) {
+function generateSlug({
+	displayName,
+	postalCode,
+}: {
+	displayName: string
+	postalCode: string
+}) {
 	return `${kebabCase(displayName)}-${postalCode}`
 }
 
@@ -22,14 +28,17 @@ export async function createPlace(
 
 	const { data, error } = await supabaseClient
 		.from(DatabaseTable.PLACE)
-		.upsert({
-			slug,
-			created_at: now,
-			updated_at: now,
-			google_place_id: payload.googlePlaceId,
-			name: payload.displayName,
-			website: payload.website,
-		}, { onConflict: 'google_place_id' })
+		.upsert(
+			{
+				slug,
+				created_at: now,
+				updated_at: now,
+				google_place_id: payload.googlePlaceId,
+				name: payload.displayName,
+				website: payload.website,
+			},
+			{ onConflict: 'google_place_id' },
+		)
 		.select('id,googlePlaceId:google_place_id')
 		.single<{ id: string, googlePlaceId: string }>()
 
@@ -106,7 +115,9 @@ export async function getPlaces(
 		)
 	}
 
-	const { data, error } = await sbQuery.order('created_at', { ascending: false }).returns<PlaceResponse[]>()
+	const { data, error } = await sbQuery
+		.order('created_at', { ascending: false })
+		.returns<PlaceResponse[]>()
 
 	return { data, error }
 }

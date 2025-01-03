@@ -12,8 +12,9 @@ async function onFindPlacesNearby() {
 		return
 	}
 
-	const { Place }
-    = (await google.maps.importLibrary('places')) as google.maps.PlacesLibrary
+	const { Place } = (await google.maps.importLibrary(
+		'places',
+	)) as google.maps.PlacesLibrary
 
 	const [lat, lng] = latLng.value.split(',')
 
@@ -61,8 +62,6 @@ async function onFindPlacesNearby() {
 	const { places } = await Place.searchNearby(request)
 	if (places.length) {
 		const parsedPlaces = places.map(parseGooglePlace)
-
-		console.log(parsedPlaces)
 
 		await Promise.all(
 			parsedPlaces.map(place =>

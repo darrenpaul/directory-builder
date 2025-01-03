@@ -11,10 +11,13 @@ export async function createPlaceImage(
 ) {
 	const now = new Date()
 
-	return supabaseClient.from(DatabaseTable.PLACE_IMAGE).upsert({
-		place_id: payload.placeId,
-		image_url: payload.imageUrl,
-		sort_order: payload?.sortOrder,
-		created_at: now,
-	}, { onConflict: 'image_url' })
+	return supabaseClient.from(DatabaseTable.PLACE_IMAGE).upsert(
+		{
+			place_id: payload.placeId,
+			image_url: payload.imageUrl,
+			sort_order: payload?.sortOrder,
+			created_at: now,
+		},
+		{ onConflict: 'image_url' },
+	)
 }

@@ -176,10 +176,24 @@ Perfect for digital nomads, students, and coffee enthusiasts
 				</button>
 			</div>
 
-			<PlaceList v-if="placeData" class="mb-8" :places="placeData.slice(0, 10)" label="Latest Coffee Shops" />
+			<PlaceList
+				v-if="placeData"
+				key-id="latest"
+				class="mb-8"
+				:places="placeData.slice(0, 10)"
+				label="Latest Coffee Shops"
+			/>
 
 			<template v-for="country in countryNames" :key="country">
-				<PlaceList v-if="placeData" class="mb-8" :places="placeData.filter((place) => place.address.country === country)" :label="`Coffee Shops in ${country}`" />
+				<PlaceList
+					v-if="placeData"
+					:key-id="country"
+					class="mb-8"
+					:places="
+						placeData.filter((place) => place.address.country === country)
+					"
+					:label="`Coffee Shops in ${country}`"
+				/>
 			</template>
 		</div>
 	</div>

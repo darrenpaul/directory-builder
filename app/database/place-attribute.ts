@@ -19,12 +19,17 @@ export async function createPlaceAttributeBatch(
 		return {
 			place_id: payload.placeId,
 			created_at: now,
-			slug: generateSlug({ place_id: payload.placeId, key: attribute.key as string }),
+			slug: generateSlug({
+				place_id: payload.placeId,
+				key: attribute.key as string,
+			}),
 			label: attribute.label,
 			key: attribute.key,
 			value: attribute.value,
 		}
 	})
 
-	return supabaseClient.from(DatabaseTable.PLACE_ATTRIBUTE).upsert(attributes, { onConflict: 'slug' })
+	return supabaseClient
+		.from(DatabaseTable.PLACE_ATTRIBUTE)
+		.upsert(attributes, { onConflict: 'slug' })
 }

@@ -4,6 +4,7 @@ import IconNoImage from '~~/assets/icons/no-image.svg'
 import StarRating from '~/components/star-rating.vue'
 
 const props = defineProps({
+	keyId: { type: String, required: true },
 	place: { type: Object as PropType<Place>, required: true },
 })
 
@@ -29,13 +30,15 @@ const firstImage = computed(() => {
 
 		<div class="card-body overflow-y-auto h-full no-scrollbar">
 			<div class="h-fit flex flex-col gap-2">
-				<div class="flex flex-col lg:flex-row gap-2 ">
+				<div class="flex flex-col lg:flex-row gap-2">
 					<h2 class="text-2xl font-bold w-full">
 						{{ props.place.name }}
 					</h2>
 
 					<NuxtLink
-						v-if="props.place.website" :to="props.place.website" class="btn btn-sm btn-outline btn-neutral w-fit"
+						v-if="props.place.website"
+						:to="props.place.website"
+						class="btn btn-sm btn-outline btn-neutral w-fit"
 						:title="props.place.name"
 						target="_blank"
 						:aria-label="`${props.place.name} website`"
@@ -45,7 +48,7 @@ const firstImage = computed(() => {
 				</div>
 
 				<StarRating
-					:id="props.place.id"
+					:id="`${props.keyId}-${props.place.id}`"
 					:score="props.place.rating.score"
 					:count="props.place.rating.count"
 				/>
@@ -72,10 +75,10 @@ const firstImage = computed(() => {
 
 <style scoped>
 .no-scrollbar {
-    -ms-overflow-style: none; /* IE/Edge */
-    scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+  scrollbar-width: none; /* Firefox */
 }
 .no-scrollbar::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, newer Edge */
+  display: none; /* Chrome, Safari, newer Edge */
 }
 </style>
