@@ -19,6 +19,7 @@ export async function createPlace(
 		googlePlaceId: string
 		displayName: string
 		postalCode: string
+		price: string
 		website: string | undefined | null
 	},
 ) {
@@ -36,6 +37,7 @@ export async function createPlace(
 				google_place_id: payload.googlePlaceId,
 				name: payload.displayName,
 				website: payload.website,
+				price: payload.price,
 			},
 			{ onConflict: 'google_place_id' },
 		)
@@ -53,6 +55,7 @@ export async function createPlace(
 			updated_at: now,
 			name: payload.displayName,
 			website: payload.website,
+			price: payload.price,
 		})
 		.eq('google_place_id', data.googlePlaceId)
 		.select('id,googlePlaceId:google_place_id')
@@ -89,6 +92,7 @@ export async function getPlaces(
 		'slug',
 		'name:name',
 		'website:website',
+		'price',
 		`address:place_address!inner(${placeAddressSelectString})`,
 		`images:place_image!inner(${placeImagesSelectString})`,
 		`rating:place_rating!inner(${placeRatingSelectString})`,
@@ -101,18 +105,19 @@ export async function getPlaces(
 		sbQuery.ilike('name', `%${queryParams.businessName.toLowerCase()}%`)
 	}
 
-	if (queryParams.countryName) {
+	if (queryParams.country) {
 		sbQuery.ilike(
 			'place_address.country',
-			`%${queryParams.countryName.toLowerCase()}%`,
+			`%${queryParams.country.toLowerCase()}%`,
 		)
 	}
 
-	if (queryParams.cityName) {
-		sbQuery.ilike(
-			'place_address.city',
-			`%${queryParams.cityName.toLowerCase()}%`,
-		)
+	if (queryParams.city) {
+		sbQuery.ilike('place_address.city', `%${queryParams.city.toLowerCase()}%`)
+	}
+
+	if (queryParams.limit) {
+		sbQuery.limit(Number.parseInt(queryParams.limit))
 	}
 
 	const { data, error } = await sbQuery

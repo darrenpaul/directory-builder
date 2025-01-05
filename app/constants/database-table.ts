@@ -8,4 +8,5 @@ export enum DatabaseTable {
 	PAGE_META = 'page_meta',
 	NEWSLETTER = 'newsletter',
 	CONTACT = 'contact',
+	USER = 'user',
 }

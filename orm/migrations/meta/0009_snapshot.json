@@ -1,6 +1,6 @@
 {
-  "id": "ad711f44-71b8-46b5-92c5-3148e365c6f8",
-  "prevId": "3d4ec5f3-ed03-41a3-9594-5ae1b2797ff2",
+  "id": "47a77f62-939f-411c-b3fa-65b3e874c2ec",
+  "prevId": "ad711f44-71b8-46b5-92c5-3148e365c6f8",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -586,6 +586,82 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
       "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": true
+    },
+    "public.user": {
+      "name": "user",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "first_name": {
+          "name": "first_name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "last_name": {
+          "name": "last_name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp (6) with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp (6) with time zone",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "user_id_users_id_fk": {
+          "name": "user_id_users_id_fk",
+          "tableFrom": "user",
+          "tableTo": "users",
+          "schemaTo": "auth",
+          "columnsFrom": ["id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {
+        "Enable INSERT for authenticated users": {
+          "name": "Enable INSERT for authenticated users",
+          "as": "PERMISSIVE",
+          "for": "INSERT",
+          "to": ["authenticated"],
+          "withCheck": "true"
+        },
+        "Enable SELECT for users based on id (user_id)": {
+          "name": "Enable SELECT for users based on id (user_id)",
+          "as": "PERMISSIVE",
+          "for": "SELECT",
+          "to": ["authenticated"],
+          "using": "(SELECT auth.uid() AS uid) = id"
+        },
+        "Enable UPDATE for users based on id (user_id)": {
+          "name": "Enable UPDATE for users based on id (user_id)",
+          "as": "PERMISSIVE",
+          "for": "UPDATE",
+          "to": ["authenticated"],
+          "using": "(SELECT auth.uid() AS uid) = id"
+        }
+      },
       "checkConstraints": {},
       "isRLSEnabled": true
     }

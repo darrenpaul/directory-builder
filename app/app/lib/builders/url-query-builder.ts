@@ -17,21 +17,21 @@ export default class UrlQueryBuilder {
 		return this
 	}
 
-	withCountryName({ countryName }: Record<string, string>) {
-		this.queryParams.delete('countryName')
+	withCountryName({ country }: Record<string, string>) {
+		this.queryParams.delete('country')
 
-		if (countryName) {
-			this.queryParams.append('countryName', countryName)
+		if (country) {
+			this.queryParams.append('country', country.replaceAll('-', ' '))
 		}
 
 		return this
 	}
 
-	withCityName({ cityName }: Record<string, string>) {
-		this.queryParams.delete('cityName')
+	withCityName({ city }: Record<string, string>) {
+		this.queryParams.delete('city')
 
-		if (cityName) {
-			this.queryParams.append('cityName', cityName)
+		if (city) {
+			this.queryParams.append('city', city.replaceAll('-', ' '))
 		}
 
 		return this
@@ -42,6 +42,16 @@ export default class UrlQueryBuilder {
 
 		if (slug) {
 			this.queryParams.append('slug', slug)
+		}
+
+		return this
+	}
+
+	withLimit({ limit }: Record<string, string>) {
+		this.queryParams.delete('limit')
+
+		if (limit) {
+			this.queryParams.append('limit', limit)
 		}
 
 		return this

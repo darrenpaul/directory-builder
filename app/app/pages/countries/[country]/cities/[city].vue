@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import type { PageMeta } from '~~/types/page-meta'
 import type { Place } from '~~/types/place'
-import { kebabCase } from 'lodash-es'
+import { startCase } from 'lodash-es'
 import { pageMetaApiRoute, placeApiRoute } from '~~/constants/routes-api'
 import settings from '~~/constants/settings'
-import PageLander from '~/components/page-lander.vue'
 import PlaceList from '~/components/place-list.vue'
 import SearchInput from '~/components/search-input.vue'
-import { countryRoute } from '~/constants/routes'
+import { cityRoute, countryRoute, homeRoute } from '~/constants/routes'
 import UrlQueryBuilder from '~/lib/builders/url-query-builder'
 
 const route = useRoute()
@@ -33,7 +32,6 @@ const queryUrl = computed(() => {
 		.withBusinessName(queryParams)
 		.withCountryName(queryParams)
 		.withCityName(queryParams)
-		.withLimit({ limit: '10' })
 		.build()
 })
 
@@ -84,22 +82,6 @@ async function onSearch() {
 	})
 }
 
-const countryNames = computed(() => {
-	const countries: string[] = []
-
-	if (!placeData.value) {
-		return []
-	}
-
-	placeData.value.forEach((place) => {
-		if (!countries.includes(place.address.country)) {
-			countries.push(place.address.country)
-		}
-	})
-
-	return countries
-})
-
 useHead({
 	link: [
 		{
@@ -126,10 +108,38 @@ defineWebPage({
 </script>
 
 <template>
-	<div class="mb-8">
-		<PageLander class="mb-8" />
-
+	<div class="py-8">
 		<div class="w-full max-w-screen-2xl mx-auto px-4">
+			<div class="breadcrumbs text-sm mb-4">
+				<ul>
+					<li>
+						<NuxtLink :to="homeRoute.path">
+							{{ homeRoute.label }}
+						</NuxtLink>
+					</li>
+
+					<li>
+						<NuxtLink :to="countryRoute.path">
+							{{ countryRoute.label }}
+						</NuxtLink>
+					</li>
+
+					<li>
+						<NuxtLink :to="`${countryRoute.path}/${route.params.country}`">
+							{{ startCase(route.params.country) }}
+						</NuxtLink>
+					</li>
+
+					<li>
+						<NuxtLink
+							:to="`${countryRoute.path}/${route.params.country}${cityRoute.path}`"
+						>
+							{{ cityRoute.label }}
+						</NuxtLink>
+					</li>
+				</ul>
+			</div>
+
 			<div
 				id="search-form"
 				class="flex flex-col lg:flex-row gap-4 items-end w-full mb-8"
@@ -154,40 +164,8 @@ defineWebPage({
 				key-id="latest"
 				class="mb-8"
 				:places="placeData"
-				label="Latest Coffee Shops"
+				label="Coffee Shops"
 			/>
-
-			<div class="mb-8">
-				<p class="text-2xl mb-3">
-					Search By Country
-				</p>
-				<div class="grid grid-cols-3">
-					<NuxtLink
-						v-for="country in countryNames"
-						:key="country"
-						class="link"
-						:to="`${countryRoute.path}/${kebabCase(country)}`"
-					>
-						{{ country }}
-					</NuxtLink>
-				</div>
-			</div>
-
-			<div>
-				<p class="text-2xl mb-3">
-					Why use Nearby Coffee?
-				</p>
-				<ul class="list-disc list-inside text-left">
-					<li>Search coffee shops across all across South Africa</li>
-					<li>Filter by features: Wi-Fi, late hours, workspace-friendly</li>
-					<li>Find shops open now near your location</li>
-					<li>
-						Browse local favorites in popular cities like Cape Town, Pretoria,
-						and Stellenbosch
-					</li>
-					<li>Perfect for digital nomads, students, and coffee enthusiasts</li>
-				</ul>
-			</div>
 		</div>
 	</div>
 </template>

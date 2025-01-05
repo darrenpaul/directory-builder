@@ -64,6 +64,20 @@
       "when": 1735823627798,
       "tag": "0008_good_junta",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1736072631192,
+      "tag": "0009_zippy_silver_sable",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1736084331012,
+      "tag": "0010_absurd_stardust",
+      "breakpoints": true
     }
   ]
 }

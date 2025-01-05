@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Place } from '~~/types/place'
 import IconNoImage from '~~/assets/icons/no-image.svg'
+import PriceRating from '~/components/price-rating.vue'
 import StarRating from '~/components/star-rating.vue'
 
 const props = defineProps({
@@ -17,13 +18,13 @@ const firstImage = computed(() => {
 </script>
 
 <template>
-	<div class="card card-side bg-base-100 shadow-md w-full h-64">
-		<figure class="w-48 lg:w-96 h-full flex-shrink-0">
+	<div class="card lg:card-side bg-base-100 shadow-md w-full h-fit lg:h-64">
+		<figure class="w-full lg:w-96 h-full flex-shrink-0">
 			<NuxtImg
 				v-if="firstImage"
 				:src="firstImage.imageUrl"
 				:alt="props.place.name"
-				class="w-48 lg:w-96 h-full object-cover"
+				class="w-full lg:w-96 h-64 lg:h-full object-cover"
 			/>
 			<IconNoImage v-else filled :font-controlled="false" class="w-24 h-24" />
 		</figure>
@@ -38,7 +39,7 @@ const firstImage = computed(() => {
 					<NuxtLink
 						v-if="props.place.website"
 						:to="props.place.website"
-						class="btn btn-sm btn-outline btn-neutral w-fit"
+						class="btn btn-sm btn-outline btn-neutral w-full lg:w-fit"
 						:title="props.place.name"
 						target="_blank"
 						:aria-label="`${props.place.name} website`"
@@ -48,9 +49,15 @@ const firstImage = computed(() => {
 				</div>
 
 				<StarRating
-					:id="`${props.keyId}-${props.place.id}`"
+					:id="`rarting-${props.keyId}-${props.place.id}`"
 					:score="props.place.rating.score"
 					:count="props.place.rating.count"
+				/>
+
+				<PriceRating
+					v-if="place.price"
+					:id="`price-${props.keyId}-${props.place.id}`"
+					:price="place.price"
 				/>
 
 				<div class="flex flex-wrap gap-2">

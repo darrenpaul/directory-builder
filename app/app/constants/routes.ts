@@ -16,4 +16,34 @@ export const listingRoute = {
 	path: '/coffee-shops',
 }
 
+export const signInRoute = {
+	name: 'sign-in',
+	label: 'Sign In',
+	path: '/auth/sign-in',
+}
+
+export const signUpRoute = {
+	name: 'sign-up',
+	label: 'Sign Up',
+	path: '/auth/sign-up',
+}
+
+export const adminRoute = {
+	name: 'admin',
+	label: 'Admin',
+	path: '/admin',
+}
+
+export const countryRoute = {
+	name: 'countries',
+	label: 'Countries',
+	path: '/countries',
+}
+
+export const cityRoute = {
+	name: 'cities',
+	label: 'Cities',
+	path: '/cities',
+}
+
 export const navigationRoutes = [homeRoute, contactRoute]

@@ -4,9 +4,6 @@ import type { Place } from '~~/types/place'
 import { kebabCase } from 'lodash-es'
 import { pageMetaApiRoute, placeApiRoute } from '~~/constants/routes-api'
 import settings from '~~/constants/settings'
-import PageLander from '~/components/page-lander.vue'
-import PlaceList from '~/components/place-list.vue'
-import SearchInput from '~/components/search-input.vue'
 import { countryRoute } from '~/constants/routes'
 import UrlQueryBuilder from '~/lib/builders/url-query-builder'
 
@@ -33,7 +30,6 @@ const queryUrl = computed(() => {
 		.withBusinessName(queryParams)
 		.withCountryName(queryParams)
 		.withCityName(queryParams)
-		.withLimit({ limit: '10' })
 		.build()
 })
 
@@ -50,37 +46,6 @@ if (placeError.value) {
 	throw createError({
 		statusCode: 500,
 		statusMessage: placeError.value?.message,
-	})
-}
-
-async function onSearch() {
-	const queryParams = {
-		...route.query,
-	}
-
-	if (queryBusinessName.value) {
-		queryParams.businessName = queryBusinessName.value
-	}
-	else {
-		delete queryParams.businessName
-	}
-
-	if (queryCountryName.value) {
-		queryParams.countryName = queryCountryName.value
-	}
-	else {
-		delete queryParams.countryName
-	}
-
-	if (queryCityName.value) {
-		queryParams.cityName = queryCityName.value
-	}
-	else {
-		delete queryParams.cityName
-	}
-
-	router.push({
-		query: queryParams,
 	})
 }
 
@@ -126,37 +91,8 @@ defineWebPage({
 </script>
 
 <template>
-	<div class="mb-8">
-		<PageLander class="mb-8" />
-
-		<div class="w-full max-w-screen-2xl mx-auto px-4">
-			<div
-				id="search-form"
-				class="flex flex-col lg:flex-row gap-4 items-end w-full mb-8"
-			>
-				<SearchInput
-					id="business-name"
-					v-model="queryBusinessName"
-					placeholder="Enter a business name"
-				/>
-
-				<button
-					type="button"
-					class="btn w-full lg:w-fit btn-lg btn-neutral"
-					@click="onSearch"
-				>
-					Search
-				</button>
-			</div>
-
-			<PlaceList
-				v-if="placeData"
-				key-id="latest"
-				class="mb-8"
-				:places="placeData"
-				label="Latest Coffee Shops"
-			/>
-
+	<div class="py-8">
+		<div class="w-full min-h-screen max-w-screen-2xl mx-auto px-4">
 			<div class="mb-8">
 				<p class="text-2xl mb-3">
 					Search By Country
@@ -171,22 +107,6 @@ defineWebPage({
 						{{ country }}
 					</NuxtLink>
 				</div>
-			</div>
-
-			<div>
-				<p class="text-2xl mb-3">
-					Why use Nearby Coffee?
-				</p>
-				<ul class="list-disc list-inside text-left">
-					<li>Search coffee shops across all across South Africa</li>
-					<li>Filter by features: Wi-Fi, late hours, workspace-friendly</li>
-					<li>Find shops open now near your location</li>
-					<li>
-						Browse local favorites in popular cities like Cape Town, Pretoria,
-						and Stellenbosch
-					</li>
-					<li>Perfect for digital nomads, students, and coffee enthusiasts</li>
-				</ul>
 			</div>
 		</div>
 	</div>

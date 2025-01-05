@@ -23,6 +23,7 @@ export default defineEventHandler(async (event) => {
 		userRatingCount,
 		attributes,
 		website,
+		price,
 	} = body
 
 	const { data, error } = await createPlace(supabase, {
@@ -30,6 +31,7 @@ export default defineEventHandler(async (event) => {
 		displayName,
 		postalCode,
 		website,
+		price,
 	})
 
 	if (error) {

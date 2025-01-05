@@ -1,3 +1,4 @@
+import { signInRoute } from './app/constants/routes'
 import settings from './constants/settings'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
@@ -26,6 +27,7 @@ export default defineNuxtConfig({
 		public: {
 			posthogPublicKey: process.env.NUXT_PUBLIC_POSTHOT_PUBLIC_KEY,
 			posthogHost: process.env.NUXT_PUBLIC_POSTHOT_HOST,
+			googleMapsApiKey: process.env.NUXT_PUBLIC_GOOGLE_MAPS_API_KEY,
 		},
 	},
 	eslint: {
@@ -39,7 +41,7 @@ export default defineNuxtConfig({
 		key: process.env.NUXT_PUBLIC_SUPABASE_ANON_KEY,
 		serviceKey: process.env.SUPABASE_SERVICE_ROLE_KEY,
 		redirectOptions: {
-			login: '/sign-in',
+			login: signInRoute.path,
 			callback: '/confirm',
 			include: ['/admin(/*)?'],
 			cookieRedirect: false,
@@ -64,8 +66,8 @@ export default defineNuxtConfig({
 	},
 	sitemap: {
 		gzip: true,
-		exclude: ['/confirm/**'],
-		sources: [],
+		exclude: ['/confirm/**', '/auth/**', '/admin'],
+		sources: ['/api/__sitemap__/countries', '/api/__sitemap__/cities'],
 	},
 	schemaOrg: {
 		identity: {

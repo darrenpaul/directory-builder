@@ -91,6 +91,7 @@ export function parseGooglePlace(place: Place) {
 		rating: place.rating,
 		userRatingCount: place.userRatingCount,
 		website: place.websiteURI,
+		price: place.priceLevel,
 		attributes: [
 			{
 				label: 'Dogs Allowed',

@@ -8,6 +8,7 @@ export const place = pgTable(
     name: varchar('name').notNull(),
     slug: varchar('slug').notNull().unique(),
     website: varchar('website'),
+    price: varchar('price'),
     updatedAt: timestamp('updated_at', { precision: 6, withTimezone: true }).notNull(),
     createdAt: timestamp('created_at', { precision: 6, withTimezone: true }).notNull(),
   },
