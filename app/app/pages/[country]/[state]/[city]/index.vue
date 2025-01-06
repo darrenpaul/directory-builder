@@ -5,14 +5,10 @@ import { startCase } from 'lodash-es'
 import { pageMetaApiRoute, placeApiRoute } from '~~/constants/routes-api'
 import settings from '~~/constants/settings'
 import Filter from '~/components/filter.vue'
+import PageBreadcrumbs from '~/components/page-breadcrumbs.vue'
 import PlaceList from '~/components/place-list.vue'
-import {
-	cityRoute,
-	countryRoute,
-	homeRoute,
-	stateRoute,
-} from '~/constants/routes'
 import UrlQueryBuilder from '~/lib/builders/url-query-builder'
+import { joinUrlDirectories } from '~/lib/url-directory-join'
 
 const route = useRoute()
 
@@ -36,14 +32,20 @@ const queryUrl = computed(() => {
 		.build()
 })
 
+const fetchPromises = []
+
+fetchPromises.push(
+	useFetch<Place[]>(queryUrl, { method: 'GET', watch: [queryUrl] }),
+)
+fetchPromises.push(
+	useFetch<PageMeta>(
+		pageMetaUrlQueryBuilder.withSlug({ slug: 'home' }).build(),
+		{ method: 'GET' },
+	),
+)
+
 const [{ data: placeData, error: placeError }, { data: pageMetaData }]
-  = await Promise.all([
-  	useFetch<Place[]>(queryUrl, { method: 'GET', watch: [queryUrl] }),
-  	useFetch<PageMeta>(
-  		pageMetaUrlQueryBuilder.withSlug({ slug: 'home' }).build(),
-  		{ method: 'GET' },
-  	),
-  ])
+  = await Promise.all(fetchPromises)
 
 if (placeError.value) {
 	throw createError({
@@ -75,56 +77,27 @@ defineWebPage({
 	'@type': 'WebPage',
 	'image': pageMetaData.value?.image || '',
 })
+
+const breadcrumbs = computed(() => {
+	return [
+		{
+			id: route.params.country,
+			url: joinUrlDirectories([route.params.country]),
+			label: startCase(route.params.country),
+		},
+		{
+			id: route.params.country,
+			url: joinUrlDirectories([route.params.country, route.params.state]),
+			label: startCase(route.params.state),
+		},
+	]
+})
 </script>
 
 <template>
 	<div class="py-8">
 		<div class="w-full max-w-screen-2xl mx-auto px-4">
-			<div class="breadcrumbs text-sm mb-4">
-				<ul>
-					<li>
-						<NuxtLink :to="homeRoute.path">
-							{{ homeRoute.label }}
-						</NuxtLink>
-					</li>
-
-					<li>
-						<p :to="countryRoute.path">
-							{{ countryRoute.label }}
-						</p>
-					</li>
-
-					<li>
-						<NuxtLink :to="`${countryRoute.path}/${route.params.country}`">
-							{{ startCase(route.params.country) }}
-						</NuxtLink>
-					</li>
-
-					<li>
-						<p
-							:to="`${countryRoute.path}/${route.params.country}${stateRoute.path}`"
-						>
-							{{ stateRoute.label }}
-						</p>
-					</li>
-
-					<li>
-						<NuxtLink
-							:to="`${countryRoute.path}/${route.params.country}${stateRoute.path}/${route.params.state}`"
-						>
-							{{ startCase(route.params.state) }}
-						</NuxtLink>
-					</li>
-
-					<li>
-						<p
-							:to="`${countryRoute.path}/${route.params.country}${stateRoute.path}/${route.params.state}${cityRoute.path}`"
-						>
-							{{ cityRoute.label }}
-						</p>
-					</li>
-				</ul>
-			</div>
+			<PageBreadcrumbs :crumbs="breadcrumbs" />
 
 			<Filter />
 

@@ -3,6 +3,7 @@ import { ref } from 'vue'
 
 const latitude = defineModel<number>('latitude')
 const longitude = defineModel<number>('longitude')
+const markers = defineModel<string[]>('markers')
 
 const {
 	public: { googleMapsApiKey },
@@ -15,12 +16,6 @@ const query = ref({
 	lat: latitude.value,
 	lng: longitude.value,
 })
-const markers = ref<string[]>([])
-
-async function addMarker() {
-	const { lat, lng } = center.value
-	markers.value.push(`${lat()},${lng()}`)
-}
 
 function handleReady({ map }) {
 	center.value = map.value.getCenter()
@@ -49,11 +44,13 @@ function handleReady({ map }) {
 			:center="query"
 			:markers="markers"
 			:api-key="googleMapsApiKey"
+			:map-options="{
+				gestureHandling: 'none',
+				zoom: 19,
+				clickableIcons: false,
+				streetViewControl: false,
+			}"
 			@ready="handleReady"
 		/>
-
-		<button @click="addMarker">
-			Add Marker
-		</button>
 	</div>
 </template>

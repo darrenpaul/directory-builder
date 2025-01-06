@@ -3,24 +3,27 @@ import type { Place } from '~~/types/place'
 import IconNoImage from '~~/assets/icons/no-image.svg'
 import PriceRating from '~/components/price-rating.vue'
 import StarRating from '~/components/star-rating.vue'
-import {
-	cityRoute,
-	countryRoute,
-	stateRoute,
-} from '~/constants/routes'
+import { joinUrlDirectories } from '~/lib/url-directory-join'
 
 const props = defineProps({
 	keyId: { type: String, required: true },
 	place: { type: Object as PropType<Place>, required: true },
 })
 
-const route = useRoute()
-
 const firstImage = computed(() => {
 	if (props.place.images.length === 0)
 		return null
 
 	return props.place.images[0]
+})
+
+const profileUrl = computed(() => {
+	return joinUrlDirectories([
+		props.place.address.country,
+		props.place.address.state,
+		props.place.address.city,
+		props.place.slug,
+	])
 })
 </script>
 
@@ -44,7 +47,7 @@ const firstImage = computed(() => {
 					</h2>
 
 					<NuxtLink
-						:to="`${countryRoute.path}/${route.params.country}${stateRoute.path}/${route.params.state}${cityRoute.path}/${route.params.city}/${props.place.slug}`"
+						:to="profileUrl"
 						class="btn btn-sm btn-outline btn-neutral w-full lg:w-fit"
 						:title="props.place.name"
 						:aria-label="`${props.place.name} profile`"

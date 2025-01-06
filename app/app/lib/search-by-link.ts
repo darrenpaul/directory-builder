@@ -1,8 +1,7 @@
 import type { City } from '~~/types/city'
 import type { Country } from '~~/types/country'
 import type { State } from '~~/types/state'
-import { kebabCase } from 'lodash-es'
-import { cityRoute, countryRoute, stateRoute } from '~/constants/routes'
+import { joinUrlDirectories } from '~/lib/url-directory-join'
 
 export function searchByLinkForCountries(countries: Country[]) {
 	if (!countries) {
@@ -11,7 +10,7 @@ export function searchByLinkForCountries(countries: Country[]) {
 
 	return countries.map(({ country }) => ({
 		id: `country-${country}`,
-		url: `${countryRoute.path}/${kebabCase(country)}`,
+		url: joinUrlDirectories([country]),
 		label: country,
 	}))
 }
@@ -23,7 +22,7 @@ export function searchByLinkForStates(states: State[]) {
 
 	return states.map(({ country, state }) => ({
 		id: `state-${state}`,
-		url: `${countryRoute.path}/${kebabCase(country)}${stateRoute.path}/${kebabCase(state)}`,
+		url: joinUrlDirectories([country, state]),
 		label: state,
 	}))
 }
@@ -35,7 +34,7 @@ export function searchByLinkForCities(cities: City[]) {
 
 	return cities.map(({ country, state, city }) => ({
 		id: `city-${city}`,
-		url: `${countryRoute.path}/${kebabCase(country)}${stateRoute.path}/${kebabCase(state)}${cityRoute.path}/${kebabCase(city)}`,
+		url: joinUrlDirectories([country, state, city]),
 		label: city,
 	}))
 }

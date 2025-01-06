@@ -30,14 +30,20 @@ const queryUrl = computed(() => {
 		.build()
 })
 
+const fetchPromises = []
+
+fetchPromises.push(
+	useFetch<Place[]>(queryUrl, { method: 'GET', watch: [queryUrl] }),
+)
+fetchPromises.push(
+	useFetch<PageMeta>(
+		pageMetaUrlQueryBuilder.withSlug({ slug: 'home' }).build(),
+		{ method: 'GET' },
+	),
+)
+
 const [{ data: placeData, error: placeError }, { data: pageMetaData }]
-  = await Promise.all([
-  	useFetch<Place[]>(queryUrl, { method: 'GET', watch: [queryUrl] }),
-  	useFetch<PageMeta>(
-  		pageMetaUrlQueryBuilder.withSlug({ slug: 'home' }).build(),
-  		{ method: 'GET' },
-  	),
-  ])
+  = await Promise.all(fetchPromises)
 
 if (placeError.value) {
 	throw createError({

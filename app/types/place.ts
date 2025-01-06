@@ -41,6 +41,7 @@ export interface PlaceAddress {
 	state: string
 	country: string
 	postalCode: string
+	coordinates: string
 }
 
 export interface PlaceImage {

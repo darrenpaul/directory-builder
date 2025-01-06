@@ -81,6 +81,7 @@ export async function getPlaces(
 		'state:state',
 		'country:country',
 		'postalCode:postal_code',
+		'coordinates',
 	].join(',')
 
 	const placeRatingSelectString = ['id', 'score:score', 'count:count'].join(
@@ -160,6 +161,7 @@ export async function getPlaceBySlug(
 		'state:state',
 		'country:country',
 		'postalCode:postal_code',
+		'coordinates',
 	].join(',')
 
 	const placeRatingSelectString = ['id', 'score:score', 'count:count'].join(
@@ -178,5 +180,9 @@ export async function getPlaceBySlug(
 		`attributes:place_attribute!inner(${placeAttributesSelectString})`,
 	].join(',')
 
-	return await supabaseClient.from(DatabaseTable.PLACE).select(selectString).eq('slug', slug).maybeSingle<Place>()
+	return await supabaseClient
+		.from(DatabaseTable.PLACE)
+		.select(selectString)
+		.eq('slug', slug)
+		.maybeSingle<Place>()
 }
