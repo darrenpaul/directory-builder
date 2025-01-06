@@ -3,11 +3,18 @@ import type { Place } from '~~/types/place'
 import IconNoImage from '~~/assets/icons/no-image.svg'
 import PriceRating from '~/components/price-rating.vue'
 import StarRating from '~/components/star-rating.vue'
+import {
+	cityRoute,
+	countryRoute,
+	stateRoute,
+} from '~/constants/routes'
 
 const props = defineProps({
 	keyId: { type: String, required: true },
 	place: { type: Object as PropType<Place>, required: true },
 })
+
+const route = useRoute()
 
 const firstImage = computed(() => {
 	if (props.place.images.length === 0)
@@ -37,12 +44,10 @@ const firstImage = computed(() => {
 					</h2>
 
 					<NuxtLink
-						v-if="props.place.website"
-						:to="props.place.website"
+						:to="`${countryRoute.path}/${route.params.country}${stateRoute.path}/${route.params.state}${cityRoute.path}/${route.params.city}/${props.place.slug}`"
 						class="btn btn-sm btn-outline btn-neutral w-full lg:w-fit"
 						:title="props.place.name"
-						target="_blank"
-						:aria-label="`${props.place.name} website`"
+						:aria-label="`${props.place.name} profile`"
 					>
 						View
 					</NuxtLink>

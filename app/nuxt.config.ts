@@ -68,7 +68,7 @@ export default defineNuxtConfig({
 	sitemap: {
 		gzip: true,
 		exclude: ['/confirm/**', '/auth/**', '/admin'],
-		sources: ['/api/__sitemap__/countries', '/api/__sitemap__/states', '/api/__sitemap__/cities'],
+		sources: ['/api/__sitemap__/countries', '/api/__sitemap__/states', '/api/__sitemap__/cities', '/api/__sitemap__/places'],
 	},
 	schemaOrg: {
 		identity: {
