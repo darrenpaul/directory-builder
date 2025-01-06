@@ -1,0 +1,1 @@
+CREATE VIEW "public"."country_view" AS (select "country" from "place_address" group by "place_address"."country");

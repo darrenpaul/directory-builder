@@ -33,18 +33,6 @@ export function parseAddressComponent(addressComponents: AddressComponent[]) {
 				return component
 			}
 
-			if (component.types.includes('administrative_area_level_2')) {
-				return component
-			}
-
-			if (component.types.includes('postal_town')) {
-				return component
-			}
-
-			if (component.types.includes('sublocality_level_1')) {
-				return component
-			}
-
 			return ''
 		}),
 	)

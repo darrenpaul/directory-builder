@@ -44,6 +44,8 @@ async function onFindPlacesNearby() {
 
 	const { places } = await Place.searchNearby(request)
 
+	console.log(places)
+
 	if (places.length) {
 		const parsedPlaces = places.map(parseGooglePlace)
 
@@ -85,14 +87,17 @@ function onPlaceRemove(googlePlaceId: string) {
 
 async function onSavePlaces() {
 	if (nearbyPlaces.value.length) {
+		const placesWithReviews = nearbyPlaces.value.filter(place => place.rating !== null)
 		await Promise.all(
-			nearbyPlaces.value.map(place =>
+			placesWithReviews.map(place =>
 				$fetch(placeApiRoute.path, {
 					method: 'POST',
 					body: place,
 				}),
 			),
 		)
+
+		nearbyPlaces.value = []
 	}
 }
 </script>
@@ -182,7 +187,7 @@ async function onSavePlaces() {
 						:count="place.userRatingCount"
 					/>
 
-					<PriceRating v-if="place.price" :price="place.price" />
+					<PriceRating v-if="place.price" :id="`price-${place.googlePlaceId}`" :price="place.price" />
 
 					<p>{{ place.city }}, {{ place.country }}</p>
 				</div>

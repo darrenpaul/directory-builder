@@ -1,39 +1,32 @@
 <script setup lang="ts">
 import type { PageMeta } from '~~/types/page-meta'
 import type { Place } from '~~/types/place'
-import { kebabCase } from 'lodash-es'
 import { pageMetaApiRoute, placeApiRoute } from '~~/constants/routes-api'
 import settings from '~~/constants/settings'
+import Filter from '~/components/filter.vue'
 import PageLander from '~/components/page-lander.vue'
 import PlaceList from '~/components/place-list.vue'
-import SearchInput from '~/components/search-input.vue'
-import { countryRoute } from '~/constants/routes'
 import UrlQueryBuilder from '~/lib/builders/url-query-builder'
 
 const route = useRoute()
-const router = useRouter()
-
-const queryBusinessName = ref<string | undefined>(
-	(route.query.businessName as string) || undefined,
-)
-const queryCountryName = ref<string | undefined>(
-	(route.query.countryName as string) || undefined,
-)
-const queryCityName = ref<string | undefined>(
-	(route.query.cityName as string) || undefined,
-)
 
 const urlQueryBuilder = new UrlQueryBuilder(placeApiRoute.path)
 const pageMetaUrlQueryBuilder = new UrlQueryBuilder(pageMetaApiRoute.path)
 
 const queryUrl = computed(() => {
-	const queryParams = route?.params as Record<string, string>
+	const params = route?.params as Record<string, string>
+	const query = route.query as Record<string, string>
+
+	const paramsAndQueries = {
+		...params,
+		...query,
+	}
 
 	return urlQueryBuilder
-		.withBusinessName(queryParams)
-		.withCountryName(queryParams)
-		.withCityName(queryParams)
-		.withLimit({ limit: '10' })
+		.withBusinessName(paramsAndQueries)
+		.withCountryName(paramsAndQueries)
+		.withCityName(paramsAndQueries)
+		.withPostalCode(paramsAndQueries)
 		.build()
 })
 
@@ -52,53 +45,6 @@ if (placeError.value) {
 		statusMessage: placeError.value?.message,
 	})
 }
-
-async function onSearch() {
-	const queryParams = {
-		...route.query,
-	}
-
-	if (queryBusinessName.value) {
-		queryParams.businessName = queryBusinessName.value
-	}
-	else {
-		delete queryParams.businessName
-	}
-
-	if (queryCountryName.value) {
-		queryParams.countryName = queryCountryName.value
-	}
-	else {
-		delete queryParams.countryName
-	}
-
-	if (queryCityName.value) {
-		queryParams.cityName = queryCityName.value
-	}
-	else {
-		delete queryParams.cityName
-	}
-
-	router.push({
-		query: queryParams,
-	})
-}
-
-const countryNames = computed(() => {
-	const countries: string[] = []
-
-	if (!placeData.value) {
-		return []
-	}
-
-	placeData.value.forEach((place) => {
-		if (!countries.includes(place.address.country)) {
-			countries.push(place.address.country)
-		}
-	})
-
-	return countries
-})
 
 useHead({
 	link: [
@@ -130,24 +76,7 @@ defineWebPage({
 		<PageLander class="mb-8" />
 
 		<div class="w-full max-w-screen-2xl mx-auto px-4">
-			<div
-				id="search-form"
-				class="flex flex-col lg:flex-row gap-4 items-end w-full mb-8"
-			>
-				<SearchInput
-					id="business-name"
-					v-model="queryBusinessName"
-					placeholder="Enter a business name"
-				/>
-
-				<button
-					type="button"
-					class="btn w-full lg:w-fit btn-lg btn-neutral"
-					@click="onSearch"
-				>
-					Search
-				</button>
-			</div>
+			<Filter />
 
 			<PlaceList
 				v-if="placeData"
@@ -157,36 +86,23 @@ defineWebPage({
 				label="Latest Coffee Shops"
 			/>
 
-			<div class="mb-8">
-				<p class="text-2xl mb-3">
-					Search By Country
-				</p>
-				<div class="grid grid-cols-3">
-					<NuxtLink
-						v-for="country in countryNames"
-						:key="country"
-						class="link"
-						:to="`${countryRoute.path}/${kebabCase(country)}`"
-					>
-						{{ country }}
-					</NuxtLink>
-				</div>
-			</div>
-
 			<div>
 				<p class="text-2xl mb-3">
-					Why use Nearby Coffee?
+					Why Choose Nearby Coffee
 				</p>
 				<ul class="list-disc list-inside text-left">
-					<li>Search coffee shops across all across South Africa</li>
-					<li>Filter by features: Wi-Fi, late hours, workspace-friendly</li>
-					<li>Find shops open now near your location</li>
+					<li>Real-time updates on operating hours and locations</li>
+					<li>Detailed reviews from local coffee enthusiasts</li>
+					<li>Curated lists of specialty roasters and brew methods</li>
 					<li>
-						Browse local favorites in popular cities like Cape Town, Pretoria,
-						and Stellenbosch
+						Quick filters for wifi, workspace, and outdoor seating
 					</li>
-					<li>Perfect for digital nomads, students, and coffee enthusiasts</li>
+					<li>Neighborhood-specific coffee guides</li>
 				</ul>
+
+				<p>
+					Whether you're a local seeking your new favorite spot or a visitor exploring Cape Town's coffee scene, Nearby Coffee connects you with the perfect café experience.
+				</p>
 			</div>
 		</div>
 	</div>

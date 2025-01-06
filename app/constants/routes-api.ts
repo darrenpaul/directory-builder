@@ -27,3 +27,21 @@ export const newsletterApiRoute = {
 	path: '/api/newsletter/v1',
 	methods: ['POST'],
 }
+
+export const countryApiRoute = {
+	name: 'countries',
+	path: '/api/countries/v1',
+	methods: ['GET'],
+}
+
+export const stateApiRoute = {
+	name: 'states',
+	path: '/api/states/v1',
+	methods: ['GET'],
+}
+
+export const cityApiRoute = {
+	name: 'cities',
+	path: '/api/cities/v1',
+	methods: ['GET'],
+}

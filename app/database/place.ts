@@ -112,8 +112,16 @@ export async function getPlaces(
 		)
 	}
 
+	if (queryParams.state) {
+		sbQuery.ilike('place_address.state', `%${queryParams.state.toLowerCase()}%`)
+	}
+
 	if (queryParams.city) {
 		sbQuery.ilike('place_address.city', `%${queryParams.city.toLowerCase()}%`)
+	}
+
+	if (queryParams.postalCode) {
+		sbQuery.ilike('place_address.postal_code', `%${queryParams.postalCode.toLowerCase()}%`)
 	}
 
 	if (queryParams.limit) {

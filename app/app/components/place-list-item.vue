@@ -75,7 +75,7 @@ const firstImage = computed(() => {
 				</div>
 			</div>
 
-			<p>{{ props.place.address.city }}, {{ props.place.address.country }}</p>
+			<p>{{ props.place.address.city }}, {{ props.place.address.country }}, {{ props.place.address.postalCode }}</p>
 		</div>
 	</div>
 </template>

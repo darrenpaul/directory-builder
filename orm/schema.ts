@@ -8,6 +8,9 @@ import { newsletter } from './schemas/newsletter';
 import { placeRequest } from './schemas/place-request';
 import { contact } from './schemas/contact';
 import { user } from './schemas/user';
+import { countryView } from './schemas/country-view';
+import { stateView } from './schemas/state-view';
+import { cityView } from './schemas/city-view';
 
 export {
   place,
@@ -20,4 +23,7 @@ export {
   placeRequest,
   contact,
   user,
+  countryView,
+  stateView,
+  cityView,
 };

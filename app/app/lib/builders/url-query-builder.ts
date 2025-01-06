@@ -27,11 +27,31 @@ export default class UrlQueryBuilder {
 		return this
 	}
 
+	withStateName({ state }: Record<string, string>) {
+		this.queryParams.delete('state')
+
+		if (state) {
+			this.queryParams.append('state', state.replaceAll('-', ' '))
+		}
+
+		return this
+	}
+
 	withCityName({ city }: Record<string, string>) {
 		this.queryParams.delete('city')
 
 		if (city) {
 			this.queryParams.append('city', city.replaceAll('-', ' '))
+		}
+
+		return this
+	}
+
+	withPostalCode({ postalCode }: Record<string, string>) {
+		this.queryParams.delete('postalCode')
+
+		if (postalCode) {
+			this.queryParams.append('postalCode', postalCode.replaceAll('-', ' '))
 		}
 
 		return this

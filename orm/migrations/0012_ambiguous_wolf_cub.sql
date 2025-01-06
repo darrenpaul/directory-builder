@@ -1,0 +1,2 @@
+CREATE VIEW "public"."city_view" AS (select "city" from "place_address" group by "place_address"."city");--> statement-breakpoint
+CREATE VIEW "public"."state_view" AS (select "state" from "place_address" group by "place_address"."state");

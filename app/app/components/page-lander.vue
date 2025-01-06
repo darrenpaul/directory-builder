@@ -6,24 +6,21 @@
 	>
 		<div class="max-h-screen">
 			<NuxtImg
-				src="https://ljfljcbbwdwbroptxhwv.supabase.co/storage/v1/object/public/page/landing-page.jpg"
+				src="https://ljfljcbbwdwbroptxhwv.supabase.co/storage/v1/object/public/page/nearby-coffee-landing-page.webp"
 			/>
 		</div>
 
 		<div class="text-center mx-auto max-w-[80ch] px-4">
 			<h1 class="text-5xl font-bold mb-4">
-				Find Local Coffee Shops Near You
+				Discover Your Perfect Cup at Cape Town's Best Coffee Shops
 			</h1>
 
 			<h2 class="mb-4">
-				Looking for the perfect coffee spot? NearbyCoffee.info helps you find
-				local cafés in any city worldwide. Whether you need a cozy study space,
-				a remote work haven, or just your daily caffeine fix, we've got you
-				covered.
+				Find exceptional coffee spots around Cape Town with Nearby Coffee - your local guide to the city's vibrant café culture. From hidden gems in City Bowl to seaside spots in Sea Point, explore artisanal roasteries, cozy cafés, and specialty coffee houses just moments away.
 			</h2>
 
 			<h3 class="mb-4 text-xl">
-				Discover Your Next Favorite Coffee Shop
+				Start exploring Cape Town's coffee culture today - your next great cup is just around the corner.
 			</h3>
 
 			<NuxtLink to="#search-form" class="btn btn-lg btn-neutral">

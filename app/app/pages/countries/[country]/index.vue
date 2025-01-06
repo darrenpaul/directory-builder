@@ -1,37 +1,32 @@
 <script setup lang="ts">
 import type { PageMeta } from '~~/types/page-meta'
 import type { Place } from '~~/types/place'
-import { kebabCase } from 'lodash-es'
 import { pageMetaApiRoute, placeApiRoute } from '~~/constants/routes-api'
 import settings from '~~/constants/settings'
+import Filter from '~/components/filter.vue'
 import PlaceList from '~/components/place-list.vue'
-import SearchInput from '~/components/search-input.vue'
-import { cityRoute, countryRoute, homeRoute } from '~/constants/routes'
+import { countryRoute, homeRoute } from '~/constants/routes'
 import UrlQueryBuilder from '~/lib/builders/url-query-builder'
 
 const route = useRoute()
-const router = useRouter()
-
-const queryBusinessName = ref<string | undefined>(
-	(route.query.businessName as string) || undefined,
-)
-const queryCountryName = ref<string | undefined>(
-	(route.query.countryName as string) || undefined,
-)
-const queryCityName = ref<string | undefined>(
-	(route.query.cityName as string) || undefined,
-)
 
 const urlQueryBuilder = new UrlQueryBuilder(placeApiRoute.path)
 const pageMetaUrlQueryBuilder = new UrlQueryBuilder(pageMetaApiRoute.path)
 
 const queryUrl = computed(() => {
-	const queryParams = route?.params as Record<string, string>
+	const params = route?.params as Record<string, string>
+	const query = route.query as Record<string, string>
+
+	const paramsAndQueries = {
+		...params,
+		...query,
+	}
 
 	return urlQueryBuilder
-		.withBusinessName(queryParams)
-		.withCountryName(queryParams)
-		.withCityName(queryParams)
+		.withBusinessName(paramsAndQueries)
+		.withCountryName(paramsAndQueries)
+		.withCityName(paramsAndQueries)
+		.withPostalCode(paramsAndQueries)
 		.build()
 })
 
@@ -50,53 +45,6 @@ if (placeError.value) {
 		statusMessage: placeError.value?.message,
 	})
 }
-
-async function onSearch() {
-	const queryParams = {
-		...route.query,
-	}
-
-	if (queryBusinessName.value) {
-		queryParams.businessName = queryBusinessName.value
-	}
-	else {
-		delete queryParams.businessName
-	}
-
-	if (queryCountryName.value) {
-		queryParams.countryName = queryCountryName.value
-	}
-	else {
-		delete queryParams.countryName
-	}
-
-	if (queryCityName.value) {
-		queryParams.cityName = queryCityName.value
-	}
-	else {
-		delete queryParams.cityName
-	}
-
-	router.push({
-		query: queryParams,
-	})
-}
-
-const cityNames = computed(() => {
-	const cities: string[] = []
-
-	if (!placeData.value) {
-		return []
-	}
-
-	placeData.value.forEach((place) => {
-		if (!cities.includes(place.address.city)) {
-			cities.push(place.address.city)
-		}
-	})
-
-	return cities
-})
 
 useHead({
 	link: [
@@ -135,31 +83,14 @@ defineWebPage({
 					</li>
 
 					<li>
-						<NuxtLink :to="countryRoute.path">
+						<p>
 							{{ countryRoute.label }}
-						</NuxtLink>
+						</p>
 					</li>
 				</ul>
 			</div>
 
-			<div
-				id="search-form"
-				class="flex flex-col lg:flex-row gap-4 items-end w-full mb-8"
-			>
-				<SearchInput
-					id="business-name"
-					v-model="queryBusinessName"
-					placeholder="Enter a business name"
-				/>
-
-				<button
-					type="button"
-					class="btn w-full lg:w-fit btn-lg btn-neutral"
-					@click="onSearch"
-				>
-					Search
-				</button>
-			</div>
+			<Filter />
 
 			<PlaceList
 				v-if="placeData"
@@ -168,22 +99,6 @@ defineWebPage({
 				:places="placeData"
 				label="Coffee Shops"
 			/>
-
-			<div>
-				<p class="text-2xl mb-3">
-					Search By City
-				</p>
-				<div class="grid grid-cols-3">
-					<NuxtLink
-						v-for="city in cityNames"
-						:key="city"
-						class="link"
-						:to="`${countryRoute.path}/${route.params.country}${cityRoute.path}/${kebabCase(city)}`"
-					>
-						{{ city }}
-					</NuxtLink>
-				</div>
-			</div>
 		</div>
 	</div>
 </template>

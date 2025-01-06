@@ -10,3 +10,9 @@ export enum DatabaseTable {
 	CONTACT = 'contact',
 	USER = 'user',
 }
+
+export enum DatabaseView {
+	COUNTRY = 'country_view',
+	STATE = 'state_view',
+	CITY = 'city_view',
+}

@@ -4,9 +4,9 @@ import type { Place } from '~~/types/place'
 import { startCase } from 'lodash-es'
 import { pageMetaApiRoute, placeApiRoute } from '~~/constants/routes-api'
 import settings from '~~/constants/settings'
+import Filter from '~/components/filter.vue'
 import PlaceList from '~/components/place-list.vue'
-import SearchInput from '~/components/search-input.vue'
-import { cityRoute, countryRoute, homeRoute } from '~/constants/routes'
+import { cityRoute, countryRoute, homeRoute, stateRoute } from '~/constants/routes'
 import UrlQueryBuilder from '~/lib/builders/url-query-builder'
 
 const route = useRoute()
@@ -26,12 +26,19 @@ const urlQueryBuilder = new UrlQueryBuilder(placeApiRoute.path)
 const pageMetaUrlQueryBuilder = new UrlQueryBuilder(pageMetaApiRoute.path)
 
 const queryUrl = computed(() => {
-	const queryParams = route?.params as Record<string, string>
+	const params = route?.params as Record<string, string>
+	const query = route.query as Record<string, string>
+
+	const paramsAndQueries = {
+		...params,
+		...query,
+	}
 
 	return urlQueryBuilder
-		.withBusinessName(queryParams)
-		.withCountryName(queryParams)
-		.withCityName(queryParams)
+		.withBusinessName(paramsAndQueries)
+		.withCountryName(paramsAndQueries)
+		.withCityName(paramsAndQueries)
+		.withPostalCode(paramsAndQueries)
 		.build()
 })
 
@@ -119,9 +126,9 @@ defineWebPage({
 					</li>
 
 					<li>
-						<NuxtLink :to="countryRoute.path">
+						<p :to="countryRoute.path">
 							{{ countryRoute.label }}
-						</NuxtLink>
+						</p>
 					</li>
 
 					<li>
@@ -131,33 +138,32 @@ defineWebPage({
 					</li>
 
 					<li>
+						<p
+							:to="`${countryRoute.path}/${route.params.country}${stateRoute.path}`"
+						>
+							{{ stateRoute.label }}
+						</p>
+					</li>
+
+					<li>
 						<NuxtLink
-							:to="`${countryRoute.path}/${route.params.country}${cityRoute.path}`"
+							:to="`${countryRoute.path}/${route.params.country}${stateRoute.path}/${route.params.state}`"
+						>
+							{{ startCase(route.params.state) }}
+						</NuxtLink>
+					</li>
+
+					<li>
+						<p
+							:to="`${countryRoute.path}/${route.params.country}${stateRoute.path}/${route.params.state}${cityRoute.path}`"
 						>
 							{{ cityRoute.label }}
-						</NuxtLink>
+						</p>
 					</li>
 				</ul>
 			</div>
 
-			<div
-				id="search-form"
-				class="flex flex-col lg:flex-row gap-4 items-end w-full mb-8"
-			>
-				<SearchInput
-					id="business-name"
-					v-model="queryBusinessName"
-					placeholder="Enter a business name"
-				/>
-
-				<button
-					type="button"
-					class="btn w-full lg:w-fit btn-lg btn-neutral"
-					@click="onSearch"
-				>
-					Search
-				</button>
-			</div>
+			<Filter />
 
 			<PlaceList
 				v-if="placeData"

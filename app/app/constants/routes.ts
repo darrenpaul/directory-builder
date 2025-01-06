@@ -40,6 +40,12 @@ export const countryRoute = {
 	path: '/countries',
 }
 
+export const stateRoute = {
+	name: 'states',
+	label: 'States',
+	path: '/states',
+}
+
 export const cityRoute = {
 	name: 'cities',
 	label: 'Cities',

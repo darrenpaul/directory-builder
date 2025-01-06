@@ -6,6 +6,7 @@ export default defineEventHandler(async (event) => {
 	const supabase = serverSupabaseServiceRole(event)
 
 	const queryParams: Record<string, string> = getQuery(event)
+	console.log(queryParams)
 
 	const { data } = await getPlaces(supabase, queryParams)
 
