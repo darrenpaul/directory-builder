@@ -45,13 +45,12 @@ if (placeError.value) {
 		statusMessage: placeError.value?.message,
 	})
 }
-
 useHead({
 	link: [
 		{
 			hid: 'canonical',
 			rel: 'canonical',
-			href: `${settings.siteUrl}`,
+			href: `${settings.siteUrl}${route.path}`,
 		},
 	],
 })

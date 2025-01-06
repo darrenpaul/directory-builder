@@ -52,7 +52,7 @@ useHead({
 		{
 			hid: 'canonical',
 			rel: 'canonical',
-			href: `${settings.siteUrl}`,
+			href: `${settings.siteUrl}${route.path}`,
 		},
 	],
 })

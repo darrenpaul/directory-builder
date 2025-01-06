@@ -15,17 +15,6 @@ import {
 import UrlQueryBuilder from '~/lib/builders/url-query-builder'
 
 const route = useRoute()
-const router = useRouter()
-
-const queryBusinessName = ref<string | undefined>(
-	(route.query.businessName as string) || undefined,
-)
-const queryCountryName = ref<string | undefined>(
-	(route.query.countryName as string) || undefined,
-)
-const queryCityName = ref<string | undefined>(
-	(route.query.cityName as string) || undefined,
-)
 
 const urlQueryBuilder = new UrlQueryBuilder(placeApiRoute.path)
 const pageMetaUrlQueryBuilder = new UrlQueryBuilder(pageMetaApiRoute.path)
@@ -63,43 +52,12 @@ if (placeError.value) {
 	})
 }
 
-async function onSearch() {
-	const queryParams = {
-		...route.query,
-	}
-
-	if (queryBusinessName.value) {
-		queryParams.businessName = queryBusinessName.value
-	}
-	else {
-		delete queryParams.businessName
-	}
-
-	if (queryCountryName.value) {
-		queryParams.countryName = queryCountryName.value
-	}
-	else {
-		delete queryParams.countryName
-	}
-
-	if (queryCityName.value) {
-		queryParams.cityName = queryCityName.value
-	}
-	else {
-		delete queryParams.cityName
-	}
-
-	router.push({
-		query: queryParams,
-	})
-}
-
 useHead({
 	link: [
 		{
 			hid: 'canonical',
 			rel: 'canonical',
-			href: `${settings.siteUrl}`,
+			href: `${settings.siteUrl}${route.path}`,
 		},
 	],
 })
