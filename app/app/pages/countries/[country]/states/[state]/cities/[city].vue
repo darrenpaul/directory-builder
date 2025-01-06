@@ -6,7 +6,12 @@ import { pageMetaApiRoute, placeApiRoute } from '~~/constants/routes-api'
 import settings from '~~/constants/settings'
 import Filter from '~/components/filter.vue'
 import PlaceList from '~/components/place-list.vue'
-import { cityRoute, countryRoute, homeRoute, stateRoute } from '~/constants/routes'
+import {
+	cityRoute,
+	countryRoute,
+	homeRoute,
+	stateRoute,
+} from '~/constants/routes'
 import UrlQueryBuilder from '~/lib/builders/url-query-builder'
 
 const route = useRoute()

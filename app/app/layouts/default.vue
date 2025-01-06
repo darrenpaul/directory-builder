@@ -3,7 +3,11 @@ import type { City } from '~~/types/city'
 import type { Country } from '~~/types/country'
 import type { State } from '~~/types/state'
 import { useGeolocation } from '@vueuse/core'
-import { cityApiRoute, countryApiRoute, stateApiRoute } from '~~/constants/routes-api'
+import {
+	cityApiRoute,
+	countryApiRoute,
+	stateApiRoute,
+} from '~~/constants/routes-api'
 import {
 	Toaster,
 	useToaster,
@@ -11,11 +15,17 @@ import {
 import Footer from '~/components/footer.vue'
 import Navigation from '~/components/navigation/index.vue'
 import SearchByList from '~/components/search-by/search-by-list.vue'
-import { searchByLinkForCities, searchByLinkForCountries, searchByLinkForStates } from '~/lib/search-by-link'
+import {
+	searchByLinkForCities,
+	searchByLinkForCountries,
+	searchByLinkForStates,
+} from '~/lib/search-by-link'
 
 const fetchPromises = []
 
-fetchPromises.push(useFetch<Country[]>(countryApiRoute.path, { method: 'GET' }))
+fetchPromises.push(
+	useFetch<Country[]>(countryApiRoute.path, { method: 'GET' }),
+)
 fetchPromises.push(useFetch<State[]>(stateApiRoute.path, { method: 'GET' }))
 fetchPromises.push(useFetch<City[]>(cityApiRoute.path, { method: 'GET' }))
 
@@ -36,11 +46,26 @@ useGeolocation()
 		<slot />
 
 		<div class="w-full max-w-screen-2xl mx-auto px-4">
-			<SearchByList id="countries" class="mb-4" :search-by-links="searchByLinkForCountries(countryData!)" label="What country are you looking in?" />
+			<SearchByList
+				id="countries"
+				class="mb-4"
+				:search-by-links="searchByLinkForCountries(countryData!)"
+				label="What country are you looking in?"
+			/>
 
-			<SearchByList id="states" class="mb-4" :search-by-links="searchByLinkForStates(stateData!)" label="What state are you looking in?" />
+			<SearchByList
+				id="states"
+				class="mb-4"
+				:search-by-links="searchByLinkForStates(stateData!)"
+				label="What state are you looking in?"
+			/>
 
-			<SearchByList id="cities" class="mb-4" :search-by-links="searchByLinkForCities(cityData!)" label="What city are you looking in?" />
+			<SearchByList
+				id="cities"
+				class="mb-4"
+				:search-by-links="searchByLinkForCities(cityData!)"
+				label="What city are you looking in?"
+			/>
 		</div>
 		<Footer />
 	</div>

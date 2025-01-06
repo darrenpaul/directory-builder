@@ -1,12 +1,8 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { DatabaseView } from '~~/constants/database-table'
 
-export async function getCities(
-	supabaseClient: SupabaseClient,
-) {
-	const selectString = ['country', 'state', 'city'].join(
-		',',
-	)
+export async function getCities(supabaseClient: SupabaseClient) {
+	const selectString = ['country', 'state', 'city'].join(',')
 
 	return supabaseClient
 		.from(DatabaseView.CITY)

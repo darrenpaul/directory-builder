@@ -94,14 +94,14 @@ defineWebPage({
 					<li>Real-time updates on operating hours and locations</li>
 					<li>Detailed reviews from local coffee enthusiasts</li>
 					<li>Curated lists of specialty roasters and brew methods</li>
-					<li>
-						Quick filters for wifi, workspace, and outdoor seating
-					</li>
+					<li>Quick filters for wifi, workspace, and outdoor seating</li>
 					<li>Neighborhood-specific coffee guides</li>
 				</ul>
 
 				<p>
-					Whether you're a local seeking your new favorite spot or a visitor exploring Cape Town's coffee scene, Nearby Coffee connects you with the perfect café experience.
+					Whether you're a local seeking your new favorite spot or a visitor
+					exploring Cape Town's coffee scene, Nearby Coffee connects you with
+					the perfect café experience.
 				</p>
 			</div>
 		</div>

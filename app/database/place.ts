@@ -113,7 +113,10 @@ export async function getPlaces(
 	}
 
 	if (queryParams.state) {
-		sbQuery.ilike('place_address.state', `%${queryParams.state.toLowerCase()}%`)
+		sbQuery.ilike(
+			'place_address.state',
+			`%${queryParams.state.toLowerCase()}%`,
+		)
 	}
 
 	if (queryParams.city) {
@@ -121,7 +124,10 @@ export async function getPlaces(
 	}
 
 	if (queryParams.postalCode) {
-		sbQuery.ilike('place_address.postal_code', `%${queryParams.postalCode.toLowerCase()}%`)
+		sbQuery.ilike(
+			'place_address.postal_code',
+			`%${queryParams.postalCode.toLowerCase()}%`,
+		)
 	}
 
 	if (queryParams.limit) {
