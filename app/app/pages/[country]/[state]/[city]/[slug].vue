@@ -2,7 +2,12 @@
 import type { PageMeta } from '~~/types/page-meta'
 import type { Place } from '~~/types/place'
 import { kebabCase } from 'lodash-es'
+import IconFacebook from '~~/assets/icons/facebook.svg'
+import IconInstagram from '~~/assets/icons/instagram.svg'
+import IconPhone from '~~/assets/icons/phone.svg'
+import IconRestaurantMenu from '~~/assets/icons/restaurant-menu.svg'
 import IconWebsite from '~~/assets/icons/website.svg'
+import IconX from '~~/assets/icons/x.svg'
 import { pageMetaApiRoute, placeApiRoute } from '~~/constants/routes-api'
 import settings from '~~/constants/settings'
 import PageBreadcrumbs from '~/components/page-breadcrumbs.vue'
@@ -54,10 +59,18 @@ useHead({
 })
 
 useSeoMeta({
-	title: pageMetaData.value?.title || 'Coffee Nearby',
-	ogTitle: pageMetaData.value?.title || 'Coffee Nearby',
-	description: pageMetaData.value?.description || 'Coffee Nearby',
-	ogDescription: pageMetaData.value?.description || 'Coffee Nearby',
+	title:
+    placeData.value?.metaTitle || pageMetaData.value?.title || 'Coffee Nearby',
+	ogTitle:
+    placeData.value?.metaTitle || pageMetaData.value?.title || 'Coffee Nearby',
+	description:
+    placeData.value?.metaDescription
+    || pageMetaData.value?.description
+    || 'Coffee Nearby',
+	ogDescription:
+    placeData.value?.metaDescription
+    || pageMetaData.value?.description
+    || 'Coffee Nearby',
 	ogImage: pageMetaData.value?.image || '',
 	twitterCard: 'summary_large_image',
 })
@@ -108,11 +121,13 @@ const breadcrumbs = computed(() => {
 
 					<NuxtImg class="h-96 mb-4" :src="placeData.images[0].imageUrl" />
 
-					<div class="flex gap-2 items-center justify-center w-fit mb-4">
+					<div
+						v-if="placeData.website"
+						class="flex gap-2 items-center justify-center w-fit mb-4"
+					>
 						<IconWebsite :font-controlled="false" class="w-6 h-6" />
 
 						<NuxtLink
-							v-if="placeData.website"
 							:to="placeData.website"
 							target="_blank"
 							:title="`Visit ${placeData.name} website`"
@@ -122,7 +137,90 @@ const breadcrumbs = computed(() => {
 						</NuxtLink>
 					</div>
 
-					<div class="flex flex-wrap gap-2">
+					<div
+						v-if="placeData.menu"
+						class="flex gap-2 items-center justify-center w-fit mb-4"
+					>
+						<IconRestaurantMenu
+							:font-controlled="false"
+							class="w-6 h-6"
+							filled
+						/>
+
+						<NuxtLink
+							:to="placeData.menu"
+							target="_blank"
+							:title="`Visit ${placeData.name} menu`"
+							class="link"
+						>
+							Menu
+						</NuxtLink>
+					</div>
+
+					<div
+						v-if="placeData.phone"
+						class="flex gap-2 items-center justify-center w-fit mb-4"
+					>
+						<IconPhone :font-controlled="false" class="w-6 h-6" />
+
+						<NuxtLink
+							:to="`tel:${placeData.phone}`"
+							:title="`Call ${placeData.name}`"
+							class="link"
+						>
+							{{ placeData.phone }}
+						</NuxtLink>
+					</div>
+
+					<div
+						v-if="placeData.facebook"
+						class="flex gap-2 items-center justify-center w-fit mb-4"
+					>
+						<IconFacebook :font-controlled="false" class="w-6 h-6" />
+
+						<NuxtLink
+							:to="placeData.facebook"
+							target="_blank"
+							:title="`Visit ${placeData.name} facebook`"
+							class="link"
+						>
+							{{ placeData.facebook }}
+						</NuxtLink>
+					</div>
+
+					<div
+						v-if="placeData.instagram"
+						class="flex gap-2 items-center justify-center w-fit mb-4"
+					>
+						<IconInstagram :font-controlled="false" class="w-6 h-6" />
+
+						<NuxtLink
+							:to="placeData.instagram"
+							target="_blank"
+							:title="`Visit ${placeData.name} instagram`"
+							class="link"
+						>
+							{{ placeData.instagram }}
+						</NuxtLink>
+					</div>
+
+					<div
+						v-if="placeData.x"
+						class="flex gap-2 items-center justify-center w-fit mb-4"
+					>
+						<IconX :font-controlled="false" class="w-6 h-6" />
+
+						<NuxtLink
+							:to="placeData.x"
+							target="_blank"
+							:title="`Visit ${placeData.name} x`"
+							class="link"
+						>
+							{{ placeData.x }}
+						</NuxtLink>
+					</div>
+
+					<div class="flex flex-wrap gap-2 mb-3">
 						<template
 							v-for="attribute in placeData.attributes"
 							:key="attribute.id"
@@ -135,6 +233,8 @@ const breadcrumbs = computed(() => {
 							</div>
 						</template>
 					</div>
+
+					<p>{{ placeData.description }}</p>
 				</div>
 
 				<GoogleMap
@@ -142,6 +242,12 @@ const breadcrumbs = computed(() => {
 					v-model:latitude="latitude"
 					v-model:longitude="longitude"
 					v-model:markers="markers"
+					:map-options="{
+						gestureHandling: 'none',
+						zoom: 19,
+						clickableIcons: false,
+						streetViewControl: false,
+					}"
 				/>
 			</div>
 		</div>

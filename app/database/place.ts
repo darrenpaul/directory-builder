@@ -3,14 +3,8 @@ import type { Place, PlaceResponse } from '~~/types/place'
 import { kebabCase } from 'lodash-es'
 import { DatabaseTable } from '~~/constants/database-table'
 
-function generateSlug({
-	displayName,
-	postalCode,
-}: {
-	displayName: string
-	postalCode: string
-}) {
-	return `${kebabCase(displayName)}-${postalCode}`
+function generateSlug({ displayName }: { displayName: string }) {
+	return kebabCase(displayName)
 }
 
 export async function createPlace(
@@ -21,6 +15,15 @@ export async function createPlace(
 		postalCode: string
 		price: string
 		website: string | undefined | null
+		metaTitle: string | undefined | null
+		metaDescription: string | undefined | null
+		description: string | undefined | null
+		menu: string | undefined | null
+		facebook: string | undefined | null
+		instagram: string | undefined | null
+		twitter: string | undefined | null
+		phone: string | undefined | null
+		specials: string | undefined | null
 	},
 ) {
 	const now = new Date()
@@ -38,6 +41,15 @@ export async function createPlace(
 				name: payload.displayName,
 				website: payload.website,
 				price: payload.price,
+				meta_title: payload.metaTitle,
+				meta_description: payload.metaDescription,
+				description: payload.description,
+				menu: payload.menu,
+				facebook: payload.facebook,
+				instagram: payload.instagram,
+				twitter: payload.twitter,
+				phone: payload.phone,
+				specials: payload.specials,
 			},
 			{ onConflict: 'google_place_id' },
 		)
@@ -56,6 +68,15 @@ export async function createPlace(
 			name: payload.displayName,
 			website: payload.website,
 			price: payload.price,
+			meta_title: payload.metaTitle,
+			meta_description: payload.metaDescription,
+			description: payload.description,
+			menu: payload.menu,
+			facebook: payload.facebook,
+			instagram: payload.instagram,
+			twitter: payload.twitter,
+			phone: payload.phone,
+			specials: payload.specials,
 		})
 		.eq('google_place_id', data.googlePlaceId)
 		.select('id,googlePlaceId:google_place_id')
@@ -94,6 +115,15 @@ export async function getPlaces(
 		'name:name',
 		'website:website',
 		'price',
+		'description:description',
+		'metaTitle:meta_title',
+		'metaDescription:meta_description',
+		'menu',
+		'facebook',
+		'instagram',
+		'twitter',
+		'phone',
+		'specials',
 		`address:place_address!inner(${placeAddressSelectString})`,
 		`images:place_image!inner(${placeImagesSelectString})`,
 		`rating:place_rating!inner(${placeRatingSelectString})`,
@@ -174,6 +204,15 @@ export async function getPlaceBySlug(
 		'name:name',
 		'website:website',
 		'price',
+		'description:description',
+		'metaTitle:meta_title',
+		'metaDescription:meta_description',
+		'menu',
+		'facebook',
+		'instagram',
+		'twitter',
+		'phone',
+		'specials',
 		`address:place_address!inner(${placeAddressSelectString})`,
 		`images:place_image!inner(${placeImagesSelectString})`,
 		`rating:place_rating!inner(${placeRatingSelectString})`,

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Places from '~/components/places'
+import Places from '~/components/places.vue'
 </script>
 
 <template>

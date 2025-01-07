@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" id="menu" x="0" y="0" version="1.1" viewBox="0 0 24 24">
+  <g stroke="#303C42" stroke-miterlimit="10">
+    <path id="XMLID_1303_" fill="none" stroke-linecap="round" stroke-linejoin="round" d="M.5 2v16A1.5 1.5 0 0 0 2 19.5h15L10.5.5H2A1.5 1.5 0 0 0 .5 2z"></path>
+    <path id="XMLID_1302_" fill="none" stroke-linecap="round" stroke-linejoin="round" d="M12 4.5h10A1.5 1.5 0 0 1 23.5 6v16a1.5 1.5 0 0 1-1.5 1.5h-8.5l-1.5-4"></path>
+    <path id="XMLID_24_" fill="none" stroke-linecap="round" stroke-linejoin="round" d="M17 19.5l-3.5 4"></path>
+    <path fill="none" stroke-linecap="round" stroke-linejoin="round" d="M3.5 8.5h7M4 8.5a3 3 0 1 1 6 0"></path>
+    <circle cx="7" cy="5" r=".5" fill="#303C42"></circle>
+    <path fill="none" stroke-linecap="round" stroke-linejoin="round" d="M3.5 12.5h7M3.5 15.5h7M13.579 9.5H20.5M14.605 12.5H20.5M15.632 15.5H20.5M16.658 18.5H20.5"></path>
+  </g>
+</svg>

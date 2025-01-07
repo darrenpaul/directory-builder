@@ -1,6 +1,6 @@
 {
-  "id": "45db117c-4737-4a06-a066-c7e0c66e410b",
-  "prevId": "599a63a9-dfde-41eb-93b0-4ec16ad087ef",
+  "id": "8e1b204b-d498-4769-9b91-3bba7d2b6f70",
+  "prevId": "45db117c-4737-4a06-a066-c7e0c66e410b",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -210,6 +210,24 @@
         },
         "price": {
           "name": "price",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "description": {
+          "name": "description",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "meta_title": {
+          "name": "meta_title",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "meta_description": {
+          "name": "meta_description",
           "type": "varchar",
           "primaryKey": false,
           "notNull": false

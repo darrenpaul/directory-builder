@@ -23,6 +23,9 @@ export interface Place {
 	name: string
 	website: string
 	price: string
+	description: string
+	metaTitle: string
+	metaDescription: string
 	address: PlaceAddress
 	images: PlaceImage[]
 	rating: PlaceRating

@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
+const props = defineProps({
+	mapOptions: { type: Object, default: () => ({}) },
+})
 const latitude = defineModel<number>('latitude')
 const longitude = defineModel<number>('longitude')
 const markers = defineModel<string[]>('markers')
@@ -44,12 +47,7 @@ function handleReady({ map }) {
 			:center="query"
 			:markers="markers"
 			:api-key="googleMapsApiKey"
-			:map-options="{
-				gestureHandling: 'none',
-				zoom: 19,
-				clickableIcons: false,
-				streetViewControl: false,
-			}"
+			:map-options="props.mapOptions"
 			@ready="handleReady"
 		/>
 	</div>
