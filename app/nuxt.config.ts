@@ -31,13 +31,17 @@ export default defineNuxtConfig({
 		'@vueuse/nuxt',
 		'nuxt-svgo',
 		'@nuxt/image',
+		'nuxt-umami',
 	],
 	plugins: ['plugins/posthog.client'],
 	typescript: {
 		strict: true,
 	},
 	runtimeConfig: {
+		stripeSecretKey: process.env.STRIPE_SECRET_KEY,
+		stripeRedirectUri: process.env.STRIPE_REDIRECT_URI,
 		public: {
+			stripePublicKey: process.env.NUXT_PUBLIC_STRIPE_PUBLIC_KEY,
 			posthogPublicKey: process.env.NUXT_PUBLIC_POSTHOT_PUBLIC_KEY,
 			posthogHost: process.env.NUXT_PUBLIC_POSTHOT_HOST,
 			googleMapsApiKey: process.env.NUXT_PUBLIC_GOOGLE_MAPS_API_KEY,
@@ -95,5 +99,18 @@ export default defineNuxtConfig({
 			url: settings.siteUrl,
 			logo: `${settings.siteUrl}/favicon.png`,
 		},
+	},
+	umami: {
+		id: process.env.NUXT_PUBLIC_UMAMI_KEY,
+		host: process.env.NUXT_PUBLIC_UMAMI_HOST,
+		autoTrack: true,
+		// proxy: 'cloak',
+		// useDirective: true,
+		// ignoreLocalhost: true,
+		// excludeQueryParams: false,
+		// domains: ['cool-site.app', 'my-space.site'],
+		// customEndpoint: '/my-custom-endpoint',
+		// enabled: false,
+		// logErrors: true,
 	},
 })
