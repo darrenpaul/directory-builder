@@ -33,7 +33,6 @@ export default defineNuxtConfig({
 		'@nuxt/image',
 		'nuxt-umami',
 	],
-	plugins: ['plugins/posthog.client'],
 	typescript: {
 		strict: true,
 	},
