@@ -10,6 +10,15 @@ export default defineNuxtConfig({
 	devtools: { enabled: true },
 	nitro: {
 		compressPublicAssets: true,
+		prerender: {
+			crawlLinks: true,
+			routes: ['/sitemap.xml', '/robots.txt'],
+		},
+	},
+	vite: {
+		build: {
+			cssCodeSplit: false,
+		},
 	},
 	modules: [
 		'@nuxt/eslint',

@@ -24,10 +24,10 @@ useHead({
 })
 
 useSeoMeta({
-	title: pageMetaData.value?.title || 'Coffee Nearby',
-	ogTitle: pageMetaData.value?.title || 'Coffee Nearby',
-	description: pageMetaData.value?.description || 'Coffee Nearby',
-	ogDescription: pageMetaData.value?.description || 'Coffee Nearby',
+	title: pageMetaData.value?.title || 'Nearby Nearby',
+	ogTitle: pageMetaData.value?.title || 'Nearby Nearby',
+	description: pageMetaData.value?.description || 'Nearby Nearby',
+	ogDescription: pageMetaData.value?.description || 'Nearby Nearby',
 	ogImage: pageMetaData.value?.image || '',
 	twitterCard: 'summary_large_image',
 })

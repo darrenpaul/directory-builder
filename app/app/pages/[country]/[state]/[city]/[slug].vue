@@ -41,6 +41,7 @@ if (placeError.value) {
 		statusMessage: placeError.value?.message,
 	})
 }
+
 const placeCoordinates = placeData.value.address.coordinates.split(',')
 const latitude = ref<number>(Number.parseFloat(placeCoordinates[0]))
 const longitude = ref<number>(Number.parseFloat(placeCoordinates[1]))
@@ -60,17 +61,17 @@ useHead({
 
 useSeoMeta({
 	title:
-    placeData.value?.metaTitle || pageMetaData.value?.title || 'Coffee Nearby',
+    placeData.value?.metaTitle || pageMetaData.value?.title || 'Nearby Nearby',
 	ogTitle:
-    placeData.value?.metaTitle || pageMetaData.value?.title || 'Coffee Nearby',
+    placeData.value?.metaTitle || pageMetaData.value?.title || 'Nearby Nearby',
 	description:
     placeData.value?.metaDescription
     || pageMetaData.value?.description
-    || 'Coffee Nearby',
+    || 'Nearby Nearby',
 	ogDescription:
     placeData.value?.metaDescription
     || pageMetaData.value?.description
-    || 'Coffee Nearby',
+    || 'Nearby Nearby',
 	ogImage: pageMetaData.value?.image || '',
 	twitterCard: 'summary_large_image',
 })
@@ -119,7 +120,7 @@ const breadcrumbs = computed(() => {
 						{{ placeData.name }}
 					</h1>
 
-					<NuxtImg class="h-96 mb-4" :src="placeData.images[0].imageUrl" />
+					<NuxtImg class="h-96 mb-4" :src="placeData.images[0].imageUrl" :alt="placeData.name" />
 
 					<div
 						v-if="placeData.website"
