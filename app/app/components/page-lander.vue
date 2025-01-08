@@ -7,6 +7,7 @@
 		<div class="max-h-screen">
 			<NuxtImg
 				src="https://ljfljcbbwdwbroptxhwv.supabase.co/storage/v1/object/public/page/nearby-coffee-landing-page.webp"
+				alt="Nearby Coffee Landing Page"
 			/>
 		</div>
 

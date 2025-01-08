@@ -8,6 +8,9 @@ export default defineNuxtConfig({
 		compatibilityVersion: 4,
 	},
 	devtools: { enabled: true },
+	nitro: {
+		compressPublicAssets: true,
+	},
 	modules: [
 		'@nuxt/eslint',
 		'@nuxtjs/supabase',
@@ -56,7 +59,7 @@ export default defineNuxtConfig({
 		},
 	},
 	routeRules: {
-		'/': { isr: 3600 },
+		'/': { prerender: true },
 		'/contact': { isr: 3600 },
 		'/sitemap.xml': { prerender: true },
 	},
@@ -82,5 +85,10 @@ export default defineNuxtConfig({
 			url: settings.siteUrl,
 			logo: `${settings.siteUrl}/favicon.png`,
 		},
+	},
+	image: {
+		domains: ['places.googleapis.com/v1/places/'],
+		quality: 80,
+		format: ['webp'],
 	},
 })

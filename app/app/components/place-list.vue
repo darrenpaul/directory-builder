@@ -21,10 +21,11 @@ const props = defineProps({
 			class="grid grid-cols-1 lg:grid-cols-2 gap-6"
 		>
 			<PlaceListItem
-				v-for="place in props.places"
+				v-for="(place, index) in props.places"
 				:key="`${props.keyId}-${place.id}`"
 				:key-id="keyId"
 				:place="place"
+				:index="index"
 			/>
 		</div>
 		<NoEntriesFoundForm v-else />
