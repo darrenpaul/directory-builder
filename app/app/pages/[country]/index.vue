@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { PageMeta } from '~~/types/page-meta'
 import type { Place } from '~~/types/place'
+import { startCase } from 'lodash-es'
 import { pageMetaApiRoute, placeApiRoute } from '~~/constants/routes-api'
 import settings from '~~/constants/settings'
 import Filter from '~/components/filter.vue'
@@ -89,7 +90,7 @@ defineWebPage({
 				key-id="latest"
 				class="mb-8"
 				:places="placeData"
-				label="Coffee Shops"
+				:label="`Discover Coffee Shops in ${startCase(route.params.country as string)}`"
 			/>
 		</div>
 	</div>

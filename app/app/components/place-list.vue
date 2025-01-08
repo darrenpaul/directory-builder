@@ -12,13 +12,13 @@ const props = defineProps({
 
 <template>
 	<div class="border-b border-neutral-200 pb-6">
-		<p v-if="props.label" class="text-3xl font-bold mb-3">
+		<h3 v-if="props.label" class="text-3xl font-bold mb-3">
 			{{ props.label }}
-		</p>
+		</h3>
 
 		<div
 			v-if="props.places.length > 0"
-			class="grid grid-cols-1 lg:grid-cols-2 gap-6"
+			class="grid grid-cols-1 xl:grid-cols-2 gap-6"
 		>
 			<PlaceListItem
 				v-for="(place, index) in props.places"

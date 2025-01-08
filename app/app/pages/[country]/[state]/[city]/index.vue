@@ -106,7 +106,7 @@ const breadcrumbs = computed(() => {
 				key-id="latest"
 				class="mb-8"
 				:places="placeData"
-				label="Coffee Shops"
+				:label="`Discover Coffee Shops in ${startCase(route.params.city as string)}`"
 			/>
 		</div>
 	</div>

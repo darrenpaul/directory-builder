@@ -10,7 +10,7 @@ definePageMeta({
 	<div class="min-h-screen">
 		<div class="h-screen flex flex-col items-center justify-center">
 			<h1 class="text-4xl font-bold">
-				Welcome!
+				Sign Up Here
 			</h1>
 
 			<h2 class="text-xl">

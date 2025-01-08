@@ -40,6 +40,7 @@
     "@types/lodash-es": "^4.17.12",
     "@types/validator": "^13.12.2",
     "daisyui": "^4.12.23",
+    "nuxt-purgecss": "^2.0.0",
     "prettier": "^3.4.2",
     "typescript": "^5.7.2"
   }

@@ -2,10 +2,12 @@
 
 <template>
 	<div
-		class="h-auto lg:h-screen w-full flex flex-col gap-8 lg:grid grid-cols-2 items-center overflow-hidden rounded-2xl"
+		class="h-full w-full flex flex-col gap-8 lg:grid grid-cols-2 items-center overflow-hidden rounded-2xl"
 	>
 		<div class="max-h-screen">
 			<NuxtImg
+				:width="2400"
+				:height="3613"
 				src="https://ljfljcbbwdwbroptxhwv.supabase.co/storage/v1/object/public/page/nearby-coffee-landing-page.webp"
 				alt="Nearby Coffee Landing Page"
 			/>
@@ -23,10 +25,10 @@
 				cafés, and specialty coffee houses just moments away.
 			</h2>
 
-			<h3 class="mb-4 text-xl">
+			<p class="mb-4 text-xl">
 				Start exploring Cape Town's coffee culture today - your next great cup
 				is just around the corner.
-			</h3>
+			</p>
 
 			<NuxtLink to="#search-form" class="btn btn-lg btn-neutral">
 				Find Coffee

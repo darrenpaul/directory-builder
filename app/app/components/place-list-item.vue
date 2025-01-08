@@ -44,9 +44,9 @@ const profileUrl = computed(() => {
 		<div class="card-body overflow-y-auto h-full no-scrollbar">
 			<div class="h-fit flex flex-col gap-2">
 				<div class="flex flex-col lg:flex-row gap-2">
-					<h2 class="text-2xl font-bold w-full">
+					<p class="text-2xl font-bold w-full">
 						{{ props.place.name }}
-					</h2>
+					</p>
 
 					<NuxtLink
 						:to="profileUrl"
