@@ -113,17 +113,7 @@ export async function getPlaces(
 		'id',
 		'slug',
 		'name:name',
-		'website:website',
 		'price',
-		'description:description',
-		'metaTitle:meta_title',
-		'metaDescription:meta_description',
-		'menu',
-		'facebook',
-		'instagram',
-		'twitter',
-		'phone',
-		'specials',
 		`address:place_address!inner(${placeAddressSelectString})`,
 		`images:place_image!inner(${placeImagesSelectString})`,
 		`rating:place_rating!inner(${placeRatingSelectString})`,
@@ -167,6 +157,7 @@ export async function getPlaces(
 
 	const { data, error } = await sbQuery
 		.order('created_at', { ascending: false })
+		.limit(1, { foreignTable: 'place_image' })
 		.returns<PlaceResponse[]>()
 
 	return { data, error }

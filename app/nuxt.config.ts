@@ -18,6 +18,7 @@ export default defineNuxtConfig({
 	vite: {
 		build: {
 			cssCodeSplit: false,
+			cssMinify: 'lightningcss',
 		},
 	},
 	modules: [

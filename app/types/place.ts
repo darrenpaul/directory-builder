@@ -26,6 +26,11 @@ export interface Place {
 	description: string
 	metaTitle: string
 	metaDescription: string
+	menu: string
+	facebook: string
+	instagram: string
+	twitter: string
+	phone: string
 	address: PlaceAddress
 	images: PlaceImage[]
 	rating: PlaceRating
