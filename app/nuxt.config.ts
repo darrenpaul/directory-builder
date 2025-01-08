@@ -60,8 +60,8 @@ export default defineNuxtConfig({
 	},
 	routeRules: {
 		'/': { prerender: true },
+		'/**': { prerender: true },
 		'/contact': { isr: 3600 },
-		'/sitemap.xml': { prerender: true },
 	},
 	site: {
 		url: settings.siteUrl,
@@ -85,10 +85,5 @@ export default defineNuxtConfig({
 			url: settings.siteUrl,
 			logo: `${settings.siteUrl}/favicon.png`,
 		},
-	},
-	image: {
-		domains: ['places.googleapis.com/v1/places/'],
-		quality: 80,
-		format: ['webp'],
 	},
 })

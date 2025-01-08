@@ -115,9 +115,9 @@ const breadcrumbs = computed(() => {
 
 			<div class="grid grid-cols-2 gap-6">
 				<div>
-					<p class="text-2xl font-bold mb-4">
+					<h1 class="text-2xl font-bold mb-4">
 						{{ placeData.name }}
-					</p>
+					</h1>
 
 					<NuxtImg class="h-96 mb-4" :src="placeData.images[0].imageUrl" />
 

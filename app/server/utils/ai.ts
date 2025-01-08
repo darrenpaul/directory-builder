@@ -53,12 +53,20 @@ export async function genearateDescriptionAndMetaInformation(
 
 	const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
+	const prompts = [
+		'You are an SEO expert writing content for a coffee shop directory profile page about a specific coffee shop',
+		'Write a short description for the profile page of the coffee shop, (description)',
+		'Write a SEO optimized title (metaTitle)',
+		'Write a SEO optimized description (metaDescription). Ensure this is between 110 and 160 characters,',
+		'Structure as Json. don\'t nest this data',
+	].join('\n')
+
 	const msg = await anthropic.messages.create({
 		model: 'claude-3-5-sonnet-20241022',
 		max_tokens: 1000,
 		temperature: 0,
 		system:
-      'Write a short description about the coffee shop, key name is description. Write a SEO optimized title (metaTitle) and description (metaDescription). Format as a json structure, don\'t nest this data',
+      prompts,
 		messages: [
 			{
 				role: 'user',

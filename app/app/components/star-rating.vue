@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import IconStar from '~~/assets/icons/star.svg'
+
 const props = defineProps({
 	id: { type: String, required: true },
 	score: { type: Number, required: true },
@@ -16,15 +18,17 @@ function generateNumberArray(start: number, end: number): number[] {
 
 <template>
 	<div class="flex flex-col gap-1">
-		<div class="rating rating-md">
-			<input
+		<div class="flex items-center justify-center">
+			<IconStar
 				v-for="rating in ratings"
 				:key="`${props.id}-${rating}`"
-				type="radio"
-				:name="props.id"
-				class="mask mask-star-2 bg-orange-400"
-				:checked="rating < scoreRounded"
-			>
+				:class="rating < scoreRounded ? 'text-orange-400' : 'text-neutral-200'"
+				:font-controlled="false" class="w-6 h-6"
+			/>
+
+			<p class="ml-3">
+				({{ props.score }})
+			</p>
 		</div>
 
 		<p>{{ props.count }} reviews</p>
