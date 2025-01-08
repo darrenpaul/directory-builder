@@ -41,8 +41,6 @@ export default defineNuxtConfig({
 		stripeRedirectUri: process.env.STRIPE_REDIRECT_URI,
 		public: {
 			stripePublicKey: process.env.NUXT_PUBLIC_STRIPE_PUBLIC_KEY,
-			posthogPublicKey: process.env.NUXT_PUBLIC_POSTHOT_PUBLIC_KEY,
-			posthogHost: process.env.NUXT_PUBLIC_POSTHOT_HOST,
 			googleMapsApiKey: process.env.NUXT_PUBLIC_GOOGLE_MAPS_API_KEY,
 		},
 	},
