@@ -32,6 +32,7 @@ export default defineNuxtConfig({
 		'nuxt-svgo',
 		'@nuxt/image',
 		'nuxt-umami',
+		'nuxt-tiptap-editor',
 	],
 	typescript: {
 		strict: true,
@@ -105,9 +106,8 @@ export default defineNuxtConfig({
 		// useDirective: true,
 		// ignoreLocalhost: true,
 		// excludeQueryParams: false,
-		// domains: ['cool-site.app', 'my-space.site'],
+		domains: [settings.domain],
 		// customEndpoint: '/my-custom-endpoint',
-		// enabled: false,
 		// logErrors: true,
 	},
 })

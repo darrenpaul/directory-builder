@@ -11,6 +11,8 @@ import { user } from './schemas/user';
 import { countryView } from './schemas/country-view';
 import { stateView } from './schemas/state-view';
 import { cityView } from './schemas/city-view';
+import { userSubscription } from './schemas/user-subscription';
+import { placeVerified } from './schemas/place-verified';
 
 export {
   place,
@@ -26,4 +28,6 @@ export {
   countryView,
   stateView,
   cityView,
+  userSubscription,
+  placeVerified,
 };

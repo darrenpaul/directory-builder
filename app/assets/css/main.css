@@ -2,3 +2,31 @@
   font-family: "Afacad", sans-serif;
   font-optical-sizing: auto;
 }
+
+.tiptap {
+  min-height: 256px;
+  padding: 12px;
+  ul {
+    li {
+      @apply list-disc;
+    }
+  }
+
+  ol {
+    li {
+      @apply list-decimal;
+    }
+  }
+
+  li {
+    @apply pl-3;
+    @apply ml-6;
+  }
+
+  blockquote {
+    @apply pl-3;
+    @apply ml-3;
+    @apply border-l-4 border-neutral-200;
+    @apply text-neutral-500;
+  }
+}

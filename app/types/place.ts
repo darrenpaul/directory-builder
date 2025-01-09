@@ -31,6 +31,7 @@ export interface Place {
 	instagram: string
 	twitter: string
 	phone: string
+	specials: string
 	address: PlaceAddress
 	images: PlaceImage[]
 	rating: PlaceRating

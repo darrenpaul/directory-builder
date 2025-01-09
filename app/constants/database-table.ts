@@ -5,6 +5,7 @@ export enum DatabaseTable {
 	PLACE_RATING = 'place_rating',
 	PLACE_ATTRIBUTE = 'place_attribute',
 	PLACE_REQUEST = 'place_request',
+	PLACE_VERIFIED = 'place_verified',
 	PAGE_META = 'page_meta',
 	NEWSLETTER = 'newsletter',
 	CONTACT = 'contact',

@@ -48,3 +48,29 @@ export async function createPlaceAddress(
 		})
 		.eq('place_id', payload.placeId)
 }
+
+export async function updatePlaceAddress(
+	supabaseClient: SupabaseClient,
+	payload: {
+		placeId: string
+		coordinates: string
+		streetAddress: string
+		city: string
+		state: string
+		country: string
+		postalCode: string
+	},
+) {
+	return supabaseClient
+		.from(DatabaseTable.PLACE_ADDRESS)
+		.update({
+			place_id: payload.placeId,
+			coordinates: payload.coordinates,
+			street_address: payload.streetAddress,
+			city: payload.city,
+			state: payload.state,
+			country: payload.country,
+			postal_code: payload.postalCode,
+		})
+		.eq('place_id', payload.placeId)
+}

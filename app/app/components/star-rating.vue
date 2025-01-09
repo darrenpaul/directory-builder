@@ -23,7 +23,8 @@ function generateNumberArray(start: number, end: number): number[] {
 				v-for="rating in ratings"
 				:key="`${props.id}-${rating}`"
 				:class="rating < scoreRounded ? 'text-orange-400' : 'text-neutral-200'"
-				:font-controlled="false" class="w-6 h-6"
+				:font-controlled="false"
+				class="w-6 h-6"
 			/>
 
 			<p class="ml-3">

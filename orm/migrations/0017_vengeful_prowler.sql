@@ -1,0 +1,1 @@
+ALTER TABLE "user_subscription" ADD COLUMN "payment_status" varchar;

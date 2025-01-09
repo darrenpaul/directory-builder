@@ -1,9 +1,3 @@
-export const placeApiRoute = {
-	name: 'place',
-	path: '/api/place/v1',
-	methods: ['POST'],
-}
-
 export const placeRequestApiRoute = {
 	name: 'place-request',
 	path: '/api/place-request/v1',
@@ -44,4 +38,16 @@ export const cityApiRoute = {
 	name: 'cities',
 	path: '/api/cities/v1',
 	methods: ['GET'],
+}
+
+export const userApiRoute = {
+	name: 'user',
+	path: '/api/user/v1',
+	methods: ['GET'],
+}
+
+export const adminPlaceApiRoute = {
+	name: 'admin-place',
+	path: '/api/admin/places/v1',
+	methods: ['GET', 'POST', 'PATCH'],
 }

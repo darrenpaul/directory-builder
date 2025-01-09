@@ -1,9 +1,13 @@
-import { serverSupabaseServiceRole } from '#supabase/server'
+import {
+	serverSupabaseClient,
+	serverSupabaseServiceRole,
+} from '#supabase/server'
 import { createPlace } from '~~/database/place'
 import { createPlaceAddress } from '~~/database/place-address'
 import { createPlaceAttributeBatch } from '~~/database/place-attribute'
 import { createPlaceImage } from '~~/database/place-image'
 import { createPlaceRating } from '~~/database/place-rating'
+import { getAuthenticatedUser } from '~~/database/user'
 import {
 	askQuestionsAboutPlace,
 	genearateDescriptionAndMetaInformation,
@@ -12,7 +16,24 @@ import {
 import { scrapWebsite } from '~~/server/utils/webscrap'
 
 export default defineEventHandler(async (event) => {
-	const supabase = serverSupabaseServiceRole(event)
+	const supabaseAdmin = serverSupabaseServiceRole(event)
+	const supabase = await serverSupabaseClient(event)
+
+	const user = await getAuthenticatedUser(supabase)
+
+	if (!user) {
+		throw createError({
+			statusCode: 401,
+			statusMessage: 'Unauthorized',
+		})
+	}
+
+	if (!user.app_metadata.claims_site_admin) {
+		throw createError({
+			statusCode: 401,
+			statusMessage: 'Unauthorized',
+		})
+	}
 
 	const body = await readBody(event)
 	const {
@@ -42,7 +63,7 @@ export default defineEventHandler(async (event) => {
 	const { metaTitle, metaDescription, description }
     = await genearateDescriptionAndMetaInformation(textContent)
 
-	const { data, error } = await createPlace(supabase, {
+	const { data, error } = await createPlace(supabaseAdmin, {
 		googlePlaceId,
 		displayName,
 		postalCode,
@@ -76,13 +97,13 @@ export default defineEventHandler(async (event) => {
 	try {
 		await Promise.all([
 			...images.map((imageUrl: string, index: number) =>
-				createPlaceImage(supabase, {
+				createPlaceImage(supabaseAdmin, {
 					placeId: data.id,
 					imageUrl,
 					sortOrder: (index + 1) * 10,
 				}),
 			),
-			createPlaceAddress(supabase, {
+			createPlaceAddress(supabaseAdmin, {
 				placeId: data.id,
 				coordinates,
 				streetAddress,
@@ -91,12 +112,12 @@ export default defineEventHandler(async (event) => {
 				country,
 				postalCode,
 			}),
-			createPlaceRating(supabase, {
+			createPlaceRating(supabaseAdmin, {
 				placeId: data.id,
 				score: rating,
 				count: userRatingCount,
 			}),
-			createPlaceAttributeBatch(supabase, {
+			createPlaceAttributeBatch(supabaseAdmin, {
 				placeId: data.id,
 				attributes: [...attributes, ...questions],
 			}),

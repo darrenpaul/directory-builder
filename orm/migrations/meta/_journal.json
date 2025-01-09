@@ -113,6 +113,41 @@
       "when": 1736266402359,
       "tag": "0015_tiny_sabra",
       "breakpoints": true
+    },
+    {
+      "idx": 16,
+      "version": "7",
+      "when": 1736358135132,
+      "tag": "0016_goofy_vivisector",
+      "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "7",
+      "when": 1736358516340,
+      "tag": "0017_vengeful_prowler",
+      "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "7",
+      "when": 1736419288207,
+      "tag": "0018_slow_hemingway",
+      "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1736419872975,
+      "tag": "0019_charming_bloodaxe",
+      "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "7",
+      "when": 1736430945423,
+      "tag": "0020_remarkable_shockwave",
+      "breakpoints": true
     }
   ]
 }

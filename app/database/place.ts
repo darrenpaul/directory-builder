@@ -24,6 +24,7 @@ export async function createPlace(
 		twitter: string | undefined | null
 		phone: string | undefined | null
 		specials: string | undefined | null
+		ownerId?: string | undefined | null
 	},
 ) {
 	const now = new Date()
@@ -81,6 +82,48 @@ export async function createPlace(
 		.eq('google_place_id', data.googlePlaceId)
 		.select('id,googlePlaceId:google_place_id')
 		.single<{ id: string, googlePlaceId: string }>()
+}
+
+export async function updatePlace(
+	supabaseClient: SupabaseClient,
+	payload: {
+		id: string
+		userId: string
+		name: string | undefined | null
+		website: string | undefined | null
+		price: string | undefined | null
+		description: string | undefined | null
+		metaTitle: string | undefined | null
+		metaDescription: string | undefined | null
+		menu: string | undefined | null
+		facebook: string | undefined | null
+		instagram: string | undefined | null
+		twitter: string | undefined | null
+		phone: string | undefined | null
+		specials: string | undefined | null
+	},
+) {
+	const now = new Date()
+
+	return supabaseClient
+		.from(DatabaseTable.PLACE)
+		.update({
+			name: payload.name,
+			website: payload.website,
+			price: payload.price,
+			description: payload.description,
+			meta_title: payload.metaTitle,
+			meta_description: payload.metaDescription,
+			menu: payload.menu,
+			facebook: payload.facebook,
+			instagram: payload.instagram,
+			twitter: payload.twitter,
+			phone: payload.phone,
+			specials: payload.specials,
+			updated_at: now,
+		})
+		.eq('id', payload.id)
+		.eq('owner_id', payload.userId)
 }
 
 export async function getPlaces(
@@ -214,5 +257,61 @@ export async function getPlaceBySlug(
 		.from(DatabaseTable.PLACE)
 		.select(selectString)
 		.eq('slug', slug)
+		.maybeSingle<Place>()
+}
+
+export async function getPlaceByIdAndOwnerId(
+	supabaseClient: SupabaseClient,
+	{ id, ownerId }: { id: string, ownerId: string },
+) {
+	const placeAttributesSelectString = ['id', 'label', 'key', 'value'].join(',')
+
+	const placeImagesSelectString = [
+		'id',
+		'imageUrl:image_url',
+		'sortOrder:sort_order',
+	].join(',')
+
+	const placeAddressSelectString = [
+		'id',
+		'streetAddress:street_address',
+		'city:city',
+		'state:state',
+		'country:country',
+		'postalCode:postal_code',
+		'coordinates',
+	].join(',')
+
+	const placeRatingSelectString = ['id', 'score:score', 'count:count'].join(
+		',',
+	)
+
+	const selectString = [
+		'id',
+		'slug',
+		'name:name',
+		'website:website',
+		'price',
+		'description:description',
+		'metaTitle:meta_title',
+		'metaDescription:meta_description',
+		'menu',
+		'facebook',
+		'instagram',
+		'twitter',
+		'phone',
+		'specials',
+		'ownerId:owner_id',
+		`address:place_address!inner(${placeAddressSelectString})`,
+		`images:place_image!inner(${placeImagesSelectString})`,
+		`rating:place_rating!inner(${placeRatingSelectString})`,
+		`attributes:place_attribute!inner(${placeAttributesSelectString})`,
+	].join(',')
+
+	return supabaseClient
+		.from(DatabaseTable.PLACE)
+		.select(selectString)
+		.eq('id', id)
+		.eq('owner_id', ownerId)
 		.maybeSingle<Place>()
 }

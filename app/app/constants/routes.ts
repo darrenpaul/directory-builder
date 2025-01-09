@@ -34,6 +34,12 @@ export const adminRoute = {
 	path: '/admin',
 }
 
+export const adminClaimBusinessRoute = {
+	name: 'admin-claim-business',
+	label: 'Admin - Claim Business',
+	path: `${adminRoute.path}/claim`,
+}
+
 export const countryRoute = {
 	name: 'countries',
 	label: 'Countries',

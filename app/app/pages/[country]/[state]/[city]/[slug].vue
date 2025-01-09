@@ -10,6 +10,7 @@ import IconWebsite from '~~/assets/icons/website.svg'
 import IconX from '~~/assets/icons/x.svg'
 import { pageMetaApiRoute, placeApiRoute } from '~~/constants/routes-api'
 import settings from '~~/constants/settings'
+import ClaimBusiness from '~/components/claim-business.vue'
 import PageBreadcrumbs from '~/components/page-breadcrumbs.vue'
 import UrlQueryBuilder from '~/lib/builders/url-query-builder'
 import { joinUrlDirectories } from '~/lib/url-directory-join'
@@ -120,7 +121,11 @@ const breadcrumbs = computed(() => {
 						{{ placeData.name }}
 					</h1>
 
-					<NuxtImg class="h-96 mb-4" :src="placeData.images[0].imageUrl" :alt="placeData.name" />
+					<NuxtImg
+						class="h-96 mb-4"
+						:src="placeData.images[0].imageUrl"
+						:alt="placeData.name"
+					/>
 
 					<div
 						v-if="placeData.website"
@@ -236,6 +241,8 @@ const breadcrumbs = computed(() => {
 					</div>
 
 					<p>{{ placeData.description }}</p>
+
+					<ClaimBusiness :id="placeData.id" />
 				</div>
 
 				<GoogleMap
