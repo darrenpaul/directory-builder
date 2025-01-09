@@ -1,11 +1,11 @@
 import type { asSitemapUrl } from '#imports'
 import { defineSitemapEventHandler } from '#imports'
-import { adminPlaceApiRoute } from '~~/constants/routes-api'
+import { placesApiRoute } from '~~/constants/routes-api'
 import { joinUrlDirectories } from '~/lib/url-directory-join'
 
 export default defineSitemapEventHandler(async () => {
 	const places = await $fetch<ReturnType<typeof asSitemapUrl>>(
-		adminPlaceApiRoute.path,
+		placesApiRoute.path,
 	)
 
 	return places.map(({ address, slug }) =>

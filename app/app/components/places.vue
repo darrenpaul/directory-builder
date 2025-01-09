@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useGeolocation } from '@vueuse/core'
 import IconTrash from '~~/assets/icons/trash.svg'
-import { placeApiRoute } from '~~/constants/routes-api'
+import { placesApiRoute } from '~~/constants/routes-api'
 import PriceRating from '~/components/price-rating.vue'
 import StarRating from '~/components/star-rating.vue'
 import { googlePlaceRequestFields } from '~/constants/google-place-fields'
@@ -90,7 +90,7 @@ async function onSavePlaces() {
 		)
 		await Promise.all(
 			placesWithReviews.map(place =>
-				$fetch(placeApiRoute.path, {
+				$fetch(placesApiRoute.path, {
 					method: 'POST',
 					body: place,
 				}),

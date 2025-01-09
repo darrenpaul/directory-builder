@@ -8,7 +8,7 @@ import IconPhone from '~~/assets/icons/phone.svg'
 import IconRestaurantMenu from '~~/assets/icons/restaurant-menu.svg'
 import IconWebsite from '~~/assets/icons/website.svg'
 import IconX from '~~/assets/icons/x.svg'
-import { pageMetaApiRoute, placeApiRoute } from '~~/constants/routes-api'
+import { pageMetaApiRoute, placesApiRoute } from '~~/constants/routes-api'
 import settings from '~~/constants/settings'
 import ClaimBusiness from '~/components/claim-business.vue'
 import PageBreadcrumbs from '~/components/page-breadcrumbs.vue'
@@ -22,7 +22,7 @@ const pageMetaUrlQueryBuilder = new UrlQueryBuilder(pageMetaApiRoute.path)
 const fetchPromises = []
 
 fetchPromises.push(
-	useFetch<Place>(`${placeApiRoute.path}/${route.params.slug}`, {
+	useFetch<Place>(`${placesApiRoute.path}/${route.params.slug}`, {
 		method: 'GET',
 	}),
 )

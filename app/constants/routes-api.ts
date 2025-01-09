@@ -1,3 +1,9 @@
+export const placesApiRoute = {
+	name: 'place',
+	path: '/api/places/v1',
+	methods: ['GET'],
+}
+
 export const placeRequestApiRoute = {
 	name: 'place-request',
 	path: '/api/place-request/v1',

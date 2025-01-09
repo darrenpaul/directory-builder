@@ -2,7 +2,7 @@
 import type { PageMeta } from '~~/types/page-meta'
 import type { Place } from '~~/types/place'
 import { startCase } from 'lodash-es'
-import { pageMetaApiRoute, placeApiRoute } from '~~/constants/routes-api'
+import { pageMetaApiRoute, placesApiRoute } from '~~/constants/routes-api'
 import settings from '~~/constants/settings'
 import Filter from '~/components/filter.vue'
 import PageBreadcrumbs from '~/components/page-breadcrumbs.vue'
@@ -11,7 +11,7 @@ import UrlQueryBuilder from '~/lib/builders/url-query-builder'
 
 const route = useRoute()
 
-const urlQueryBuilder = new UrlQueryBuilder(placeApiRoute.path)
+const urlQueryBuilder = new UrlQueryBuilder(placesApiRoute.path)
 const pageMetaUrlQueryBuilder = new UrlQueryBuilder(pageMetaApiRoute.path)
 
 const queryUrl = computed(() => {
