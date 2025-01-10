@@ -84,7 +84,7 @@ function closeModal() {
 							Cancel
 						</button>
 
-						<NuxtLink :to="`/admin/claim/${props.id}`" class="btn btn-neutral">
+						<NuxtLink :to="`/account/claim/${props.id}`" class="btn btn-neutral">
 							Claim Store
 						</NuxtLink>
 					</div>
