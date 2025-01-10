@@ -73,7 +73,7 @@ async function onSubmit(event: Event) {
 				v-model="name"
 				name="name"
 				type="text"
-				placeholder="John"
+				placeholder="Enter your name"
 				class="input input-bordered w-full"
 			>
 		</div>
@@ -86,7 +86,7 @@ async function onSubmit(event: Event) {
 				v-model="userEmailAddress"
 				name="email-address"
 				type="email"
-				placeholder="john@example.com"
+				placeholder="Enter your email address"
 				class="input input-bordered w-full"
 			>
 		</div>
@@ -99,7 +99,7 @@ async function onSubmit(event: Event) {
 				v-model="message"
 				name="message"
 				type="text"
-				placeholder="I would like to..."
+				placeholder="Type your message here"
 				class="textarea textarea-bordered w-full h-32 resize-none"
 			/>
 		</div>

@@ -5,7 +5,7 @@ import {
 	useToaster,
 } from '~~/modules/toast-notification-module/runtime'
 import useAuthFormValid from '~/composables/auth-form-valid'
-import { adminRoute, signUpRoute } from '~/constants/routes'
+import { accountRoute, signUpRoute } from '~/constants/routes'
 
 const email = ref<string | null | undefined>()
 const password = ref<string | null | undefined>()
@@ -45,7 +45,7 @@ async function onSubmit(event: Event) {
 
 	clearFields()
 
-	await router.push(adminRoute.path)
+	await router.push(accountRoute.path)
 }
 </script>
 
@@ -62,7 +62,7 @@ async function onSubmit(event: Event) {
 				v-model.trim="email"
 				name="email"
 				type="email"
-				placeholder="john@company.com"
+				placeholder="Enter your email address"
 				class="input input-bordered border-2 w-full"
 				:class="emailValid ? 'input-error' : 'border-neutral'"
 			>
@@ -79,7 +79,7 @@ async function onSubmit(event: Event) {
 				v-model.trim="password"
 				name="password"
 				type="password"
-				placeholder="R@nd0mP@55wOrd"
+				placeholder="Enter your password"
 				class="input input-bordered border-2 w-full"
 				:class="passwordValid ? 'input-error' : 'border-neutral'"
 			>

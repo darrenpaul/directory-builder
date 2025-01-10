@@ -8,26 +8,30 @@ import Filter from '~/components/filter.vue'
 import PageBreadcrumbs from '~/components/page-breadcrumbs.vue'
 import PlaceList from '~/components/place-list.vue'
 import UrlQueryBuilder from '~/lib/builders/url-query-builder'
+import { joinUrlDirectories } from '~/lib/url-directory-join'
+
+const initialLimit = 10
 
 const route = useRoute()
+const limit = ref<number>(initialLimit)
 
 const urlQueryBuilder = new UrlQueryBuilder(placesApiRoute.path)
 const pageMetaUrlQueryBuilder = new UrlQueryBuilder(pageMetaApiRoute.path)
 
 const queryUrl = computed(() => {
-	const params = route?.params as Record<string, string>
-	const query = route.query as Record<string, string>
-
 	const paramsAndQueries = {
-		...params,
-		...query,
+		...(route?.params as Record<string, string>),
+		...(route.query as Record<string, string>),
 	}
 
 	return urlQueryBuilder
 		.withBusinessName(paramsAndQueries)
-		.withCountryName(paramsAndQueries)
+		.withStateName(paramsAndQueries)
 		.withCityName(paramsAndQueries)
 		.withPostalCode(paramsAndQueries)
+		.withAllowsDogs(paramsAndQueries)
+		.withHasWifi(paramsAndQueries)
+		.withLimit({ limit: limit.value })
 		.build()
 })
 
@@ -43,14 +47,18 @@ fetchPromises.push(
 	),
 )
 
-const [{ data: placeData, error: placeError }, { data: pageMetaData }]
+const [{ data, error }, { data: pageMetaData }]
   = await Promise.all(fetchPromises)
 
-if (placeError.value) {
+if (error.value) {
 	throw createError({
 		statusCode: 500,
-		statusMessage: placeError.value?.message,
+		statusMessage: error.value?.message,
 	})
+}
+
+async function onLoadMore() {
+	limit.value += initialLimit
 }
 
 useHead({
@@ -76,22 +84,45 @@ defineWebPage({
 	'@type': 'WebPage',
 	'image': pageMetaData.value?.image || '',
 })
+
+const breadcrumbs = computed(() => {
+	return [
+		{
+			id: route.params.country,
+			url: joinUrlDirectories([route.params.country]),
+			label: startCase(route.params.country),
+		},
+		{
+			id: route.params.country,
+			url: joinUrlDirectories([route.params.country, route.params.state]),
+			label: startCase(route.params.state),
+		},
+	]
+})
 </script>
 
 <template>
 	<div class="py-8">
 		<div class="w-full max-w-screen-2xl mx-auto px-4">
-			<PageBreadcrumbs :crumbs="[]" />
+			<PageBreadcrumbs :crumbs="breadcrumbs" />
 
 			<Filter />
 
 			<PlaceList
-				v-if="placeData"
+				v-if="data.data"
 				key-id="latest"
 				class="mb-8"
-				:places="placeData"
-				:label="`Discover Coffee Shops in ${startCase(route.params.country as string)}`"
+				:places="data.data"
+				:label="`Discover Coffee Shops in ${startCase(route.params.city as string)}`"
 			/>
+
+			<button
+				v-if="data.count > limit"
+				class="btn btn-block btn-neutral btn-outline"
+				@click="onLoadMore"
+			>
+				Load More
+			</button>
 		</div>
 	</div>
 </template>

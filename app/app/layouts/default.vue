@@ -13,7 +13,7 @@ import {
 	useToaster,
 } from '~~/modules/toast-notification-module/runtime'
 import Footer from '~/components/footer.vue'
-import Navigation from '~/components/navigation/index.vue'
+import Navigation from '~/components/navigation.vue'
 import SearchByList from '~/components/search-by/search-by-list.vue'
 import {
 	searchByLinkForCities,

@@ -6,7 +6,7 @@ import {
 	useToaster,
 } from '~~/modules/toast-notification-module/runtime'
 import useAuthFormValid from '~/composables/auth-form-valid'
-import { adminRoute, signInRoute } from '~/constants/routes'
+import { accountRoute, signInRoute } from '~/constants/routes'
 
 const firstName = ref<string | null | undefined>()
 const lastName = ref<string | null | undefined>()
@@ -92,7 +92,7 @@ async function onSubmit(event: Event) {
 
 	clearFields()
 
-	await router.push(adminRoute.path)
+	await router.push(accountRoute.path)
 }
 </script>
 

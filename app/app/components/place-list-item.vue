@@ -30,13 +30,13 @@ const profileUrl = computed(() => {
 
 <template>
 	<div class="card lg:card-side bg-base-100 shadow-md w-full h-fit lg:h-64">
-		<figure class="w-full lg:w-96 h-full flex-shrink-0">
+		<figure class="w-full lg:w-64 h-full flex-shrink-0">
 			<NuxtImg
 				v-if="firstImage"
 				:src="firstImage.imageUrl"
 				:alt="props.place.name"
 				:loading="index < 4 ? 'eager' : 'lazy'"
-				class="w-full lg:w-96 h-64 lg:h-full object-cover"
+				class="w-full lg:w-64 h-64 lg:h-full object-cover"
 			/>
 			<IconNoImage v-else filled :font-controlled="false" class="w-24 h-24" />
 		</figure>

@@ -1,5 +1,5 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
-import type { Place, PlaceResponse } from '~~/types/place'
+import type { Place } from '~~/types/place'
 import { kebabCase } from 'lodash-es'
 import { DatabaseTable } from '~~/constants/database-table'
 
@@ -163,7 +163,9 @@ export async function getPlaces(
 		`attributes:place_attribute!inner(${placeAttributesSelectString})`,
 	].join(',')
 
-	const sbQuery = supabaseClient.from(DatabaseTable.PLACE).select(selectString)
+	const sbQuery = supabaseClient
+		.from(DatabaseTable.PLACE)
+		.select(selectString, { count: 'exact', head: false })
 
 	if (queryParams.businessName) {
 		sbQuery.ilike('name', `%${queryParams.businessName.toLowerCase()}%`)
@@ -198,18 +200,29 @@ export async function getPlaces(
 		sbQuery.limit(Number.parseInt(queryParams.limit))
 	}
 
-	const { data, error } = await sbQuery
-		.order('created_at', { ascending: false })
-		.limit(1, { foreignTable: 'place_image' })
-		.returns<PlaceResponse[]>()
+	if (queryParams.allowsDogs) {
+		sbQuery.eq('place_attribute.key', 'allowsDogs')
+		sbQuery.eq('place_attribute.value', true)
+	}
 
-	return { data, error }
+	if (queryParams.hasWifi) {
+		sbQuery.eq('place_attribute.key', 'hasWifi')
+		sbQuery.eq('place_attribute.value', true)
+	}
+
+	return await sbQuery
+		.order('created_at', { ascending: false })
+		.order('sort_order', { referencedTable: 'place_image', ascending: true })
+		.limit(1, { foreignTable: 'place_image' })
+		.returns<Place[]>()
 }
 
 export async function getPlaceBySlug(
 	supabaseClient: SupabaseClient,
 	slug: string,
 ) {
+	const placeVerifiedSelectString = ['id', 'status'].join(',')
+
 	const placeAttributesSelectString = ['id', 'label', 'key', 'value'].join(',')
 
 	const placeImagesSelectString = [
@@ -251,6 +264,7 @@ export async function getPlaceBySlug(
 		`images:place_image!inner(${placeImagesSelectString})`,
 		`rating:place_rating!inner(${placeRatingSelectString})`,
 		`attributes:place_attribute!inner(${placeAttributesSelectString})`,
+		`verified:place_verified(${placeVerifiedSelectString})`,
 	].join(',')
 
 	return await supabaseClient

@@ -8,7 +8,7 @@ export default defineSitemapEventHandler(async () => {
 		placesApiRoute.path,
 	)
 
-	return places.map(({ address, slug }) =>
+	return places.data.map(({ address, slug }) =>
 		joinUrlDirectories([address.country, address.state, address.city, slug]),
 	)
 })

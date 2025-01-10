@@ -35,7 +35,7 @@ function closeModal() {
 
 <template>
 	<div>
-		<button class="btn btn-neutral" @click="openModal">
+		<button class="btn btn-neutral animate-bounce" @click="openModal">
 			Claim Business
 		</button>
 
@@ -44,11 +44,35 @@ function closeModal() {
 				<p class="text-2xl font-bold">
 					Claim Your Business
 				</p>
-				<p>
-					Get verified and take control of your coffee shop listing! For
-					<span class="text-lg font-bold">R99 per month</span>, you'll receive:
+
+				<p class="mb-3">
+					Get verified and take control of your coffee shop listing!
 				</p>
-				<p>Ready to manage your coffee shop's presence on Nearby Coffee?</p>
+
+				<p class="text-lg mb-3">
+					Get verified for only
+					<span class="text-lg font-bold">R99 per month</span>!
+				</p>
+
+				<p class="text-xl font-semibold">
+					Benefits of getting verified
+				</p>
+
+				<ul class="list-disc list-inside text-left mb-3">
+					<li>Receive a verified badge on your listing.</li>
+					<li>
+						Verified listing will always appear before unverified listings.
+					</li>
+					<li>Manage your listing's presence on Nearby Coffee.</li>
+					<li>
+						Receive a monthly report on how many views your listing received.
+					</li>
+				</ul>
+
+				<p class="mb-3">
+					Ready to manage your coffee shop's presence on Nearby Coffee?
+				</p>
+
 				<p>
 					Click below to claim your page and start updating your information
 					today.
@@ -61,7 +85,7 @@ function closeModal() {
 						</button>
 
 						<NuxtLink :to="`/admin/claim/${props.id}`" class="btn btn-neutral">
-							I am Ready to Claim
+							Claim Store
 						</NuxtLink>
 					</div>
 				</div>

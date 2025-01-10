@@ -16,7 +16,8 @@ const zodSchema = new ZodSchemaBuilder()
 	.build()
 
 const route = useRoute()
-const { userAuthenticated, user } = await useUser()
+const { userAuthenticated } = await useUser()
+const user = useSupabaseUser()
 
 userAuthenticated(user)
 

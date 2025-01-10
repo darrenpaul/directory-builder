@@ -1,13 +1,6 @@
-export interface PlaceResponse {
+export interface PlaceVerified {
 	id: string
-	slug: string
-	name: string
-	website: string
-	price: string
-	address: PlaceAddress[]
-	images: PlaceImage[]
-	rating: PlaceRating[]
-	attributes: PlaceAttribute[]
+	status: string
 }
 
 export interface PlaceAttribute {
@@ -36,6 +29,7 @@ export interface Place {
 	images: PlaceImage[]
 	rating: PlaceRating
 	attributes: PlaceAttribute[]
+	verified: PlaceVerified | null
 }
 
 export interface PlaceRating {

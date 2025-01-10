@@ -67,11 +67,31 @@ export default class UrlQueryBuilder {
 		return this
 	}
 
-	withLimit({ limit }: Record<string, string>) {
+	withLimit({ limit }: Record<string, number>) {
 		this.queryParams.delete('limit')
 
 		if (limit) {
 			this.queryParams.append('limit', limit)
+		}
+
+		return this
+	}
+
+	withAllowsDogs({ allowsDogs }: Record<string, string>) {
+		this.queryParams.delete('allowsDogs')
+
+		if (allowsDogs) {
+			this.queryParams.append('allowsDogs', allowsDogs)
+		}
+
+		return this
+	}
+
+	withHasWifi({ hasWifi }: Record<string, string>) {
+		this.queryParams.delete('hasWifi')
+
+		if (hasWifi) {
+			this.queryParams.append('hasWifi', hasWifi)
 		}
 
 		return this

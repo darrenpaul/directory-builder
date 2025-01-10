@@ -2,7 +2,7 @@
 
 <template>
 	<div
-		class="h-full w-full flex flex-col gap-8 lg:grid grid-cols-2 items-center overflow-hidden rounded-2xl"
+		class="h-full w-full flex flex-col gap-8 lg:grid grid-cols-2 items-center overflow-hidden rounded-2xl bg-base-200"
 	>
 		<div class="max-h-screen">
 			<NuxtImg

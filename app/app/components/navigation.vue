@@ -2,7 +2,21 @@
 import IconBrand from '~~/assets/icons/brand.svg'
 import IconMenu from '~~/assets/icons/menu.svg'
 import SubmitCoffeeShop from '~/components/submit-coffee-shop.vue'
-import { homeRoute, navigationRoutes } from '~/constants/routes'
+import {
+	homeRoute,
+	navigationAuthenticatedRoutes,
+	navigationRoutes,
+} from '~/constants/routes'
+
+const user = useSupabaseUser()
+
+const visibleRoutes = computed(() => {
+	if (user.value) {
+		return navigationAuthenticatedRoutes
+	}
+
+	return navigationRoutes
+})
 </script>
 
 <template>
@@ -19,9 +33,10 @@ import { homeRoute, navigationRoutes } from '~/constants/routes'
 
 			<div class="hidden md:flex items-center gap-8">
 				<NuxtLink
-					v-for="route in navigationRoutes"
+					v-for="route in visibleRoutes"
 					:key="route.name"
 					:to="route.path"
+					active-class="font-bold underline"
 				>
 					{{ route.label }}
 				</NuxtLink>
@@ -42,7 +57,7 @@ import { homeRoute, navigationRoutes } from '~/constants/routes'
 						class="drawer-overlay"
 					/>
 					<ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
-						<li v-for="route in navigationRoutes" :key="route.name">
+						<li v-for="route in visibleRoutes" :key="route.name">
 							<NuxtLink :to="route.path">
 								{{ route.label }}
 							</NuxtLink>

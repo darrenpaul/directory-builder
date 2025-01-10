@@ -6,11 +6,12 @@ import IconFacebook from '~~/assets/icons/facebook.svg'
 import IconInstagram from '~~/assets/icons/instagram.svg'
 import IconPhone from '~~/assets/icons/phone.svg'
 import IconRestaurantMenu from '~~/assets/icons/restaurant-menu.svg'
+import IconVerified from '~~/assets/icons/verified.svg'
 import IconWebsite from '~~/assets/icons/website.svg'
 import IconX from '~~/assets/icons/x.svg'
 import { pageMetaApiRoute, placesApiRoute } from '~~/constants/routes-api'
 import settings from '~~/constants/settings'
-import ClaimBusiness from '~/components/claim-business.vue'
+import { Status } from '~~/constants/status'
 import PageBreadcrumbs from '~/components/page-breadcrumbs.vue'
 import UrlQueryBuilder from '~/lib/builders/url-query-builder'
 import { joinUrlDirectories } from '~/lib/url-directory-join'
@@ -116,13 +117,33 @@ const breadcrumbs = computed(() => {
 			<PageBreadcrumbs :crumbs="breadcrumbs" />
 
 			<div class="grid grid-cols-2 gap-6">
-				<div>
-					<h1 class="text-2xl font-bold mb-4">
-						{{ placeData.name }}
-					</h1>
+				<div class="flex items-center justify-between gap-2 mb-4">
+					<span class="flex items-center justify-between gap-2">
+						<IconVerified
+							v-if="
+								placeData.verified
+									&& placeData.verified.status === Status.APPROVED
+							"
+							filled
+							:font-controlled="false"
+							class="w-8 h-8"
+						/>
 
+						<h1 class="text-2xl font-bold">
+							{{ placeData.name }}
+						</h1>
+					</span>
+					<ClaimBusiness
+						v-if="placeData.verified === null"
+						:id="placeData.id"
+					/>
+				</div>
+			</div>
+
+			<div class="grid grid-cols-2 gap-6">
+				<div>
 					<NuxtImg
-						class="h-96 mb-4"
+						class="w-full h-96 mb-4 object-cover"
 						:src="placeData.images[0].imageUrl"
 						:alt="placeData.name"
 					/>
@@ -241,8 +262,6 @@ const breadcrumbs = computed(() => {
 					</div>
 
 					<p>{{ placeData.description }}</p>
-
-					<ClaimBusiness :id="placeData.id" />
 				</div>
 
 				<GoogleMap

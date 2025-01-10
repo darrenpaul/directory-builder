@@ -1,4 +1,3 @@
-import type { Place } from '~~/types/place'
 import { serverSupabaseServiceRole } from '#supabase/server'
 import { getPlaces } from '~~/database/place'
 
@@ -7,11 +6,14 @@ export default defineEventHandler(async (event) => {
 
 	const queryParams: Record<string, string> = getQuery(event)
 
-	const { data } = await getPlaces(supabase, queryParams)
+	const { data, error, count } = await getPlaces(supabase, queryParams)
 
-	if (!data) {
-		return [] as Place[]
+	if (error) {
+		throw createError({
+			statusCode: 500,
+			statusMessage: error.message,
+		})
 	}
 
-	return data
+	return { data, count }
 })

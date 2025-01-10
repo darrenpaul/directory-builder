@@ -127,53 +127,53 @@ async function onCreatePlaceRequest() {
 				</p>
 
 				<div class="input-group">
-					<label class="label" for="comapny-name">Coffee Shop Name</label>
+					<label class="label" for="comapny-name">Name</label>
 
 					<input
 						id="comapny-name"
 						v-model="companyName"
 						name="comapny-name"
 						type="text"
-						placeholder="Cool Coffees"
+						placeholder="Enter the name of the coffee shop"
 						class="input input-bordered w-full"
 					>
 				</div>
 
 				<div class="input-group">
-					<label class="label" for="country">Country of Coffee Shop</label>
+					<label class="label" for="country">Country</label>
 
 					<input
 						id="country"
 						v-model="country"
 						name="country"
 						type="text"
-						placeholder="South Africa"
+						placeholder="Which country is the coffee shop in?"
 						class="input input-bordered w-full"
 					>
 				</div>
 
 				<div class="input-group">
-					<label class="label" for="city">City of Coffee Shop</label>
+					<label class="label" for="city">City</label>
 
 					<input
 						id="city"
 						v-model="city"
 						name="city"
 						type="text"
-						placeholder="Cape Town"
+						placeholder="Which city is the coffee shop in?"
 						class="input input-bordered w-full"
 					>
 				</div>
 
 				<div class="input-group">
-					<label class="label" for="email-address">Your Email Address</label>
+					<label class="label" for="email-address">Email Address</label>
 
 					<input
 						id="email-address"
 						v-model="emailAddress"
 						name="email-address"
 						type="email"
-						placeholder="john@example.com"
+						placeholder="Enter your email address"
 						class="input input-bordered w-full"
 					>
 				</div>

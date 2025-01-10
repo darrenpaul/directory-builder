@@ -88,14 +88,14 @@ async function onNewsletterSubmit() {
 			</p>
 			<fieldset class="form-control w-80">
 				<label class="label">
-					<span class="label-text">Enter your email address</span>
+					<span class="label-text">Email Address</span>
 				</label>
 				<div class="join">
 					<input
 						v-model="emailAddress"
 						name="email"
 						type="email"
-						placeholder="john@example.com"
+						placeholder="Enter your email address"
 						class="input input-bordered join-item"
 					>
 					<button

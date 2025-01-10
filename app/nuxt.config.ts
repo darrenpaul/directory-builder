@@ -58,7 +58,7 @@ export default defineNuxtConfig({
 		redirectOptions: {
 			login: signInRoute.path,
 			callback: '/confirm',
-			include: ['/admin(/*)?'],
+			include: ['/account(/*)?'],
 			cookieRedirect: false,
 			exclude: [],
 		},
@@ -82,7 +82,13 @@ export default defineNuxtConfig({
 	},
 	sitemap: {
 		gzip: true,
-		exclude: ['/confirm/**', '/auth/**', '/admin'],
+		exclude: [
+			'/confirm/**',
+			'/auth/**',
+			'/account/**',
+			'/logout',
+			'/stripe/**',
+		],
 		sources: [
 			// '/api/__sitemap__/countries',
 			// '/api/__sitemap__/states',

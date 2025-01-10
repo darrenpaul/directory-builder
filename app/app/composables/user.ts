@@ -1,5 +1,4 @@
 import type { User } from '@supabase/supabase-js'
-import { userApiRoute } from '~~/constants/routes-api'
 import {
 	ERROR,
 	useToaster,
@@ -8,10 +7,6 @@ import {
 export default async function () {
 	const router = useRouter()
 	const { createNotification } = useToaster()
-
-	const { data } = await useFetch<User>(userApiRoute.path, {
-		method: 'GET',
-	})
 
 	function userAuthenticated(user: User | null) {
 		if (user) {
@@ -42,7 +37,6 @@ export default async function () {
 	}
 
 	return {
-		user: data.value,
 		userAuthenticated,
 		userClaimsSiteAdmin,
 	}

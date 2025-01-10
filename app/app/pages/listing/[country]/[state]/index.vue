@@ -10,25 +10,28 @@ import PlaceList from '~/components/place-list.vue'
 import UrlQueryBuilder from '~/lib/builders/url-query-builder'
 import { joinUrlDirectories } from '~/lib/url-directory-join'
 
+const initialLimit = 10
+
 const route = useRoute()
+const limit = ref<number>(initialLimit)
 
 const urlQueryBuilder = new UrlQueryBuilder(placesApiRoute.path)
 const pageMetaUrlQueryBuilder = new UrlQueryBuilder(pageMetaApiRoute.path)
 
 const queryUrl = computed(() => {
-	const params = route?.params as Record<string, string>
-	const query = route.query as Record<string, string>
-
 	const paramsAndQueries = {
-		...params,
-		...query,
+		...(route?.params as Record<string, string>),
+		...(route.query as Record<string, string>),
 	}
 
 	return urlQueryBuilder
 		.withBusinessName(paramsAndQueries)
-		.withCountryName(paramsAndQueries)
+		.withStateName(paramsAndQueries)
 		.withCityName(paramsAndQueries)
 		.withPostalCode(paramsAndQueries)
+		.withAllowsDogs(paramsAndQueries)
+		.withHasWifi(paramsAndQueries)
+		.withLimit({ limit: limit.value })
 		.build()
 })
 
@@ -44,14 +47,18 @@ fetchPromises.push(
 	),
 )
 
-const [{ data: placeData, error: placeError }, { data: pageMetaData }]
+const [{ data, error }, { data: pageMetaData }]
   = await Promise.all(fetchPromises)
 
-if (placeError.value) {
+if (error.value) {
 	throw createError({
 		statusCode: 500,
-		statusMessage: placeError.value?.message,
+		statusMessage: error.value?.message,
 	})
+}
+
+async function onLoadMore() {
+	limit.value += initialLimit
 }
 
 useHead({
@@ -97,12 +104,20 @@ const breadcrumbs = computed(() => {
 			<Filter />
 
 			<PlaceList
-				v-if="placeData"
+				v-if="data.data"
 				key-id="latest"
 				class="mb-8"
-				:places="placeData"
+				:places="data.data"
 				:label="`Discover Coffee Shops in ${startCase(route.params.state as string)}`"
 			/>
+
+			<button
+				v-if="data.count > limit"
+				class="btn btn-block btn-neutral btn-outline"
+				@click="onLoadMore"
+			>
+				Load More
+			</button>
 		</div>
 	</div>
 </template>

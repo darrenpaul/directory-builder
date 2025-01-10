@@ -4,8 +4,8 @@ import { stripeSubscriptionsApiRoute } from '~~/modules/stripe/runtime/constants
 import useUser from '~/composables/user'
 
 const route = useRoute()
-
-const { userAuthenticated, user } = await useUser()
+const user = useSupabaseUser()
+const { userAuthenticated } = useUser()
 
 userAuthenticated(user)
 
