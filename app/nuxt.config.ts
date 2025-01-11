@@ -111,7 +111,7 @@ export default defineNuxtConfig({
 		// useDirective: true,
 		// ignoreLocalhost: true,
 		// excludeQueryParams: false,
-		domains: [settings.domain],
+		// domains: [settings.domain],
 		// customEndpoint: '/my-custom-endpoint',
 		// logErrors: true,
 	},
