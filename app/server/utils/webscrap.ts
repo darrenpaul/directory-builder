@@ -1,7 +1,7 @@
 import puppeteer from 'puppeteer'
 
 export async function scrapWebsite(url: string) {
-	if (!url) {
+	if (!url || url.includes('facebook') || url.includes('instagram')) {
 		return { textContent: null, links: null }
 	}
 
@@ -73,10 +73,7 @@ export async function scrapWebsite(url: string) {
 		}
 	}
 	catch {
-		throw createError({
-			statusCode: 500,
-			statusMessage: 'Something went wrong while scraping the website',
-		})
+		return { textContent: null, links: null }
 	}
 	finally {
 		await browser.close()

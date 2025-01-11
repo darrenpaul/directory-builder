@@ -87,7 +87,7 @@ export async function genearateDescriptionAndMetaInformation(
 }
 
 export async function getUrls(content: string | null | undefined) {
-	if (!content) {
+	if (!content || content.length < 0) {
 		return {
 			menu: null,
 			facebook: null,

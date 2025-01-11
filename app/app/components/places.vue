@@ -176,7 +176,7 @@ async function onSavePlaces() {
 				:key="place.googlePlaceId"
 				class="flex p-4 gap-8 shadow-lg border rounded-xl w-full max-"
 			>
-				<div class="w-full">
+				<div class="w-full flex flex-col gap-3">
 					<p>
 						{{ place.displayName }}
 					</p>
@@ -192,6 +192,10 @@ async function onSavePlaces() {
 						:id="`price-${place.googlePlaceId}`"
 						:price="place.price"
 					/>
+
+					<NuxtLink target="_blank" :to="place.website">
+						{{ place.website }}
+					</NuxtLink>
 
 					<p>{{ place.city }}, {{ place.country }}</p>
 				</div>
