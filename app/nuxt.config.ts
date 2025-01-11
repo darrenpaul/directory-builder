@@ -32,6 +32,7 @@ export default defineNuxtConfig({
 		'@nuxt/image',
 		'nuxt-umami',
 		'nuxt-tiptap-editor',
+		'@nuxtjs/google-adsense',
 	],
 	typescript: {
 		strict: true,
@@ -109,10 +110,13 @@ export default defineNuxtConfig({
 		autoTrack: true,
 		proxy: 'direct',
 		// useDirective: true,
-		// ignoreLocalhost: true,
+		ignoreLocalhost: true,
 		// excludeQueryParams: false,
 		// domains: [settings.domain],
 		// customEndpoint: '/my-custom-endpoint',
 		// logErrors: true,
+	},
+	googleAdsense: {
+		id: process.env.NUXT_PUBLIC_GOOGLE_ADSENSE_ID,
 	},
 })
