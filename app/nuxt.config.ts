@@ -72,6 +72,7 @@ export default defineNuxtConfig({
 	routeRules: {
 		'/': { isr: 3600 },
 		'/contact': { isr: 3600 },
+		'/south-africa': { redirect: '/listing/south-africa' },
 	},
 	site: {
 		url: settings.siteUrl,
@@ -110,7 +111,7 @@ export default defineNuxtConfig({
 		// useDirective: true,
 		// ignoreLocalhost: true,
 		// excludeQueryParams: false,
-		// domains: [settings.domain],
+		domains: [settings.domain],
 		// customEndpoint: '/my-custom-endpoint',
 		// logErrors: true,
 	},
