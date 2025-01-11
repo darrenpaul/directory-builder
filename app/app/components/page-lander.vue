@@ -15,23 +15,19 @@
 
 		<div class="text-center mx-auto max-w-[80ch] px-4">
 			<h1 class="text-5xl font-bold mb-4">
-				Discover Your Perfect Cup at Cape Town's Best Coffee Shops
+				{{ $t('home.lander.title') }}
 			</h1>
 
 			<h2 class="mb-4">
-				Find exceptional coffee spots around Cape Town with Nearby Coffee - your
-				local guide to the city's vibrant café culture. From hidden gems in City
-				Bowl to seaside spots in Sea Point, explore artisanal roasteries, cozy
-				cafés, and specialty coffee houses just moments away.
+				{{ $t('home.lander.description1') }}
 			</h2>
 
 			<p class="mb-4 text-xl">
-				Start exploring Cape Town's coffee culture today - your next great cup
-				is just around the corner.
+				{{ $t('home.lander.description2') }}
 			</p>
 
 			<NuxtLink to="#search-form" class="btn btn-lg btn-neutral mb-4">
-				Find Coffee
+				{{ $t('home.lander.ctaButton') }}
 			</NuxtLink>
 		</div>
 	</div>

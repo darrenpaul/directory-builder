@@ -8,6 +8,10 @@ import PageLander from '~/components/page-lander.vue'
 import PlaceList from '~/components/place-list.vue'
 import UrlQueryBuilder from '~/lib/builders/url-query-builder'
 
+const {
+	public: { googleAdsenseId },
+} = useRuntimeConfig()
+
 const initialLimit = 10
 
 const route = useRoute()
@@ -86,11 +90,11 @@ defineWebPage({
 	<div class="mb-8">
 		<PageLander />
 
-		<div class="max-h-96 h-auto mb-8">
-			<!-- <ScriptGoogleAdsense
+		<div class="max-h-96 h-fit mb-8">
+			<ScriptGoogleAdsense
 				:data-ad-client="googleAdsenseId"
 				data-ad-slot="8638864193"
-			/> -->
+			/>
 		</div>
 
 		<div class="w-full max-w-screen-2xl mx-auto px-4">
@@ -102,7 +106,7 @@ defineWebPage({
 					key-id="latest"
 					class="mb-4"
 					:places="data.data"
-					label="Latest Coffee Shops"
+					:label="$t('home.latestPlace')"
 				/>
 
 				<button
@@ -116,20 +120,18 @@ defineWebPage({
 
 			<div>
 				<p class="text-2xl mb-3">
-					Why Choose Nearby Coffee
+					{{ $t('home.whyChoose.title') }}
 				</p>
 				<ul class="list-disc list-inside text-left">
-					<li>Real-time updates on operating hours and locations</li>
-					<li>Detailed reviews from local coffee enthusiasts</li>
-					<li>Curated lists of specialty roasters and brew methods</li>
-					<li>Quick filters for wifi, workspace, and outdoor seating</li>
-					<li>Neighborhood-specific coffee guides</li>
+					<li>{{ $t('home.whyChoose.point1') }}</li>
+					<li>{{ $t('home.whyChoose.point2') }}</li>
+					<li>{{ $t('home.whyChoose.point3') }}</li>
+					<li>{{ $t('home.whyChoose.point4') }}</li>
+					<li>{{ $t('home.whyChoose.point5') }}</li>
 				</ul>
 
 				<p>
-					Whether you're a local seeking your new favorite spot or a visitor
-					exploring Cape Town's coffee scene, Nearby Coffee connects you with
-					the perfect café experience.
+					{{ $t('home.whyChoose.description') }}
 				</p>
 			</div>
 		</div>

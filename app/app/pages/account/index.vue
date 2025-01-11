@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import Places from '~/components/places.vue'
+// import Places from '~/components/places.vue'
 </script>
 
 <template>
 	<div class="mb-8">
-		<Places />
+		<!-- <Places /> -->
 	</div>
 </template>

@@ -116,8 +116,8 @@ const breadcrumbs = computed(() => {
 		<div class="w-full max-w-screen-2xl mx-auto px-4">
 			<PageBreadcrumbs :crumbs="breadcrumbs" />
 
-			<div class="grid grid-cols-2 gap-6">
-				<div class="flex items-center justify-between gap-2 mb-4">
+			<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+				<div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-2 mb-4">
 					<span class="flex items-center justify-between gap-2">
 						<IconVerified
 							v-if="
@@ -133,6 +133,7 @@ const breadcrumbs = computed(() => {
 							{{ placeData.name }}
 						</h1>
 					</span>
+
 					<ClaimBusiness
 						v-if="placeData.verified === null"
 						:id="placeData.id"
@@ -140,7 +141,7 @@ const breadcrumbs = computed(() => {
 				</div>
 			</div>
 
-			<div class="grid grid-cols-2 gap-6">
+			<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 				<div>
 					<NuxtImg
 						class="w-full h-96 mb-4 object-cover"

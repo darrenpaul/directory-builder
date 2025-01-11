@@ -94,7 +94,7 @@ async function onCreatePlaceRequest() {
 
 		createNotification({
 			title: '',
-			message: 'New coffee shop added',
+			message: t('submitPlace.toastSuccess'),
 			type: SUCCESS,
 		})
 
@@ -117,13 +117,13 @@ async function onCreatePlaceRequest() {
 <template>
 	<div>
 		<button class="btn btn-neutral" @click="openModal">
-			Submit Coffee Shop
+			{{ $t('submitPlace.button') }}
 		</button>
 
 		<dialog id="product-variant-modal" ref="modal" class="modal">
 			<div class="modal-box">
 				<p class="text-2xl font-bold">
-					Add a new coffee shop
+					{{ $t('submitPlace.title') }}
 				</p>
 
 				<div class="input-group">
@@ -134,7 +134,7 @@ async function onCreatePlaceRequest() {
 						v-model="companyName"
 						name="comapny-name"
 						type="text"
-						placeholder="Enter the name of the coffee shop"
+						placeholder="Enter the name of the place"
 						class="input input-bordered w-full"
 					>
 				</div>
@@ -147,7 +147,7 @@ async function onCreatePlaceRequest() {
 						v-model="country"
 						name="country"
 						type="text"
-						placeholder="Which country is the coffee shop in?"
+						placeholder="Which country is it located in?"
 						class="input input-bordered w-full"
 					>
 				</div>
@@ -160,7 +160,7 @@ async function onCreatePlaceRequest() {
 						v-model="city"
 						name="city"
 						type="text"
-						placeholder="Which city is the coffee shop in?"
+						placeholder="Which city is it located in?"
 						class="input input-bordered w-full"
 					>
 				</div>

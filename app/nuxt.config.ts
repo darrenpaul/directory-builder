@@ -32,6 +32,7 @@ export default defineNuxtConfig({
 		'@nuxt/image',
 		'nuxt-umami',
 		'nuxt-tiptap-editor',
+		'@nuxtjs/i18n',
 	],
 	typescript: {
 		strict: true,
@@ -115,5 +116,10 @@ export default defineNuxtConfig({
 		// domains: [settings.domain],
 		// customEndpoint: '/my-custom-endpoint',
 		// logErrors: true,
+	},
+	i18n: {
+		vueI18n: './locale/nearby-coffee.ts',
+		locales: ['en'],
+		defaultLocale: 'en',
 	},
 })

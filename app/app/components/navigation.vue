@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import IconBrand from '~~/assets/icons/brand.svg'
 import IconMenu from '~~/assets/icons/menu.svg'
-import SubmitCoffeeShop from '~/components/submit-coffee-shop.vue'
+import SubmitPlace from '~/components/submit-place.vue'
 import {
 	homeRoute,
 	navigationAuthenticatedRoutes,
@@ -41,7 +41,7 @@ const visibleRoutes = computed(() => {
 					{{ route.label }}
 				</NuxtLink>
 
-				<SubmitCoffeeShop />
+				<SubmitPlace />
 			</div>
 
 			<div class="drawer drawer-end block md:hidden w-fit">
@@ -63,7 +63,7 @@ const visibleRoutes = computed(() => {
 							</NuxtLink>
 						</li>
 
-						<SubmitCoffeeShop class="mt-8" />
+						<SubmitPlace class="mt-8" />
 					</ul>
 				</div>
 			</div>
