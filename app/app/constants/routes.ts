@@ -40,13 +40,6 @@ export const accountRoute = {
 	auth: true,
 }
 
-export const adminClaimBusinessRoute = {
-	name: 'admin-claim-business',
-	label: 'Admin - Claim Business',
-	path: `${accountRoute.path}/claim`,
-	auth: true,
-}
-
 export const listingRoute = {
 	name: 'listing',
 	label: 'Listing',

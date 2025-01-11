@@ -8,7 +8,7 @@ export default async function () {
 	const router = useRouter()
 	const { createNotification } = useToaster()
 
-	function userAuthenticated(user: User | null) {
+	function userAuthenticated(user: User | null | undefined) {
 		if (user) {
 			return
 		}

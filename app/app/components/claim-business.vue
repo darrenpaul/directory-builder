@@ -1,7 +1,16 @@
 <script setup lang="ts">
+import { StripePriceId } from '~~/constants/stripe-price-id'
+import { stripeSubscriptionsApiRoute } from '~~/modules/stripe/runtime/constants/routes-api'
+import useUser from '~/composables/user'
+
 const props = defineProps({
 	id: { type: String, required: true },
 })
+
+const route = useRoute()
+const user = useSupabaseUser()
+
+const { userAuthenticated } = await useUser()
 
 const modal = ref<HTMLDialogElement>()
 const loading = ref(false)
@@ -29,6 +38,27 @@ function openModal() {
 function closeModal() {
 	if (modal.value) {
 		modal.value.close()
+	}
+}
+
+async function makePayment() {
+	userAuthenticated(user.value)
+
+	const data = await $fetch<{ redirectUri: string }>(
+		stripeSubscriptionsApiRoute.path,
+		{
+			method: 'POST',
+			body: {
+				priceId: StripePriceId.SUBSCRIPTION_PRICE_ID,
+				placeId: props.id,
+			},
+		},
+	)
+
+	const { redirectUri } = data
+
+	if (redirectUri) {
+		navigateTo(redirectUri, { replace: true, external: true })
 	}
 }
 </script>
@@ -84,9 +114,9 @@ function closeModal() {
 							Cancel
 						</button>
 
-						<NuxtLink :to="`/account/claim/${props.id}`" class="btn btn-neutral">
+						<button class="btn btn-neutral" @click="makePayment">
 							Claim Store
-						</NuxtLink>
+						</button>
 					</div>
 				</div>
 			</div>
