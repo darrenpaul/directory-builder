@@ -32,7 +32,6 @@ export default defineNuxtConfig({
 		'@nuxt/image',
 		'nuxt-umami',
 		'nuxt-tiptap-editor',
-		'@nuxtjs/google-adsense',
 	],
 	typescript: {
 		strict: true,
@@ -43,6 +42,7 @@ export default defineNuxtConfig({
 		public: {
 			stripePublicKey: process.env.NUXT_PUBLIC_STRIPE_PUBLIC_KEY,
 			googleMapsApiKey: process.env.NUXT_PUBLIC_GOOGLE_MAPS_API_KEY,
+			googleAdsenseId: process.env.NUXT_PUBLIC_GOOGLE_ADSENSE_ID,
 		},
 	},
 	eslint: {
@@ -115,8 +115,5 @@ export default defineNuxtConfig({
 		// domains: [settings.domain],
 		// customEndpoint: '/my-custom-endpoint',
 		// logErrors: true,
-	},
-	googleAdsense: {
-		id: process.env.NUXT_PUBLIC_GOOGLE_ADSENSE_ID,
 	},
 })

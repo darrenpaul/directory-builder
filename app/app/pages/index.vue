@@ -8,6 +8,10 @@ import PageLander from '~/components/page-lander.vue'
 import PlaceList from '~/components/place-list.vue'
 import UrlQueryBuilder from '~/lib/builders/url-query-builder'
 
+const {
+	public: { googleAdsenseId },
+} = useRuntimeConfig()
+
 const initialLimit = 10
 
 const route = useRoute()
@@ -84,7 +88,14 @@ defineWebPage({
 
 <template>
 	<div class="mb-8">
-		<PageLander class="mb-8" />
+		<PageLander />
+
+		<div class="max-h-96 h-auto mb-8">
+			<ScriptGoogleAdsense
+				:data-ad-client="googleAdsenseId"
+				data-ad-slot="8638864193"
+			/>
+		</div>
 
 		<div class="w-full max-w-screen-2xl mx-auto px-4">
 			<Filter />
