@@ -11,7 +11,6 @@ export default defineNuxtConfig({
 	nitro: {
 		compressPublicAssets: true,
 		prerender: {
-			crawlLinks: true,
 			routes: ['/sitemap.xml', '/robots.txt'],
 		},
 	},
@@ -71,8 +70,7 @@ export default defineNuxtConfig({
 		},
 	},
 	routeRules: {
-		'/': { prerender: true },
-		'/**': { prerender: true },
+		'/': { isr: 3600 },
 		'/contact': { isr: 3600 },
 	},
 	site: {
