@@ -13,6 +13,7 @@ import { stateView } from './schemas/state-view';
 import { cityView } from './schemas/city-view';
 import { userSubscription } from './schemas/user-subscription';
 import { placeVerified } from './schemas/place-verified';
+import { attributeOptionsView } from './schemas/attribute-options-view';
 
 export {
   place,
@@ -30,4 +31,5 @@ export {
   cityView,
   userSubscription,
   placeVerified,
+  attributeOptionsView,
 };

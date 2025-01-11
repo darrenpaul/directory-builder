@@ -26,8 +26,7 @@ const queryUrl = computed(() => {
 		.withBusinessName(paramsAndQueries)
 		.withCityName(paramsAndQueries)
 		.withPostalCode(paramsAndQueries)
-		.withAllowsDogs(paramsAndQueries)
-		.withHasWifi(paramsAndQueries)
+		.withUrlQueryKeys(paramsAndQueries)
 		.withLimit({ limit: limit.value })
 		.build()
 })
@@ -90,21 +89,23 @@ defineWebPage({
 		<div class="w-full max-w-screen-2xl mx-auto px-4">
 			<Filter />
 
-			<PlaceList
-				v-if="data.data"
-				key-id="latest"
-				class="mb-8"
-				:places="data.data"
-				label="Latest Coffee Shops"
-			/>
+			<div class="border-b border-neutral-200 pb-3 mb-6">
+				<PlaceList
+					v-if="data.data"
+					key-id="latest"
+					class="mb-4"
+					:places="data.data"
+					label="Latest Coffee Shops"
+				/>
 
-			<button
-				v-if="data.count > limit"
-				class="btn btn-block btn-neutral btn-outline"
-				@click="onLoadMore"
-			>
-				Load More
-			</button>
+				<button
+					v-if="data.count > limit"
+					class="btn btn-block btn-neutral btn-outline"
+					@click="onLoadMore"
+				>
+					Load More
+				</button>
+			</div>
 
 			<div>
 				<p class="text-2xl mb-3">

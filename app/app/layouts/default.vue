@@ -15,11 +15,17 @@ import {
 import Footer from '~/components/footer.vue'
 import Navigation from '~/components/navigation.vue'
 import SearchByList from '~/components/search-by/search-by-list.vue'
+import useFilters from '~/composables/use-filters'
+
 import {
 	searchByLinkForCities,
 	searchByLinkForCountries,
 	searchByLinkForStates,
 } from '~/lib/search-by-link'
+
+const { fetchAttributeOptions } = useFilters()
+
+await fetchAttributeOptions()
 
 const fetchPromises = []
 

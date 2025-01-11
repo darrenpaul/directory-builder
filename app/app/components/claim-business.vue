@@ -7,7 +7,6 @@ const props = defineProps({
 	id: { type: String, required: true },
 })
 
-const route = useRoute()
 const user = useSupabaseUser()
 
 const { userAuthenticated } = await useUser()

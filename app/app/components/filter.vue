@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import SearchInput from '~/components/search-input.vue'
+import useFilters from '~/composables/use-filters'
 
 const route = useRoute()
 const router = useRouter()
+
+const { attributeOptions } = useFilters()
 
 const queryBusinessName = ref<string | undefined>(
 	(route.query.businessName as string) || undefined,
@@ -12,59 +15,51 @@ const queryPostalCode = ref<string | undefined>(
 	(route.query.postalCode as string) || undefined,
 )
 
-const queryAllowsDogs = ref<string | undefined>(
-	(route.query.allowsDogs as string) || undefined,
-)
+function onAttributeOptionChange(key: string) {
+	const currentUrlQueries = {
+		...(route.query as Record<string, string | null>),
+	}
 
-const queryHasWifi = ref<string | undefined>(
-	(route.query.hasWifi as string) || undefined,
-)
+	if (Object.keys(currentUrlQueries).includes(key)) {
+		currentUrlQueries[key] = null
+	}
+	else {
+		currentUrlQueries[key] = 'true'
+	}
 
-function setAllowsDogs() {
-	queryAllowsDogs.value = route.query.allowsDogs ? '' : 'true'
-	onSearch()
+	onSearch(currentUrlQueries)
 }
 
-function setHasWifi() {
-	queryHasWifi.value = route.query.hasWifi ? '' : 'true'
-	onSearch()
+function updateQueryParams(
+	newQueryParams: Record<string, string | null | undefined>,
+) {
+	const urlQueries: Record<string, string> = {
+		...(route.query as Record<string, string>),
+	}
+
+	Object.entries(newQueryParams).forEach(([key, value]) => {
+		if (value === null || value === undefined || value === '') {
+			delete urlQueries[key]
+		}
+		else {
+			urlQueries[key] = value.toString()
+		}
+	})
+
+	return urlQueries
 }
 
-async function onSearch() {
-	const queryParams = {
-		...route.query,
-	}
-
-	if (queryBusinessName.value) {
-		queryParams.businessName = queryBusinessName.value
-	}
-	else {
-		delete queryParams.businessName
-	}
-
-	if (queryPostalCode.value) {
-		queryParams.postalCode = queryPostalCode.value
-	}
-	else {
-		delete queryParams.postalCode
-	}
-
-	if (queryAllowsDogs.value) {
-		queryParams.allowsDogs = queryAllowsDogs.value
-	}
-	else {
-		delete queryParams.allowsDogs
-	}
-
-	if (queryHasWifi.value) {
-		queryParams.hasWifi = queryHasWifi.value
-	}
-	else {
-		delete queryParams.hasWifi
-	}
+async function onSearch(
+	newUrlQueries: Record<string, string | null | undefined>,
+) {
+	const updatedUrlQueries = updateQueryParams({
+		...newUrlQueries,
+		businessName: queryBusinessName.value,
+		postalCode: queryPostalCode.value,
+	})
 
 	router.push({
-		query: queryParams,
+		query: updatedUrlQueries,
 	})
 }
 </script>
@@ -79,43 +74,41 @@ async function onSearch() {
 				id="business-name"
 				v-model="queryBusinessName"
 				placeholder="Enter a coffee shop name"
-				@keydown.enter="onSearch"
+				@keydown.enter="
+					() => onSearch(route.query as Record<string, string | null>)
+				"
 			/>
 
 			<SearchInput
 				id="postal-code"
 				v-model="queryPostalCode"
 				placeholder="Enter a postal code"
-				@keydown.enter="onSearch"
+				@keydown.enter="
+					() => onSearch(route.query as Record<string, string | null>)
+				"
 			/>
 
 			<button
 				type="button"
 				class="btn w-full lg:w-fit btn-lg btn-neutral"
-				@click="onSearch"
+				@click="() => onSearch(route.query as Record<string, string | null>)"
 			>
 				Search
 			</button>
 		</div>
 
 		<div class="w-fit flex flex-wrap gap-2">
-			<label class="label cursor-pointer">
-				<span class="label-text mr-2">Allows Dogs</span>
+			<label
+				v-for="attributeOption in attributeOptions"
+				:key="attributeOption.key"
+				class="label cursor-pointer"
+			>
+				<span class="label-text mr-2">{{ attributeOption.label }}</span>
 				<input
 					type="checkbox"
-					:checked="!!route.query.allowsDogs"
+					:checked="!!route.query[attributeOption.key]"
 					class="checkbox"
-					@change="setAllowsDogs"
-				>
-			</label>
-
-			<label class="label cursor-pointer">
-				<span class="label-text mr-2">Has Wifi</span>
-				<input
-					type="checkbox"
-					:checked="!!route.query.hasWifi"
-					class="checkbox"
-					@change="setHasWifi"
+					@change="() => onAttributeOptionChange(attributeOption.key)"
 				>
 			</label>
 		</div>

@@ -30,7 +30,7 @@
 				is just around the corner.
 			</p>
 
-			<NuxtLink to="#search-form" class="btn btn-lg btn-neutral">
+			<NuxtLink to="#search-form" class="btn btn-lg btn-neutral mb-4">
 				Find Coffee
 			</NuxtLink>
 		</div>

@@ -16,4 +16,5 @@ export enum DatabaseView {
 	COUNTRY = 'country_view',
 	STATE = 'state_view',
 	CITY = 'city_view',
+	ATTRIBUTE_OPTIONS_VIEW = 'attribute_options_view',
 }

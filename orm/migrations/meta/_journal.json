@@ -148,6 +148,13 @@
       "when": 1736430945423,
       "tag": "0020_remarkable_shockwave",
       "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "7",
+      "when": 1736581798663,
+      "tag": "0021_tiny_jack_flag",
+      "breakpoints": true
     }
   ]
 }

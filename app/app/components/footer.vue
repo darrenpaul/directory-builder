@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import isEmail from 'validator/lib/isEmail'
+import IconBrand from '~~/assets/icons/brand.svg'
 import { newsletterApiRoute } from '~~/constants/routes-api'
+import settings from '~~/constants/settings'
 import {
 	ERROR,
 	useToaster,
@@ -56,6 +58,15 @@ async function onNewsletterSubmit() {
 
 <template>
 	<footer class="footer bg-base-200 text-base-content p-10">
+		<aside>
+			<IconBrand class="w-16 h-16" filled :font-controlled="false" />
+
+			<p>
+				{{ settings.siteName }}
+				<br>
+				Your local guide to the city's vibrant café culture.
+			</p>
+		</aside>
 		<nav>
 			<p class="footer-title">
 				Services

@@ -11,7 +11,7 @@ const props = defineProps({
 </script>
 
 <template>
-	<div class="border-b border-neutral-200 pb-6">
+	<div>
 		<h3 v-if="props.label" class="text-3xl font-bold mb-3">
 			{{ props.label }}
 		</h3>

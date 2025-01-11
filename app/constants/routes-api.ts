@@ -57,3 +57,9 @@ export const adminPlaceApiRoute = {
 	path: '/api/admin/places/v1',
 	methods: ['GET', 'POST', 'PATCH'],
 }
+
+export const attributeOptionApiRoute = {
+	name: 'attribute-option',
+	path: '/api/attribute-option/v1',
+	methods: ['GET'],
+}

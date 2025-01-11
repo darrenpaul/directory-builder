@@ -77,22 +77,18 @@ export default class UrlQueryBuilder {
 		return this
 	}
 
-	withAllowsDogs({ allowsDogs }: Record<string, string>) {
-		this.queryParams.delete('allowsDogs')
+	withUrlQueryKeys(urlQueryKeys: Record<string, string>) {
+		[...this.queryParams.keys()].forEach(key => this.queryParams.delete(key))
 
-		if (allowsDogs) {
-			this.queryParams.append('allowsDogs', allowsDogs)
-		}
+		Object.keys(urlQueryKeys).forEach((key) => {
+			this.queryParams.delete(key)
+		})
 
-		return this
-	}
-
-	withHasWifi({ hasWifi }: Record<string, string>) {
-		this.queryParams.delete('hasWifi')
-
-		if (hasWifi) {
-			this.queryParams.append('hasWifi', hasWifi)
-		}
+		Object.entries(urlQueryKeys).forEach(([key, value]) => {
+			if (key) {
+				this.queryParams.append(key, value)
+			}
+		})
 
 		return this
 	}

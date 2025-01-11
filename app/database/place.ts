@@ -7,6 +7,16 @@ function generateSlug({ displayName }: { displayName: string }) {
 	return kebabCase(displayName)
 }
 
+function getPlaceAttributeKeys(queryParams: Record<string, string>) {
+	const attributes = Object.entries(queryParams)
+
+	const attributeBooleanKeys = attributes.filter(
+		([_, value]) => value === 'true',
+	)
+
+	return attributeBooleanKeys.map(([key]) => key)
+}
+
 export async function createPlace(
 	supabaseClient: SupabaseClient,
 	payload: {
@@ -200,13 +210,8 @@ export async function getPlaces(
 		sbQuery.limit(Number.parseInt(queryParams.limit))
 	}
 
-	if (queryParams.allowsDogs) {
-		sbQuery.eq('place_attribute.key', 'allowsDogs')
-		sbQuery.eq('place_attribute.value', true)
-	}
-
-	if (queryParams.hasWifi) {
-		sbQuery.eq('place_attribute.key', 'hasWifi')
+	if (Object.values(queryParams).includes('true')) {
+		sbQuery.in('place_attribute.key', getPlaceAttributeKeys(queryParams))
 		sbQuery.eq('place_attribute.value', true)
 	}
 

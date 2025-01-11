@@ -91,21 +91,23 @@ defineWebPage({
 
 			<Filter />
 
-			<PlaceList
-				v-if="data.data"
-				key-id="latest"
-				class="mb-8"
-				:places="data.data"
-				:label="`Discover Coffee Shops in ${startCase(route.params.country as string)}`"
-			/>
+			<div class="border-b border-neutral-200 pb-3 mb-6">
+				<PlaceList
+					v-if="data.data"
+					key-id="latest"
+					class="mb-4"
+					:places="data.data"
+					:label="`Discover Coffee Shops in ${startCase(route.params.country as string)}`"
+				/>
 
-			<button
-				v-if="data.count > limit"
-				class="btn btn-block btn-neutral btn-outline"
-				@click="onLoadMore"
-			>
-				Load More
-			</button>
+				<button
+					v-if="data.count > limit"
+					class="btn btn-block btn-neutral btn-outline"
+					@click="onLoadMore"
+				>
+					Load More
+				</button>
+			</div>
 		</div>
 	</div>
 </template>
