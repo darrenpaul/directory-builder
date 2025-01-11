@@ -1,6 +1,6 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 import type { Place } from '~~/types/place'
-import { kebabCase } from 'lodash-es'
+import { kebabCase, startCase } from 'lodash-es'
 import { DatabaseTable } from '~~/constants/database-table'
 
 function generateSlug({ displayName }: { displayName: string }) {
@@ -184,19 +184,22 @@ export async function getPlaces(
 	if (queryParams.country) {
 		sbQuery.ilike(
 			'place_address.country',
-			`%${queryParams.country.toLowerCase()}%`,
+			`%${startCase(queryParams.country).toLowerCase()}%`,
 		)
 	}
 
 	if (queryParams.state) {
 		sbQuery.ilike(
 			'place_address.state',
-			`%${queryParams.state.toLowerCase()}%`,
+			`%${startCase(queryParams.state).toLowerCase()}%`,
 		)
 	}
 
 	if (queryParams.city) {
-		sbQuery.ilike('place_address.city', `%${queryParams.city.toLowerCase()}%`)
+		sbQuery.ilike(
+			'place_address.city',
+			`%${startCase(queryParams.city).toLowerCase()}%`,
+		)
 	}
 
 	if (queryParams.postalCode) {

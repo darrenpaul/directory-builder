@@ -26,11 +26,11 @@ const queryUrl = computed(() => {
 
 	return urlQueryBuilder
 		.withBusinessName(paramsAndQueries)
+		.withCountryName(paramsAndQueries)
 		.withStateName(paramsAndQueries)
 		.withCityName(paramsAndQueries)
 		.withPostalCode(paramsAndQueries)
-		.withAllowsDogs(paramsAndQueries)
-		.withHasWifi(paramsAndQueries)
+		.withUrlQueryKeys(paramsAndQueries)
 		.withLimit({ limit: limit.value })
 		.build()
 })
@@ -42,7 +42,9 @@ fetchPromises.push(
 )
 fetchPromises.push(
 	useFetch<PageMeta>(
-		pageMetaUrlQueryBuilder.withSlug({ slug: 'home' }).build(),
+		pageMetaUrlQueryBuilder
+			.withSlug({ slug: 'south-africa-western-cape-cape-town' })
+			.build(),
 		{ method: 'GET' },
 	),
 )
@@ -102,13 +104,13 @@ const breadcrumbs = computed(() => {
 </script>
 
 <template>
-	<div class="py-8">
-		<div class="w-full max-w-screen-2xl mx-auto px-4">
+	<div>
+		<div class="w-full max-w-screen-2xl mx-auto px-4 py-8">
 			<PageBreadcrumbs :crumbs="breadcrumbs" />
 
 			<Filter />
 
-			<div class="border-b border-neutral-200 pb-3 mb-6">
+			<div class="border-b border-neutral-200 mb-6">
 				<PlaceList
 					v-if="data.data"
 					key-id="latest"
@@ -124,6 +126,21 @@ const breadcrumbs = computed(() => {
 				>
 					Load More
 				</button>
+			</div>
+		</div>
+
+		<div class="bg-base-200 p-3 mb-6">
+			<div class="flex flex-col gap-3 px-3 py-16 lg:my-32 max-w-[80ch] mx-auto">
+				<h3 class="text-3xl font-bold">
+					Find the Perfect Coffee Shop Near You
+				</h3>
+
+				<p class="text-lg">
+					Looking for exceptional coffee in your neighborhood? Whether you're
+					craving a perfectly pulled espresso, searching for specialty coffee
+					beans, or need a cozy spot to work, we'll help you discover the best
+					coffee shops near you.
+				</p>
 			</div>
 		</div>
 	</div>

@@ -51,7 +51,9 @@ useGeolocation()
 
 		<slot />
 
-		<div class="w-full max-w-screen-2xl mx-auto px-4">
+		<div
+			class="w-full grid grid-cols-1 lg:grid-cols-3 max-w-screen-2xl mx-auto px-4 mb-6"
+		>
 			<SearchByList
 				id="countries"
 				class="mb-4"
