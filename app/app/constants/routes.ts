@@ -40,6 +40,13 @@ export const accountRoute = {
 	auth: true,
 }
 
+export const accountSecurityRoute = {
+	name: 'account-security',
+	label: 'Security',
+	path: `/account/security`,
+	auth: true,
+}
+
 export const listingRoute = {
 	name: 'listing',
 	label: 'Listing',

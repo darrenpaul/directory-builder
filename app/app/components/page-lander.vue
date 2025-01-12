@@ -15,19 +15,19 @@
 
 		<div class="text-center mx-auto max-w-[80ch] px-4">
 			<h1 class="text-5xl font-bold mb-4">
-				{{ $t('home.lander.title') }}
+				{{ $t("home.lander.title") }}
 			</h1>
 
 			<h2 class="mb-4">
-				{{ $t('home.lander.description1') }}
+				{{ $t("home.lander.description1") }}
 			</h2>
 
 			<p class="mb-4 text-xl">
-				{{ $t('home.lander.description2') }}
+				{{ $t("home.lander.description2") }}
 			</p>
 
 			<NuxtLink to="#search-form" class="btn btn-lg btn-neutral mb-4">
-				{{ $t('home.lander.ctaButton') }}
+				{{ $t("home.lander.ctaButton") }}
 			</NuxtLink>
 		</div>
 	</div>

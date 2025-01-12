@@ -117,7 +117,9 @@ const breadcrumbs = computed(() => {
 			<PageBreadcrumbs :crumbs="breadcrumbs" />
 
 			<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-				<div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-2 mb-4">
+				<div
+					class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-2 mb-4"
+				>
 					<span class="flex items-center justify-between gap-2">
 						<IconVerified
 							v-if="

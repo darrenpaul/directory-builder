@@ -120,18 +120,18 @@ defineWebPage({
 
 			<div>
 				<p class="text-2xl mb-3">
-					{{ $t('home.whyChoose.title') }}
+					{{ $t("home.whyChoose.title") }}
 				</p>
 				<ul class="list-disc list-inside text-left">
-					<li>{{ $t('home.whyChoose.point1') }}</li>
-					<li>{{ $t('home.whyChoose.point2') }}</li>
-					<li>{{ $t('home.whyChoose.point3') }}</li>
-					<li>{{ $t('home.whyChoose.point4') }}</li>
-					<li>{{ $t('home.whyChoose.point5') }}</li>
+					<li>{{ $t("home.whyChoose.point1") }}</li>
+					<li>{{ $t("home.whyChoose.point2") }}</li>
+					<li>{{ $t("home.whyChoose.point3") }}</li>
+					<li>{{ $t("home.whyChoose.point4") }}</li>
+					<li>{{ $t("home.whyChoose.point5") }}</li>
 				</ul>
 
 				<p>
-					{{ $t('home.whyChoose.description') }}
+					{{ $t("home.whyChoose.description") }}
 				</p>
 			</div>
 		</div>

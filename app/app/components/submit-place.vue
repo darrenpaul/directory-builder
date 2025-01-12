@@ -117,13 +117,13 @@ async function onCreatePlaceRequest() {
 <template>
 	<div>
 		<button class="btn btn-neutral" @click="openModal">
-			{{ $t('submitPlace.button') }}
+			{{ $t("submitPlace.button") }}
 		</button>
 
 		<dialog id="product-variant-modal" ref="modal" class="modal">
 			<div class="modal-box">
 				<p class="text-2xl font-bold">
-					{{ $t('submitPlace.title') }}
+					{{ $t("submitPlace.title") }}
 				</p>
 
 				<div class="input-group">

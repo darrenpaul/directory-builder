@@ -17,7 +17,7 @@ export default class ZodSchemaBuilder {
 	}
 
 	withPassword() {
-		this.schema.password = z.string().min(4).trim()
+		this.schema.password = z.string().min(6).trim()
 
 		return this
 	}
