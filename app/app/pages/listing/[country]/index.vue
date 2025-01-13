@@ -112,14 +112,11 @@ defineWebPage({
 		<div class="bg-base-200 p-3 mb-6">
 			<div class="flex flex-col gap-3 px-3 py-16 lg:my-32 max-w-[80ch] mx-auto">
 				<h3 class="text-3xl font-bold">
-					Find the Perfect Coffee Shop Near You
+					{{ $t("city.title") }}
 				</h3>
 
 				<p class="text-lg">
-					Looking for exceptional coffee in your neighborhood? Whether you're
-					craving a perfectly pulled espresso, searching for specialty coffee
-					beans, or need a cozy spot to work, we'll help you discover the best
-					coffee shops near you.
+					{{ $t("city.description") }}
 				</p>
 			</div>
 		</div>

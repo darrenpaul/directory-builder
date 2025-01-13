@@ -10,6 +10,7 @@ export enum DatabaseTable {
 	NEWSLETTER = 'newsletter',
 	CONTACT = 'contact',
 	USER = 'user',
+	PLACE_OPERATING_PERIOD = 'place_operating_period',
 }
 
 export enum DatabaseView {

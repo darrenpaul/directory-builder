@@ -1,5 +1,6 @@
 <script setup lang="ts">
 // import Places from '~/components/places.vue'
+
 definePageMeta({
 	layout: 'account-layout',
 })

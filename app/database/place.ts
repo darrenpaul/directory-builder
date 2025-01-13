@@ -61,6 +61,7 @@ export async function createPlace(
 				twitter: payload.twitter,
 				phone: payload.phone,
 				specials: payload.specials,
+				directory_id: process.env.DIRECTORY_ID,
 			},
 			{ onConflict: 'google_place_id' },
 		)
@@ -140,6 +141,14 @@ export async function getPlaces(
 	supabaseClient: SupabaseClient,
 	queryParams: Record<string, string>,
 ) {
+	const placeOperatingPeriodSelectString = [
+		'id',
+		'dayIndex:day_index',
+		'day:day',
+		'opensAt:opens_at',
+		'closesAt:closes_at',
+	].join(',')
+
 	const placeAttributesSelectString = ['id', 'label', 'key', 'value'].join(',')
 
 	const placeImagesSelectString = [
@@ -171,6 +180,7 @@ export async function getPlaces(
 		`images:place_image!inner(${placeImagesSelectString})`,
 		`rating:place_rating!inner(${placeRatingSelectString})`,
 		`attributes:place_attribute!inner(${placeAttributesSelectString})`,
+		`operatingPeriods:place_operating_period(${placeOperatingPeriodSelectString})`,
 	].join(',')
 
 	const sbQuery = supabaseClient
@@ -230,6 +240,14 @@ export async function getPlaceBySlug(
 	supabaseClient: SupabaseClient,
 	slug: string,
 ) {
+	const placeOperatingPeriodSelectString = [
+		'id',
+		'dayIndex:day_index',
+		'day:day',
+		'opensAt:opens_at',
+		'closesAt:closes_at',
+	].join(',')
+
 	const placeVerifiedSelectString = ['id', 'status'].join(',')
 
 	const placeAttributesSelectString = ['id', 'label', 'key', 'value'].join(',')
@@ -274,6 +292,7 @@ export async function getPlaceBySlug(
 		`rating:place_rating!inner(${placeRatingSelectString})`,
 		`attributes:place_attribute!inner(${placeAttributesSelectString})`,
 		`verified:place_verified(${placeVerifiedSelectString})`,
+		`operatingPeriods:place_operating_period(${placeOperatingPeriodSelectString})`,
 	].join(',')
 
 	return await supabaseClient
@@ -281,6 +300,10 @@ export async function getPlaceBySlug(
 		.select(selectString)
 		.eq('slug', slug)
 		.eq('directory_id', process.env.DIRECTORY_ID)
+		.order('day_index', {
+			referencedTable: 'place_operating_period',
+			ascending: true,
+		})
 		.maybeSingle<Place>()
 }
 
@@ -288,6 +311,14 @@ export async function getPlaceByIdAndOwnerId(
 	supabaseClient: SupabaseClient,
 	{ id, ownerId }: { id: string, ownerId: string },
 ) {
+	const placeOperatingPeriodSelectString = [
+		'id',
+		'dayIndex:day_index',
+		'day:day',
+		'opensAt:opens_at',
+		'closesAt:closes_at',
+	].join(',')
+
 	const placeAttributesSelectString = ['id', 'label', 'key', 'value'].join(',')
 
 	const placeImagesSelectString = [
@@ -330,6 +361,7 @@ export async function getPlaceByIdAndOwnerId(
 		`images:place_image!inner(${placeImagesSelectString})`,
 		`rating:place_rating!inner(${placeRatingSelectString})`,
 		`attributes:place_attribute!inner(${placeAttributesSelectString})`,
+		`operatingPeriods:place_operating_period(${placeOperatingPeriodSelectString})`,
 	].join(',')
 
 	return supabaseClient

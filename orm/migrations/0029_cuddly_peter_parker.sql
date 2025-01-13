@@ -1,0 +1,1 @@
+ALTER TABLE "place_operating_period" DROP CONSTRAINT "place_operating_period_place_id_unique";

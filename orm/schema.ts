@@ -15,6 +15,7 @@ import { userSubscription } from './schemas/user-subscription';
 import { placeVerified } from './schemas/place-verified';
 import { attributeOptionsView } from './schemas/attribute-options-view';
 import { directory } from './schemas/directory';
+import { placeOperatingPeriod } from './schemas/place-operating-period';
 
 export {
   place,
@@ -34,4 +35,5 @@ export {
   placeVerified,
   attributeOptionsView,
   directory,
+  placeOperatingPeriod,
 };

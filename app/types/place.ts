@@ -1,3 +1,5 @@
+import type { OperatingPeriod } from '~~/types/operating-period'
+
 export interface PlaceVerified {
 	id: string
 	status: string
@@ -30,6 +32,7 @@ export interface Place {
 	rating: PlaceRating
 	attributes: PlaceAttribute[]
 	verified: PlaceVerified | null
+	operatingPeriods: OperatingPeriod[]
 }
 
 export interface PlaceRating {

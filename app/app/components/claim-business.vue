@@ -2,6 +2,7 @@
 import { StripePriceId } from '~~/constants/stripe-price-id'
 import { stripeSubscriptionsApiRoute } from '~~/modules/stripe/runtime/constants/routes-api'
 import useUser from '~/composables/user'
+import { termsAndConditionsRoute } from '~/constants/routes'
 
 const props = defineProps({
 	id: { type: String, required: true },
@@ -65,17 +66,13 @@ async function makePayment() {
 <template>
 	<div>
 		<button class="btn btn-neutral animate-bounce" @click="openModal">
-			Claim Business
+			Claim Listing
 		</button>
 
 		<dialog id="product-variant-modal" ref="modal" class="modal">
 			<div class="modal-box">
 				<p class="text-2xl font-bold">
-					Claim Your Business
-				</p>
-
-				<p class="mb-3">
-					Get verified and take control of your coffee shop listing!
+					Claim Your Listing
 				</p>
 
 				<p class="text-lg mb-3">
@@ -88,23 +85,30 @@ async function makePayment() {
 				</p>
 
 				<ul class="list-disc list-inside text-left mb-3">
-					<li>Receive a verified badge on your listing.</li>
-					<li>
-						Verified listing will always appear before unverified listings.
-					</li>
-					<li>Manage your listing's presence on Nearby Coffee.</li>
-					<li>
-						Receive a monthly report on how many views your listing received.
-					</li>
+					<li>{{ $t("claimBusiness.point1") }}</li>
+					<li>{{ $t("claimBusiness.point2") }}</li>
+					<li>{{ $t("claimBusiness.point3") }}</li>
+					<li>{{ $t("claimBusiness.point4") }}</li>
 				</ul>
 
 				<p class="mb-3">
-					Ready to manage your coffee shop's presence on Nearby Coffee?
+					{{ $t("claimBusiness.readyToClaim") }}
 				</p>
 
 				<p>
 					Click below to claim your page and start updating your information
 					today.
+				</p>
+
+				<p class="mb-3">
+					By claiming your page, you agree to the
+					<NuxtLink
+						target="_blank"
+						class="link"
+						:to="termsAndConditionsRoute.path"
+					>
+						Terms and Conditions
+					</NuxtLink>.
 				</p>
 
 				<div class="modal-action">
@@ -114,7 +118,7 @@ async function makePayment() {
 						</button>
 
 						<button class="btn btn-neutral" @click="makePayment">
-							Claim Store
+							Claim Listing
 						</button>
 					</div>
 				</div>

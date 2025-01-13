@@ -6,6 +6,7 @@ import { createPlace } from '~~/database/place'
 import { createPlaceAddress } from '~~/database/place-address'
 import { createPlaceAttributeBatch } from '~~/database/place-attribute'
 import { createPlaceImage } from '~~/database/place-image'
+import { createPlaceOperatingPeriodBatch } from '~~/database/place-operating-period'
 import { createPlaceRating } from '~~/database/place-rating'
 import { getAuthenticatedUser } from '~~/database/user'
 import {
@@ -28,12 +29,12 @@ export default defineEventHandler(async (event) => {
 		})
 	}
 
-	if (!user.app_metadata.claims_site_admin) {
-		throw createError({
-			statusCode: 401,
-			statusMessage: 'Unauthorized',
-		})
-	}
+	// if (!user.app_metadata.claims_site_admin) {
+	// 	throw createError({
+	// 		statusCode: 401,
+	// 		statusMessage: 'Unauthorized',
+	// 	})
+	// }
 
 	const body = await readBody(event)
 	const {
@@ -51,6 +52,7 @@ export default defineEventHandler(async (event) => {
 		attributes,
 		website,
 		price,
+		operatingPeriods,
 	} = body
 
 	const { textContent, links } = await scrapWebsite(website)
@@ -121,9 +123,15 @@ export default defineEventHandler(async (event) => {
 				placeId: data.id,
 				attributes: [...attributes, ...questions],
 			}),
+			createPlaceOperatingPeriodBatch(supabaseAdmin, {
+				placeId: data.id,
+				operatingPeriods,
+			}),
 		])
 	}
-	catch {}
+	catch (e) {
+		conols.log(e)
+	}
 
 	return { data, error }
 })

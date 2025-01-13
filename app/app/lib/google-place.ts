@@ -1,5 +1,15 @@
 import type { AddressComponent, Photo, Place } from '@types/google.maps'
 
+const daysOfTheWeek = [
+	'Monday',
+	'Tuesday',
+	'Wednesday',
+	'Thursday',
+	'Friday',
+	'Saturday',
+	'Sunday',
+]
+
 function getLongText(addressComponentData: Record<string, string> | undefined) {
 	if (!addressComponentData) {
 		return
@@ -61,6 +71,28 @@ export function parseAddressComponent(addressComponents: AddressComponent[]) {
 		postalCode,
 	}
 }
+function createTimeString(hour: number, minute: number) {
+	return `${hour.toFixed(0).padStart(2, '0')}:${minute.toFixed(0).padStart(2, '0')}`
+}
+
+function parseRegularOpeningHours(regularOpeningHours: RegularOpeningHours) {
+	if (!regularOpeningHours?.periods) {
+		return []
+	}
+
+	return regularOpeningHours.periods.map((period: Period) => {
+		if (!period || !period.open || !period.close) {
+			return null
+		}
+
+		return {
+			dayIndex: period.open.day,
+			day: daysOfTheWeek[period.open.day],
+			opensAt: createTimeString(period.open.hour, period.open.minute),
+			closesAt: createTimeString(period.close.hour, period.close.minute),
+		}
+	})
+}
 
 export function parseGooglePlace(place: Place) {
 	const parsedAddressComponents = parseAddressComponent(
@@ -80,6 +112,7 @@ export function parseGooglePlace(place: Place) {
 		userRatingCount: place.userRatingCount,
 		website: place.websiteURI,
 		price: place.priceLevel,
+		operatingPeriods: parseRegularOpeningHours(place.regularOpeningHours),
 		attributes: [
 			{
 				label: 'Dogs Allowed',

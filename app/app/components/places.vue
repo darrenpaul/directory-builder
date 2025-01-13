@@ -45,7 +45,9 @@ async function onFindPlacesNearby() {
 	const { places } = await Place.searchNearby(request)
 
 	if (places.length) {
-		const parsedPlaces = places.map(parseGooglePlace)
+		const parsedPlaces = places
+			.filter(({ servesCoffee }) => servesCoffee)
+			.map(parseGooglePlace)
 
 		nearbyPlaces.value = [...nearbyPlaces.value, ...parsedPlaces]
 	}

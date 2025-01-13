@@ -68,6 +68,13 @@ export const cityRoute = {
 	auth: false,
 }
 
+export const termsAndConditionsRoute = {
+	name: 'terms-and-conditions',
+	label: 'Terms and Conditions',
+	path: '/terms-and-conditions',
+	auth: false,
+}
+
 export const navigationRoutes = [homeRoute, contactRoute, signInRoute]
 
 export const navigationAuthenticatedRoutes = [

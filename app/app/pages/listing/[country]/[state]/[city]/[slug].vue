@@ -12,6 +12,7 @@ import IconX from '~~/assets/icons/x.svg'
 import { pageMetaApiRoute, placesApiRoute } from '~~/constants/routes-api'
 import settings from '~~/constants/settings'
 import { Status } from '~~/constants/status'
+import OperatingPeriods from '~/components/operating-periods.vue'
 import PageBreadcrumbs from '~/components/page-breadcrumbs.vue'
 import UrlQueryBuilder from '~/lib/builders/url-query-builder'
 import { joinUrlDirectories } from '~/lib/url-directory-join'
@@ -264,7 +265,14 @@ const breadcrumbs = computed(() => {
 						</template>
 					</div>
 
-					<p>{{ placeData.description }}</p>
+					<p class="pb-8">
+						{{ placeData.description }}
+					</p>
+
+					<OperatingPeriods
+						v-if="placeData.operatingPeriods"
+						:operating-periods="placeData.operatingPeriods"
+					/>
 				</div>
 
 				<GoogleMap

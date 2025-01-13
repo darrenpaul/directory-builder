@@ -7,6 +7,7 @@ import {
 	ERROR,
 	useToaster,
 } from '~~/modules/toast-notification-module/runtime'
+import { contactRoute, termsAndConditionsRoute } from '~/constants/routes'
 
 const { createNotification } = useToaster()
 const emailAddress = ref<string | undefined>(undefined)
@@ -69,19 +70,23 @@ async function onNewsletterSubmit() {
 				Your local guide to the city's vibrant café culture.
 			</p>
 		</aside>
-		<nav>
+		<!-- <nav>
 			<p class="footer-title">
 				Services
 			</p>
-			<!-- <a class="link link-hover">Branding</a>
+			<a class="link link-hover">Branding</a>
 			<a class="link link-hover">Design</a>
 			<a class="link link-hover">Marketing</a>
-			<a class="link link-hover">Advertisement</a> -->
-		</nav>
+			<a class="link link-hover">Advertisement</a>
+		</nav> -->
 		<nav>
 			<p class="footer-title">
 				Company
 			</p>
+
+			<NuxtLink :to="contactRoute.path">
+				{{ contactRoute.label }}
+			</NuxtLink>
 			<!-- <a class="link link-hover">About us</a>
 			<a class="link link-hover">Contact</a>
 			<a class="link link-hover">Jobs</a>
@@ -91,6 +96,10 @@ async function onNewsletterSubmit() {
 			<p class="footer-title">
 				Legal
 			</p>
+
+			<NuxtLink :to="termsAndConditionsRoute.path">
+				{{ termsAndConditionsRoute.label }}
+			</NuxtLink>
 			<!-- <a class="link link-hover">Terms of use</a>
 			<a class="link link-hover">Privacy policy</a>
 			<a class="link link-hover">Cookie policy</a> -->
@@ -100,7 +109,7 @@ async function onNewsletterSubmit() {
 				Newsletter
 			</p>
 			<fieldset class="form-control w-80">
-				<label class="label">
+				<label class="label p-0 px-1 pb-1">
 					<span class="label-text">Email Address</span>
 				</label>
 				<div class="join">

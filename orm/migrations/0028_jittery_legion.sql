@@ -1,0 +1,2 @@
+ALTER TABLE "place_operating_period" ADD COLUMN "slug" varchar NOT NULL;--> statement-breakpoint
+ALTER TABLE "place_operating_period" ADD CONSTRAINT "place_operating_period_slug_unique" UNIQUE("slug");
