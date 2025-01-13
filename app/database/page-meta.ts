@@ -14,5 +14,6 @@ export async function getPageMeta(
 		.from(DatabaseTable.PAGE_META)
 		.select(selectString)
 		.eq('slug', slug)
+		.eq('directory_id', process.env.DIRECTORY_ID)
 		.maybeSingle<PageMeta>()
 }

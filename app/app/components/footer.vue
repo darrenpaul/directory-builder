@@ -45,6 +45,8 @@ async function onNewsletterSubmit() {
 			message: 'Successfully subscribed',
 			type: 'SUCCESS',
 		})
+
+		emailAddress.value = undefined
 	}
 	catch (error) {
 		createNotification({

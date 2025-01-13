@@ -14,6 +14,7 @@ import { cityView } from './schemas/city-view';
 import { userSubscription } from './schemas/user-subscription';
 import { placeVerified } from './schemas/place-verified';
 import { attributeOptionsView } from './schemas/attribute-options-view';
+import { directory } from './schemas/directory';
 
 export {
   place,
@@ -32,4 +33,5 @@ export {
   userSubscription,
   placeVerified,
   attributeOptionsView,
+  directory,
 };

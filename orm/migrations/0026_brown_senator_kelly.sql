@@ -1,0 +1,1 @@
+ALTER TABLE "directory" ALTER COLUMN "key" DROP DEFAULT;

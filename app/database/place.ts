@@ -222,6 +222,7 @@ export async function getPlaces(
 		.order('created_at', { ascending: false })
 		.order('sort_order', { referencedTable: 'place_image', ascending: true })
 		.limit(1, { foreignTable: 'place_image' })
+		.eq('directory_id', process.env.DIRECTORY_ID)
 		.returns<Place[]>()
 }
 
@@ -279,6 +280,7 @@ export async function getPlaceBySlug(
 		.from(DatabaseTable.PLACE)
 		.select(selectString)
 		.eq('slug', slug)
+		.eq('directory_id', process.env.DIRECTORY_ID)
 		.maybeSingle<Place>()
 }
 
@@ -335,5 +337,6 @@ export async function getPlaceByIdAndOwnerId(
 		.select(selectString)
 		.eq('id', id)
 		.eq('owner_id', ownerId)
+		.eq('directory_id', process.env.DIRECTORY_ID)
 		.maybeSingle<Place>()
 }
