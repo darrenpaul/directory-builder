@@ -87,15 +87,8 @@ defineWebPage({
 </script>
 
 <template>
-	<div class="mb-8">
-		<PageLander />
-
-		<div class="max-h-96 h-fit mb-8">
-			<ScriptGoogleAdsense
-				:data-ad-client="googleAdsenseId"
-				data-ad-slot="8638864193"
-			/>
-		</div>
+	<div class="mb-8 flex flex-col">
+		<PageLander class="mb-8" />
 
 		<div class="w-full max-w-screen-2xl mx-auto px-4">
 			<Filter />
@@ -116,6 +109,13 @@ defineWebPage({
 				>
 					Load More
 				</button>
+			</div>
+
+			<div class="block max-h-96 mb-8">
+				<ScriptGoogleAdsense
+					:data-ad-client="googleAdsenseId"
+					data-ad-slot="8638864193"
+				/>
 			</div>
 
 			<div>
