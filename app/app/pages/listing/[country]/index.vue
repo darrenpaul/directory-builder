@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { PageMeta } from '~~/types/page-meta'
 import type { Place } from '~~/types/place'
-import { startCase } from 'lodash-es'
+import { kebabCase, startCase } from 'lodash-es'
 import { pageMetaApiRoute, placesApiRoute } from '~~/constants/routes-api'
 import settings from '~~/constants/settings'
 import Filter from '~/components/filter.vue'
@@ -40,7 +40,9 @@ fetchPromises.push(
 )
 fetchPromises.push(
 	useFetch<PageMeta>(
-		pageMetaUrlQueryBuilder.withSlug({ slug: 'home' }).build(),
+		pageMetaUrlQueryBuilder
+			.withSlug({ slug: kebabCase(route.params.country as string) })
+			.build(),
 		{ method: 'GET' },
 	),
 )

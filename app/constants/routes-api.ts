@@ -63,3 +63,9 @@ export const attributeOptionApiRoute = {
 	path: '/api/attribute-option/v1',
 	methods: ['GET'],
 }
+
+export const adminPageMetaApiRoute = {
+	name: 'admin-page-meta',
+	path: '/api/admin/page-meta/v1',
+	methods: ['POST'],
+}

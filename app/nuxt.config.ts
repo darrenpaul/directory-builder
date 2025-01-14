@@ -3,6 +3,12 @@ import settings from './constants/settings'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+	ignore: [
+		process.env.NODE_ENV === 'production' ? '/app/pages/admin/index.vue' : '',
+		process.env.NODE_ENV === 'production'
+			? '/server/api/admin/page-meta/v1/index.post.ts'
+			: '',
+	],
 	compatibilityDate: '2024-11-01',
 	future: {
 		compatibilityVersion: 4,
@@ -104,6 +110,7 @@ export default defineNuxtConfig({
 		host: process.env.NUXT_PUBLIC_UMAMI_HOST,
 		autoTrack: true,
 		proxy: 'cloak',
+		enabled: process.env.NODE_ENV === 'production',
 		// useDirective: true,
 		// ignoreLocalhost: true,
 		// excludeQueryParams: false,

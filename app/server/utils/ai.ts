@@ -128,3 +128,59 @@ export async function getUrls(content: string | null | undefined) {
 
 	return JSON.parse(msg.content[0].text)
 }
+
+export async function generatePageMetadata({
+	company,
+	focus,
+	keywordResearch,
+	location,
+	targetAudience,
+}: {
+	company: string
+	focus: string
+	keywordResearch: string
+	location: string
+	targetAudience: string
+}) {
+	const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
+
+	const prompts = [
+		'You are an SEO expert, with experience in copy writing and marketing content.',
+		'Requirements\n',
+		'Meta title: 50-60 characters, including primary keyword',
+		'Meta description: 110-160 characters',
+		`Must include location "${location}" and focus "${focus}"`,
+		`Must naturally incorporate keywords: "${focus} in ${location}" or "${focus} near me"`,
+	].join('\n')
+
+	const textContent = [
+		`Company: ${company}`,
+		`Focus: ${focus}`,
+		`Keyword research: ${keywordResearch}`,
+		`Location: ${location}`,
+		`Target audience: ${targetAudience}`,
+		'Tone: Professional yet welcoming, emphasizing local expertise',
+		'Only return the requested data and fields',
+		'Output Format: JSON (not nested) format: {"metaTitle": "your title here","metaDescription": "your description here"}',
+	].join('\n')
+
+	const msg = await anthropic.messages.create({
+		model: 'claude-3-5-sonnet-20241022',
+		max_tokens: 1000,
+		temperature: 0,
+		system: prompts,
+		messages: [
+			{
+				role: 'user',
+				content: [
+					{
+						type: 'text',
+						text: textContent,
+					},
+				],
+			},
+		],
+	})
+
+	return JSON.parse(msg.content[0].text)
+}
