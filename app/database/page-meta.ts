@@ -22,7 +22,7 @@ export async function createPageMeta(
 				image: payload.image,
 				title: payload.title,
 				description: payload.description,
-				directory_id: payload.directoryId,
+				project_id: payload.directoryId,
 				created_at: now,
 				updated_at: now,
 			},
@@ -42,7 +42,7 @@ export async function createPageMeta(
 			image: payload.image,
 			title: payload.title,
 			description: payload.description,
-			directory_id: payload.directoryId,
+			project_id: payload.directoryId,
 			updated_at: now,
 		})
 		.eq('id', data.id)
@@ -56,10 +56,27 @@ export async function getPageMeta(
 		',',
 	)
 
-	return supabaseClient
-		.from(DatabaseTable.PAGE_META)
-		.select(selectString)
-		.eq('slug', slug)
-		.eq('directory_id', process.env.DIRECTORY_ID)
-		.maybeSingle<PageMeta>()
+	const [
+		{ data: defaultPageMeta, error: defaultPageMetaError },
+		{ data: matchedPageMeta, error: matchedPageMetaError },
+	] = await Promise.all([
+		supabaseClient
+			.from(DatabaseTable.PAGE_META)
+			.select(selectString)
+			.eq('slug', 'home-nearby-spa')
+			.eq('project_id', process.env.NUXT_PUBLIC_PROJECT_ID)
+			.maybeSingle<PageMeta>(),
+		supabaseClient
+			.from(DatabaseTable.PAGE_META)
+			.select(selectString)
+			.eq('slug', slug)
+			.eq('project_id', process.env.NUXT_PUBLIC_PROJECT_ID)
+			.maybeSingle<PageMeta>(),
+	])
+
+	if (matchedPageMeta) {
+		return { data: matchedPageMeta, error: matchedPageMetaError }
+	}
+
+	return { data: defaultPageMeta, error: defaultPageMetaError }
 }

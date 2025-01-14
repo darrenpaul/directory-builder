@@ -1,7 +1,7 @@
 import { pgTable, timestamp, uuid, varchar } from 'drizzle-orm/pg-core';
 
-export const directory = pgTable(
-  'directory',
+export const project = pgTable(
+  'project',
   {
     id: uuid('id').defaultRandom().primaryKey(),
     name: varchar('name').notNull(),

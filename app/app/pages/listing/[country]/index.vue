@@ -111,7 +111,11 @@ useSchemaOrg([
 					key-id="latest"
 					class="mb-4"
 					:places="data.data"
-					:label="`Discover Coffee Shops in ${startCase(route.params.country as string)}`"
+					:label="
+						t('placeList.label', {
+							city: startCase(route.params.country as string),
+						})
+					"
 				/>
 
 				<button

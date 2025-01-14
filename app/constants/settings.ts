@@ -1,5 +1,5 @@
 export default {
-	domain: 'nearbycoffee.info',
-	siteUrl: 'https://www.nearbycoffee.info',
-	siteName: 'Nearby Coffee',
+	domain: process.env.NUXT_PUBLIC_DOMAIN,
+	siteUrl: process.env.NUXT_PUBLIC_SITE_URL,
+	siteName: process.env.NUXT_PUBLIC_SITE_NAME,
 }

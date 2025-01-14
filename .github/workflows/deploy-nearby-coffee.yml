@@ -1,0 +1,130 @@
+name: Deploy Nearby Coffee
+
+env:
+  PROJECT_NAME: Nearby Coffee
+  PROJECT_KEY: nearby-coffee
+  PROJECT_ID: 8d2a9371-5176-41b7-9fdb-bbc990accebc
+  DOCKER_CONTAINER: app
+  CLOUD_SERVER_IP_ADDRESS: 142.132.160.202
+  DOMAIN: nearbycoffee.info
+  HOST_URL: https://www.nearbycoffee.info
+  PORT_BINDING: 3000:3000
+  NODE_VERSION: 20
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "${{ env.NODE_VERSION }}"
+
+      - name: Generate .env file
+        run: |
+          cat << EOF > .env
+          NUXT_PUBLIC_DOMAIN=${{ env.DOMAIN }}
+          NUXT_PUBLIC_SITE_URL=${{ env.HOST_URL }}
+          NUXT_PUBLIC_SITE_NAME=${{ env.PROJECT_NAME }}
+          NUXT_PUBLIC_SITE_KEY=${{ env.PROJECT_KEY }}
+          NUXT_PUBLIC_PROJECT_ID=${{ env.PROJECT_ID }}
+          NUXT_PUBLIC_SUPABASE_PROJECT_URL=${{ secrets.NUXT_PUBLIC_SUPABASE_PROJECT_URL }}
+          NUXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NUXT_PUBLIC_SUPABASE_ANON_KEY }}
+          NUXT_PUBLIC_GOOGLE_MAPS_API_KEY=${{ secrets.NUXT_PUBLIC_GOOGLE_MAPS_API_KEY }}
+          NUXT_PUBLIC_UMAMI_KEY=${{ secrets.NUXT_PUBLIC_UMAMI_KEY }}
+          NUXT_PUBLIC_UMAMI_HOST=${{ secrets.NUXT_PUBLIC_UMAMI_HOST }}
+          NUXT_PUBLIC_STRIPE_PUBLIC_KEY=${{ secrets.NUXT_PUBLIC_STRIPE_PUBLIC_KEY }}
+          NUXT_PUBLIC_GOOGLE_ADSENSE_ID=${{ secrets.NUXT_PUBLIC_GOOGLE_ADSENSE_ID }}
+          SUPABASE_SERVICE_ROLE_KEY=${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }}
+          STRIPE_REDIRECT_URI=${{ secrets.STRIPE_REDIRECT_URI }}
+          EOF
+
+      - name: Clean up Docker
+        run: |
+          docker system prune -af
+          docker volume prune -f
+
+      - name: Build Docker image app
+        run: make build-production
+
+      - name: Save Docker image to a file
+        run: docker save -o ${{ env.DOCKER_CONTAINER }}.tar app:latest
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.CLOUD_SERVER_SSH_KEY }}
+
+      - name: Clean up Docker
+        run: |
+          docker system prune -af
+          docker volume prune -f
+
+      - name: Copy Docker image to Droplet
+        run: scp -o StrictHostKeyChecking=no ${{ env.DOCKER_CONTAINER }}.tar root@${{ env.CLOUD_SERVER_IP_ADDRESS }}:/home/
+
+      - name: Copy Environment File to Droplet
+        run: scp -o StrictHostKeyChecking=no .env root@${{env.CLOUD_SERVER_IP_ADDRESS}}:/home/
+
+      - name: Deploy to Droplet
+        run: |
+          ssh -o StrictHostKeyChecking=no root@${{ env.CLOUD_SERVER_IP_ADDRESS }} << 'EOF'
+            docker load -i /home/${{ env.DOCKER_CONTAINER }}.tar
+            docker stop ${{ env.DOCKER_CONTAINER }} || true
+            docker rm ${{ env.DOCKER_CONTAINER }} || true
+            docker stop caddy || true
+            docker rm caddy || true
+            docker rm network myapp_network || true
+            docker network create myapp_network || true
+            docker run -d \
+              --name ${{ env.DOCKER_CONTAINER }} \
+              --network myapp_network \
+              --restart unless-stopped \
+              -p ${{ env.PORT_BINDING }} \
+              --env-file /home/.env \
+              ${{ env.DOCKER_CONTAINER }}:latest
+          EOF
+
+      - name: Create Caddyfile
+        run: |
+          ssh -o StrictHostKeyChecking=no root@${{ env.CLOUD_SERVER_IP_ADDRESS }} << 'EOF'
+            cat > /home/Caddyfile << EOL
+              ${{ env.DOMAIN }} {
+              redir https://www.${{ env.DOMAIN }}{uri}
+            }
+
+              www.${{ env.DOMAIN }} {
+              reverse_proxy ${{ env.DOCKER_CONTAINER }}:3000
+            }
+            EOL
+          EOF
+
+      - name: Start Caddy
+        run: |
+          ssh -o StrictHostKeyChecking=no root@${{ env.CLOUD_SERVER_IP_ADDRESS }} << 'EOF'
+            docker volume create caddy || true
+            docker run -d \
+              --name caddy \
+              --network myapp_network \
+              --restart unless-stopped \
+              -p 80:80 \
+              -p 443:443 \
+              -v caddy:/data \
+              -v /home/Caddyfile:/etc/caddy/Caddyfile:ro \
+              caddy:latest
+            docker system prune -af
+            docker volume prune -f
+          EOF

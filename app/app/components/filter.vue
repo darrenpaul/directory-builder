@@ -5,6 +5,7 @@ import useFilters from '~/composables/use-filters'
 const route = useRoute()
 const router = useRouter()
 
+const { t } = useI18n()
 const { attributeOptions } = useFilters()
 
 const queryBusinessName = ref<string | undefined>(
@@ -73,7 +74,7 @@ async function onSearch(
 			<SearchInput
 				id="business-name"
 				v-model="queryBusinessName"
-				placeholder="Enter a coffee shop name"
+				:placeholder="t('search.businessName')"
 				@keydown.enter="
 					() => onSearch(route.query as Record<string, string | null>)
 				"

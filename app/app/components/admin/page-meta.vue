@@ -27,6 +27,13 @@ async function onSubmit() {
 				focus: state.focus,
 			},
 		})
+
+		state.pageSlug = undefined
+		state.imageUri = undefined
+		state.comapny = undefined
+		state.location = undefined
+		state.keywordResearch = undefined
+		state.focus = undefined
 	}
 	finally {
 		loading.value = false

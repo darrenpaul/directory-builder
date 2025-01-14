@@ -1,10 +1,13 @@
-name: Deploy to Cloud
+name: Deploy Nearby Spa
 
 env:
-  PROJECT_NAME: Nearby Coffee
+  PROJECT_NAME: Nearby Spa
+  PROJECT_KEY: nearby-spa
+  PROJECT_ID: 5a5a049a-25f3-46a3-8d1c-2ac52dd6b1df
   DOCKER_CONTAINER: app
-  CLOUD_SERVER_IP_ADDRESS: 142.132.160.202
-  DOMAIN: nearbycoffee.info
+  CLOUD_SERVER_IP_ADDRESS: 188.245.252.221
+  DOMAIN: nearbyspa.info
+  HOST_URL: https://www.nearbyspa.info
   PORT_BINDING: 3000:3000
   NODE_VERSION: 20
 
@@ -32,6 +35,11 @@ jobs:
       - name: Generate .env file
         run: |
           cat << EOF > .env
+          NUXT_PUBLIC_DOMAIN=${{ env.DOMAIN }}
+          NUXT_PUBLIC_SITE_URL=${{ env.HOST_URL }}
+          NUXT_PUBLIC_SITE_NAME=${{ env.PROJECT_NAME }}
+          NUXT_PUBLIC_SITE_KEY=${{ env.PROJECT_KEY }}
+          NUXT_PUBLIC_PROJECT_ID=${{ env.PROJECT_ID }}
           NUXT_PUBLIC_SUPABASE_PROJECT_URL=${{ secrets.NUXT_PUBLIC_SUPABASE_PROJECT_URL }}
           NUXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NUXT_PUBLIC_SUPABASE_ANON_KEY }}
           NUXT_PUBLIC_GOOGLE_MAPS_API_KEY=${{ secrets.NUXT_PUBLIC_GOOGLE_MAPS_API_KEY }}
@@ -42,7 +50,6 @@ jobs:
           SUPABASE_SERVICE_ROLE_KEY=${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }}
           STRIPE_REDIRECT_URI=${{ secrets.STRIPE_REDIRECT_URI }}
-          DIRECTORY_ID=8d2a9371-5176-41b7-9fdb-bbc990accebc
           EOF
 
       - name: Clean up Docker

@@ -13,7 +13,7 @@ export async function createNewsletter(
 	return supabaseClient.from(DatabaseTable.NEWSLETTER).insert({
 		email_address: payload.emailAddress,
 		ip_address: payload.ipAddress,
-		directory_id: process.env.DIRECTORY_ID,
+		project_id: process.env.NUXT_PUBLIC_PROJECT_ID,
 		created_at: now,
 	})
 }

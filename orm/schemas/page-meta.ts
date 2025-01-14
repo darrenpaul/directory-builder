@@ -1,5 +1,5 @@
 import { pgTable, timestamp, uuid, varchar } from 'drizzle-orm/pg-core';
-import { directory } from './directory';
+import { project } from './project';
 
 export const pageMeta = pgTable(
   'page_meta',
@@ -9,8 +9,8 @@ export const pageMeta = pgTable(
     title: varchar('title').notNull(),
     description: varchar('description').notNull(),
     image: varchar('image').notNull(),
-    directoryId: uuid('directory_id')
-      .references(() => directory.id, { onDelete: 'cascade' })
+    projectId: uuid('project_id')
+      .references(() => project.id, { onDelete: 'cascade' })
       .notNull(),
     updatedAt: timestamp('updated_at', { precision: 6, withTimezone: true }).notNull(),
     createdAt: timestamp('created_at', { precision: 6, withTimezone: true }).notNull(),

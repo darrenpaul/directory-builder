@@ -14,7 +14,7 @@ import { cityView } from './schemas/city-view';
 import { userSubscription } from './schemas/user-subscription';
 import { placeVerified } from './schemas/place-verified';
 import { attributeOptionsView } from './schemas/attribute-options-view';
-import { directory } from './schemas/directory';
+import { project } from './schemas/project';
 import { placeOperatingPeriod } from './schemas/place-operating-period';
 
 export {
@@ -34,6 +34,6 @@ export {
   userSubscription,
   placeVerified,
   attributeOptionsView,
-  directory,
+  project,
   placeOperatingPeriod,
 };

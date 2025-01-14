@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { PageMeta } from '~~/types/page-meta'
 import type { Place } from '~~/types/place'
-import { startCase } from 'lodash-es'
+import { kebabCase, startCase } from 'lodash-es'
 import { pageMetaApiRoute, placesApiRoute } from '~~/constants/routes-api'
 import settings from '~~/constants/settings'
 import Filter from '~/components/filter.vue'
@@ -44,7 +44,15 @@ fetchPromises.push(
 fetchPromises.push(
 	useFetch<PageMeta>(
 		pageMetaUrlQueryBuilder
-			.withSlug({ slug: 'south-africa-western-cape-cape-town' })
+			.withSlug({
+				slug: kebabCase(
+					[
+						route.params.country as string,
+						route.params.state as string,
+						route.params.city as string,
+					].join('-'),
+				),
+			})
 			.build(),
 		{ method: 'GET' },
 	),
@@ -130,7 +138,11 @@ const breadcrumbs = computed(() => {
 					key-id="latest"
 					class="mb-4"
 					:places="data.data"
-					:label="`Discover Coffee Shops in ${startCase(route.params.city as string)}`"
+					:label="
+						t('placeList.label', {
+							city: startCase(route.params.city as string),
+						})
+					"
 				/>
 
 				<button

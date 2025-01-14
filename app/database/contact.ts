@@ -19,7 +19,7 @@ export async function createContact(
 		user_email_address: payload.userEmailAddress,
 		ip_address: payload.userIpAddress,
 		status: Status.PENDING,
-		directory_id: process.env.DIRECTORY_ID,
+		project_id: process.env.NUXT_PUBLIC_PROJECT_ID,
 		created_at: now,
 		updated_at: now,
 	})

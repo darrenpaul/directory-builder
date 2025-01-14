@@ -9,7 +9,7 @@
 				:width="2400"
 				:height="3613"
 				src="https://ljfljcbbwdwbroptxhwv.supabase.co/storage/v1/object/public/page/nearby-coffee-landing-page.webp"
-				alt="Nearby Coffee Landing Page"
+				:alt="$t('home.lander.imageAlt')"
 			/>
 		</div>
 

@@ -119,7 +119,7 @@ export default defineNuxtConfig({
 		// logErrors: true,
 	},
 	i18n: {
-		vueI18n: './locale/nearby-coffee.ts',
+		vueI18n: `./locale/${process.env.NUXT_PUBLIC_SITE_KEY}.ts`,
 		locales: ['en'],
 		defaultLocale: 'en',
 	},

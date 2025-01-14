@@ -49,7 +49,7 @@ export default defineEventHandler(async (event) => {
 	return await createPageMeta(supabaseAdmin, {
 		title: metaTitle,
 		description: metaDescription,
-		directoryId: process.env.DIRECTORY_ID,
+		directoryId: process.env.NUXT_PUBLIC_DIRECTORY_ID,
 		slug,
 		image,
 	})

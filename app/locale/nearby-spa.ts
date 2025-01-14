@@ -3,7 +3,7 @@ export default defineI18nConfig(() => ({
 	locale: 'en',
 	messages: {
 		en: {
-			brand: 'Nearby Coffee',
+			brand: 'Nearby Spa',
 			home: {
 				lander: {
 					title: 'Discover Your Perfect Cup at Cape Town\'s Best Coffee Shops',

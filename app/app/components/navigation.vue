@@ -28,7 +28,7 @@ const visibleRoutes = computed(() => {
 			>
 				<IconBrand class="text-4xl" />
 
-				Nearby Coffee
+				{{ $t("brand") }}
 			</NuxtLink>
 
 			<div class="hidden md:flex items-center gap-8">

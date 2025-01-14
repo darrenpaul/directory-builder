@@ -61,7 +61,7 @@ export async function createPlace(
 				twitter: payload.twitter,
 				phone: payload.phone,
 				specials: payload.specials,
-				directory_id: process.env.DIRECTORY_ID,
+				project_id: process.env.NUXT_PUBLIC_PROJECT_ID,
 			},
 			{ onConflict: 'google_place_id' },
 		)
@@ -232,7 +232,7 @@ export async function getPlaces(
 		.order('created_at', { ascending: false })
 		.order('sort_order', { referencedTable: 'place_image', ascending: true })
 		.limit(1, { foreignTable: 'place_image' })
-		.eq('directory_id', process.env.DIRECTORY_ID)
+		.eq('project_id', process.env.NUXT_PUBLIC_PROJECT_ID)
 		.returns<Place[]>()
 }
 
@@ -299,7 +299,7 @@ export async function getPlaceBySlug(
 		.from(DatabaseTable.PLACE)
 		.select(selectString)
 		.eq('slug', slug)
-		.eq('directory_id', process.env.DIRECTORY_ID)
+		.eq('project_id', process.env.NUXT_PUBLIC_PROJECT_ID)
 		.order('day_index', {
 			referencedTable: 'place_operating_period',
 			ascending: true,
@@ -369,6 +369,6 @@ export async function getPlaceByIdAndOwnerId(
 		.select(selectString)
 		.eq('id', id)
 		.eq('owner_id', ownerId)
-		.eq('directory_id', process.env.DIRECTORY_ID)
+		.eq('project_id', process.env.NUXT_PUBLIC_PROJECT_ID)
 		.maybeSingle<Place>()
 }
