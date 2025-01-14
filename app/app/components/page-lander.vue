@@ -1,4 +1,8 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const props = defineProps({
+	image: { type: String, required: true },
+})
+</script>
 
 <template>
 	<div
@@ -8,7 +12,7 @@
 			<NuxtImg
 				:width="2400"
 				:height="3613"
-				src="https://ljfljcbbwdwbroptxhwv.supabase.co/storage/v1/object/public/page/nearby-coffee-landing-page.webp"
+				:src="props.image"
 				:alt="$t('home.lander.imageAlt')"
 			/>
 		</div>

@@ -9,7 +9,7 @@ import PlaceList from '~/components/place-list.vue'
 import UrlQueryBuilder from '~/lib/builders/url-query-builder'
 
 const {
-	public: { googleAdsenseId },
+	public: { googleAdsenseId, projectKey },
 } = useRuntimeConfig()
 
 const initialLimit = 10
@@ -43,7 +43,7 @@ fetchPromises.push(
 )
 fetchPromises.push(
 	useFetch<PageMeta>(
-		pageMetaUrlQueryBuilder.withSlug({ slug: 'home' }).build(),
+		pageMetaUrlQueryBuilder.withSlug({ slug: `home-${projectKey}` }).build(),
 		{ method: 'GET' },
 	),
 )
@@ -97,7 +97,7 @@ useSchemaOrg([
 
 <template>
 	<div class="mb-8 flex flex-col">
-		<PageLander class="mb-8" />
+		<PageLander class="mb-8" :image="pageMetaData.image" />
 
 		<div class="w-full max-w-screen-2xl mx-auto px-4">
 			<Filter />

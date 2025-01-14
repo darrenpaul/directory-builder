@@ -63,7 +63,7 @@ export async function getPageMeta(
 		supabaseClient
 			.from(DatabaseTable.PAGE_META)
 			.select(selectString)
-			.eq('slug', 'home-nearby-spa')
+			.eq('slug', `home-${process.env.NUXT_PUBLIC_PROJECT_KEY}`)
 			.eq('project_id', process.env.NUXT_PUBLIC_PROJECT_ID)
 			.maybeSingle<PageMeta>(),
 		supabaseClient

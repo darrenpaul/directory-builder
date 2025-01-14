@@ -41,6 +41,9 @@ export default defineNuxtConfig({
 		stripeSecretKey: process.env.STRIPE_SECRET_KEY,
 		stripeRedirectUri: process.env.STRIPE_REDIRECT_URI,
 		public: {
+			projectName: process.env.NUXT_PUBLIC_PROJECT_NAME,
+			projectKey: process.env.NUXT_PUBLIC_PROJECT_KEY,
+			projectId: process.env.NUXT_PUBLIC_PROJECT_ID,
 			stripePublicKey: process.env.NUXT_PUBLIC_STRIPE_PUBLIC_KEY,
 			googleMapsApiKey: process.env.NUXT_PUBLIC_GOOGLE_MAPS_API_KEY,
 			googleAdsenseId: process.env.NUXT_PUBLIC_GOOGLE_ADSENSE_ID,
@@ -119,7 +122,7 @@ export default defineNuxtConfig({
 		// logErrors: true,
 	},
 	i18n: {
-		vueI18n: `./locale/${process.env.NUXT_PUBLIC_SITE_KEY}.ts`,
+		vueI18n: `./locale/${process.env.NUXT_PUBLIC_PROJECT_KEY}.ts`,
 		locales: ['en'],
 		defaultLocale: 'en',
 	},

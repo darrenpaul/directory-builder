@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { PageMeta } from '~~/types/page-meta'
 import type { Place } from '~~/types/place'
 import { kebabCase } from 'lodash-es'
 import IconFacebook from '~~/assets/icons/facebook.svg'
@@ -9,17 +8,14 @@ import IconRestaurantMenu from '~~/assets/icons/restaurant-menu.svg'
 import IconVerified from '~~/assets/icons/verified.svg'
 import IconWebsite from '~~/assets/icons/website.svg'
 import IconX from '~~/assets/icons/x.svg'
-import { pageMetaApiRoute, placesApiRoute } from '~~/constants/routes-api'
+import { placesApiRoute } from '~~/constants/routes-api'
 import settings from '~~/constants/settings'
 import { Status } from '~~/constants/status'
 import OperatingPeriods from '~/components/operating-periods.vue'
 import PageBreadcrumbs from '~/components/page-breadcrumbs.vue'
-import UrlQueryBuilder from '~/lib/builders/url-query-builder'
 import { joinUrlDirectories } from '~/lib/url-directory-join'
 
 const route = useRoute()
-
-const pageMetaUrlQueryBuilder = new UrlQueryBuilder(pageMetaApiRoute.path)
 
 const fetchPromises = []
 
@@ -27,12 +23,6 @@ fetchPromises.push(
 	useFetch<Place>(`${placesApiRoute.path}/${route.params.slug}`, {
 		method: 'GET',
 	}),
-)
-fetchPromises.push(
-	useFetch<PageMeta>(
-		pageMetaUrlQueryBuilder.withSlug({ slug: 'home' }).build(),
-		{ method: 'GET' },
-	),
 )
 
 const [{ data: placeData, error: placeError }, { data: pageMetaData }]
@@ -63,18 +53,10 @@ useHead({
 })
 
 useSeoMeta({
-	title:
-    placeData.value?.metaTitle || pageMetaData.value?.title || 'Nearby Nearby',
-	ogTitle:
-    placeData.value?.metaTitle || pageMetaData.value?.title || 'Nearby Nearby',
-	description:
-    placeData.value?.metaDescription
-    || pageMetaData.value?.description
-    || 'Nearby Nearby',
-	ogDescription:
-    placeData.value?.metaDescription
-    || pageMetaData.value?.description
-    || 'Nearby Nearby',
+	title: placeData.value?.metaTitle || placeData.value?.name,
+	ogTitle: placeData.value?.metaTitle || placeData.value?.name,
+	description: placeData.value?.metaDescription || '',
+	ogDescription: placeData.value?.metaDescription || '',
 	ogImage: pageMetaData.value?.image || '',
 	twitterCard: 'summary_large_image',
 })
