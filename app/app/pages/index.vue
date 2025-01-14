@@ -14,6 +14,7 @@ const {
 
 const initialLimit = 10
 
+const { t } = useI18n()
 const route = useRoute()
 const limit = ref<number>(initialLimit)
 
@@ -84,6 +85,14 @@ defineWebPage({
 	'@type': 'WebPage',
 	'image': pageMetaData.value?.image || '',
 })
+
+useSchemaOrg([
+	{
+		'@type': 'LocalBusiness',
+		'name': `${t('schemaOrg.name')}`,
+		'description': `${t('schemaOrg.name')}`,
+	},
+])
 </script>
 
 <template>

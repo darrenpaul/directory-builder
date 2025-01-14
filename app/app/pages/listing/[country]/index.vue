@@ -11,6 +11,7 @@ import UrlQueryBuilder from '~/lib/builders/url-query-builder'
 
 const initialLimit = 10
 
+const { t } = useI18n()
 const route = useRoute()
 const limit = ref<number>(initialLimit)
 
@@ -81,12 +82,24 @@ defineWebPage({
 	'@type': 'WebPage',
 	'image': pageMetaData.value?.image || '',
 })
+
+useSchemaOrg([
+	{
+		'@type': 'LocalBusiness',
+		'name': `${startCase(route.params.country as string)} ${t('schemaOrg.name')}`,
+		'description': `${t('schemaOrg.name')} ${startCase(route.params.country as string)} `,
+		'address': {
+			'@type': 'PostalAddress',
+			'addressCountry': `${startCase(route.params.country as string)}`,
+		},
+	},
+])
 </script>
 
 <template>
 	<div>
 		<div class="w-full max-w-screen-2xl mx-auto px-4 py-8">
-			<PageBreadcrumbs :crumbs="breadcrumbs" />
+			<PageBreadcrumbs :crumbs="[]" />
 
 			<Filter />
 

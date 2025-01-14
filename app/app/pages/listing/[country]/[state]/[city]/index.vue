@@ -12,6 +12,7 @@ import { joinUrlDirectories } from '~/lib/url-directory-join'
 
 const initialLimit = 10
 
+const { t } = useI18n()
 const route = useRoute()
 const limit = ref<number>(initialLimit)
 
@@ -86,6 +87,19 @@ defineWebPage({
 	'@type': 'WebPage',
 	'image': pageMetaData.value?.image || '',
 })
+
+useSchemaOrg([
+	{
+		'@type': 'LocalBusiness',
+		'name': `${startCase(route.params.city as string)} ${t('schemaOrg.name')}`,
+		'description': `${t('schemaOrg.name')} ${startCase(route.params.city as string)} `,
+		'address': {
+			'@type': 'PostalAddress',
+			'addressRegion': `${startCase(route.params.state as string)}`,
+			'addressCountry': `${startCase(route.params.country as string)}`,
+		},
+	},
+])
 
 const breadcrumbs = computed(() => {
 	return [

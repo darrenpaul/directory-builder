@@ -62,6 +62,10 @@ export default defineI18nConfig(() => ({
 				readyToClaim:
           'Ready to manage your coffee shop\'s presence on Nearby Coffee?',
 			},
+			schemaOrg: {
+				name: 'Coffee Directory',
+				cityDescription: 'Find the best coffee shops near you in Cape Town',
+			},
 		},
 	},
 }))

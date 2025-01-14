@@ -105,7 +105,7 @@ export default defineNuxtConfig({
 		autoTrack: true,
 		proxy: 'direct',
 		// useDirective: true,
-		// ignoreLocalhost: true,
+		ignoreLocalhost: true,
 		// excludeQueryParams: false,
 		// domains: [settings.domain],
 		// customEndpoint: '/my-custom-endpoint',

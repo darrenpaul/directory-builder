@@ -84,6 +84,18 @@ defineWebPage({
 	'image': pageMetaData.value?.image || '',
 })
 
+useSchemaOrg([
+	{
+		'@type': 'LocalBusiness',
+		'name': placeData.value.name,
+		'address': {
+			'@type': 'PostalAddress',
+			'addressRegion': placeData.value.address.state,
+			'addressCountry': placeData.value.address.country,
+		},
+	},
+])
+
 const breadcrumbs = computed(() => {
 	return [
 		{
