@@ -2,7 +2,6 @@
 import isEmail from 'validator/lib/isEmail'
 import IconBrand from '~~/assets/icons/brand.svg'
 import { newsletterApiRoute } from '~~/constants/routes-api'
-import settings from '~~/constants/settings'
 import {
 	ERROR,
 	useToaster,
@@ -65,7 +64,7 @@ async function onNewsletterSubmit() {
 			<IconBrand class="w-16 h-16" filled :font-controlled="false" />
 
 			<p>
-				{{ settings.siteName }}
+				{{ $t("brand") }}
 				<br>
 				Your local guide to the city's vibrant café culture.
 			</p>
@@ -87,10 +86,6 @@ async function onNewsletterSubmit() {
 			<NuxtLink :to="contactRoute.path">
 				{{ contactRoute.label }}
 			</NuxtLink>
-			<!-- <a class="link link-hover">About us</a>
-			<a class="link link-hover">Contact</a>
-			<a class="link link-hover">Jobs</a>
-			<a class="link link-hover">Press kit</a> -->
 		</nav>
 		<nav>
 			<p class="footer-title">
@@ -100,9 +95,6 @@ async function onNewsletterSubmit() {
 			<NuxtLink :to="termsAndConditionsRoute.path">
 				{{ termsAndConditionsRoute.label }}
 			</NuxtLink>
-			<!-- <a class="link link-hover">Terms of use</a>
-			<a class="link link-hover">Privacy policy</a>
-			<a class="link link-hover">Cookie policy</a> -->
 		</nav>
 		<form>
 			<p class="footer-title">

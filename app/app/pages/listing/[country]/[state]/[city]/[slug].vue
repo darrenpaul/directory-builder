@@ -25,7 +25,7 @@ fetchPromises.push(
 	}),
 )
 
-const [{ data: placeData, error: placeError }, { data: pageMetaData }]
+const [{ data: placeData, error: placeError }]
   = await Promise.all(fetchPromises)
 
 if (placeError.value) {
@@ -57,13 +57,13 @@ useSeoMeta({
 	ogTitle: placeData.value?.metaTitle || placeData.value?.name,
 	description: placeData.value?.metaDescription || '',
 	ogDescription: placeData.value?.metaDescription || '',
-	ogImage: pageMetaData.value?.image || '',
+	ogImage: placeData.value?.images[0].imageUrl || '',
 	twitterCard: 'summary_large_image',
 })
 
 defineWebPage({
 	'@type': 'WebPage',
-	'image': pageMetaData.value?.image || '',
+	'image': placeData.value?.images[0].imageUrl || '',
 })
 
 useSchemaOrg([
