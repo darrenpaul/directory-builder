@@ -68,6 +68,9 @@ export default defineI18nConfig(() => ({
 			search: {
 				businessName: 'Enter a spa name',
 			},
+			place: {
+				regimen: 'Treatment',
+			},
 			schemaOrg: {
 				name: 'Spa Directory',
 				cityDescription: 'Find the best spas near you in Cape Town',

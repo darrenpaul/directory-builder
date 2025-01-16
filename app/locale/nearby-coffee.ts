@@ -70,6 +70,9 @@ export default defineI18nConfig(() => ({
 			search: {
 				businessName: 'Enter a coffee shop name',
 			},
+			place: {
+				regimen: 'Menu',
+			},
 			schemaOrg: {
 				name: 'Coffee Directory',
 				cityDescription: 'Find the best coffee shops near you in Cape Town',

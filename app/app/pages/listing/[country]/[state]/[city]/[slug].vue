@@ -178,7 +178,7 @@ const breadcrumbs = computed(() => {
 							:title="`Visit ${placeData.name} menu`"
 							class="link"
 						>
-							Menu
+							{{ $t('place.regimen') }}
 						</NuxtLink>
 					</div>
 
