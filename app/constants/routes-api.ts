@@ -69,3 +69,9 @@ export const adminPageMetaApiRoute = {
 	path: '/api/admin/page-meta/v1',
 	methods: ['POST'],
 }
+
+export const ratingApiRoute = {
+	name: 'rating',
+	path: '/api/rating/v1',
+	methods: ['POST'],
+}

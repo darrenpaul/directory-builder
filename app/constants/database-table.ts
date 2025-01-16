@@ -11,6 +11,7 @@ export enum DatabaseTable {
 	CONTACT = 'contact',
 	USER = 'user',
 	PLACE_OPERATING_PERIOD = 'place_operating_period',
+	RATING = 'rating',
 }
 
 export enum DatabaseView {

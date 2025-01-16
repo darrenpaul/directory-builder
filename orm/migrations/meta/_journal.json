@@ -239,6 +239,34 @@
       "when": 1737036186487,
       "tag": "0033_mature_black_crow",
       "breakpoints": true
+    },
+    {
+      "idx": 34,
+      "version": "7",
+      "when": 1737040161057,
+      "tag": "0034_thick_boom_boom",
+      "breakpoints": true
+    },
+    {
+      "idx": 35,
+      "version": "7",
+      "when": 1737040265903,
+      "tag": "0035_tidy_longshot",
+      "breakpoints": true
+    },
+    {
+      "idx": 36,
+      "version": "7",
+      "when": 1737040820019,
+      "tag": "0036_brown_grandmaster",
+      "breakpoints": true
+    },
+    {
+      "idx": 37,
+      "version": "7",
+      "when": 1737041248571,
+      "tag": "0037_freezing_the_leader",
+      "breakpoints": true
     }
   ]
 }

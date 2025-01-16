@@ -16,6 +16,7 @@ import { placeVerified } from './schemas/place-verified';
 import { attributeOptionsView } from './schemas/attribute-options-view';
 import { project } from './schemas/project';
 import { placeOperatingPeriod } from './schemas/place-operating-period';
+import { rating } from './schemas/rating';
 
 export {
   place,
@@ -36,4 +37,5 @@ export {
   attributeOptionsView,
   project,
   placeOperatingPeriod,
+  rating,
 };

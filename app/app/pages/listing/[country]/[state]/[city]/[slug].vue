@@ -13,11 +13,13 @@ import settings from '~~/constants/settings'
 import { Status } from '~~/constants/status'
 import OperatingPeriods from '~/components/operating-periods.vue'
 import PageBreadcrumbs from '~/components/page-breadcrumbs.vue'
+import StarRating from '~/components/star-rating.vue'
 import { joinUrlDirectories } from '~/lib/url-directory-join'
 
 defineOgImageComponent('NuxtSeo')
 
 const route = useRoute()
+const user = useSupabaseUser()
 
 const fetchPromises = []
 
@@ -146,6 +148,8 @@ const breadcrumbs = computed(() => {
 						:src="placeData.images[0].imageUrl"
 						:alt="placeData.name"
 					/>
+
+					<StarRating v-if="user?.id" :place-id="placeData.id" />
 
 					<div
 						v-if="placeData.website"

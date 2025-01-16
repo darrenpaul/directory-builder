@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { Place } from '~~/types/place'
 import IconNoImage from '~~/assets/icons/no-image.svg'
+import GoogleRating from '~/components/google-rating.vue'
 import PriceRating from '~/components/price-rating.vue'
-import StarRating from '~/components/star-rating.vue'
 import { joinUrlDirectories } from '~/lib/url-directory-join'
 
 const props = defineProps({
@@ -58,7 +58,7 @@ const profileUrl = computed(() => {
 					</NuxtLink>
 				</div>
 
-				<StarRating
+				<GoogleRating
 					:id="`rarting-${props.keyId}-${props.place.id}`"
 					:score="props.place.rating.score"
 					:count="props.place.rating.count"

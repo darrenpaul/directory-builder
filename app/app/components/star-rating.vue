@@ -1,37 +1,50 @@
 <script setup lang="ts">
-import IconStar from '~~/assets/icons/star.svg'
+import { useDebounceFn } from '@vueuse/core'
+import { ref } from 'vue'
+import { ratingApiRoute } from '~~/constants/routes-api'
+import generateNumberArray from '~~/lib/generate-number-array'
 
 const props = defineProps({
-	id: { type: String, required: true },
-	score: { type: Number, required: true },
-	count: { type: Number, required: true },
+	placeId: { type: String, required: true },
 })
 
-const maxRating = 4
-const ratings = generateNumberArray(0, maxRating)
-const scoreRounded = computed(() => Math.floor(props.score))
+const rating = ref(2)
 
-function generateNumberArray(start: number, end: number): number[] {
-	return Array.from({ length: end - start + 1 }, (_, i) => start + i)
+const ratings = generateNumberArray({ start: 1, end: 5 })
+
+const debouncedFn = useDebounceFn(
+	async () => {
+		await $fetch(ratingApiRoute.path, {
+			method: 'POST',
+			body: {
+				placeId: props.placeId,
+				rating: rating.value,
+			},
+		})
+	},
+	1000,
+	{ maxWait: 5000 },
+)
+
+function clickedFn() {
+	debouncedFn()
 }
+
+useEventListener(window, 'resize', debouncedFn)
 </script>
 
 <template>
-	<div class="flex flex-col gap-1">
-		<div class="flex items-center justify-center">
-			<IconStar
-				v-for="rating in ratings"
-				:key="`${props.id}-${rating}`"
-				:class="rating < scoreRounded ? 'text-orange-400' : 'text-neutral-200'"
-				:font-controlled="false"
-				class="w-6 h-6"
-			/>
-
-			<p class="ml-3">
-				({{ props.score }})
-			</p>
-		</div>
-
-		<p>{{ props.count }} reviews</p>
+	<div class="rating rating-lg">
+		<input
+			v-for="ratingIndex in ratings"
+			:key="ratingIndex"
+			ratings
+			type="radio"
+			name="rating-1"
+			class="mask mask-star-2 bg-orange-400"
+			:checked="rating === ratingIndex"
+			@change="() => (rating = ratingIndex)"
+			@click="clickedFn"
+		>
 	</div>
 </template>
