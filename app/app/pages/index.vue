@@ -8,6 +8,8 @@ import PageLander from '~/components/page-lander.vue'
 import PlaceList from '~/components/place-list.vue'
 import UrlQueryBuilder from '~/lib/builders/url-query-builder'
 
+defineOgImageComponent('NuxtSeo')
+
 const {
 	public: { googleAdsenseId, projectKey },
 } = useRuntimeConfig()
@@ -77,7 +79,6 @@ useSeoMeta({
 	ogTitle: pageMetaData.value?.title || 'Nearby Nearby',
 	description: pageMetaData.value?.description || 'Nearby Nearby',
 	ogDescription: pageMetaData.value?.description || 'Nearby Nearby',
-	ogImage: pageMetaData.value?.image || '',
 	twitterCard: 'summary_large_image',
 })
 

@@ -15,6 +15,8 @@ import OperatingPeriods from '~/components/operating-periods.vue'
 import PageBreadcrumbs from '~/components/page-breadcrumbs.vue'
 import { joinUrlDirectories } from '~/lib/url-directory-join'
 
+defineOgImageComponent('NuxtSeo')
+
 const route = useRoute()
 
 const fetchPromises = []
@@ -57,7 +59,6 @@ useSeoMeta({
 	ogTitle: placeData.value?.metaTitle || placeData.value?.name,
 	description: placeData.value?.metaDescription || '',
 	ogDescription: placeData.value?.metaDescription || '',
-	ogImage: placeData.value?.images[0].imageUrl || '',
 	twitterCard: 'summary_large_image',
 })
 
@@ -178,7 +179,7 @@ const breadcrumbs = computed(() => {
 							:title="`Visit ${placeData.name} menu`"
 							class="link"
 						>
-							{{ $t('place.regimen') }}
+							{{ $t("place.regimen") }}
 						</NuxtLink>
 					</div>
 

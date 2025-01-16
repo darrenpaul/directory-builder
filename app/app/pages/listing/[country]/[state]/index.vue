@@ -10,6 +10,8 @@ import PlaceList from '~/components/place-list.vue'
 import UrlQueryBuilder from '~/lib/builders/url-query-builder'
 import { joinUrlDirectories } from '~/lib/url-directory-join'
 
+defineOgImageComponent('NuxtSeo')
+
 const initialLimit = 10
 
 const { t } = useI18n()
@@ -84,7 +86,6 @@ useSeoMeta({
 	ogTitle: pageMetaData.value?.title || 'Nearby Nearby',
 	description: pageMetaData.value?.description || 'Nearby Nearby',
 	ogDescription: pageMetaData.value?.description || 'Nearby Nearby',
-	ogImage: pageMetaData.value?.image || '',
 	twitterCard: 'summary_large_image',
 })
 

@@ -34,6 +34,7 @@ export default defineNuxtConfig({
 		'nuxt-umami',
 		'nuxt-tiptap-editor',
 		'@nuxtjs/i18n',
+		'nuxt-og-image',
 	],
 	typescript: {
 		strict: true,
@@ -129,5 +130,9 @@ export default defineNuxtConfig({
 		vueI18n: `./locale/${process.env.NUXT_PUBLIC_PROJECT_KEY}.ts`,
 		locales: ['en'],
 		defaultLocale: 'en',
+	},
+	robots: {
+		blockNonSeoBots: true,
+		blockAiBots: true,
 	},
 })
