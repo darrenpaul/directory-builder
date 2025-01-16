@@ -10,6 +10,6 @@ export default <Partial<Config>>{
 	plugins: [require('daisyui')],
 	daisyui: {
 		darkTheme: 'light',
-		themes: ['coffee'],
+		themes: ['cupcake'],
 	},
 }

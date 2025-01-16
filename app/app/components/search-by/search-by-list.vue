@@ -15,7 +15,7 @@ const props = defineProps({
 			{{ props.label }}
 		</p>
 
-		<div class="grid grid-cols-3">
+		<div class="grid">
 			<SearchByListItem
 				v-for="searchByLink in props.searchByLinks"
 				:key="`${props.id}-${searchByLink.id}`"

@@ -1,0 +1,6 @@
+DROP VIEW "public"."city_view";--> statement-breakpoint
+DROP VIEW "public"."country_view";--> statement-breakpoint
+DROP VIEW "public"."state_view";--> statement-breakpoint
+CREATE VIEW "public"."city_view" AS (select "place_address"."city", "place_address"."country", "place_address"."state", "place"."project_id" from "place_address" left join "place" on "place_address"."place_id" = "place"."id" group by "place_address"."country", "place_address"."state", "place_address"."city", "place"."project_id");--> statement-breakpoint
+CREATE VIEW "public"."country_view" AS (select "place_address"."country", "place"."project_id" from "place_address" left join "place" on "place_address"."place_id" = "place"."id" group by "place_address"."country", "place"."project_id");--> statement-breakpoint
+CREATE VIEW "public"."state_view" AS (select "place_address"."state", "place_address"."country", "place"."project_id" from "place_address" left join "place" on "place_address"."place_id" = "place"."id" group by "place_address"."country", "place_address"."state", "place"."project_id");

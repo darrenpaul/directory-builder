@@ -7,5 +7,6 @@ export async function getCities(supabaseClient: SupabaseClient) {
 	return supabaseClient
 		.from(DatabaseView.CITY)
 		.select(selectString)
+		.eq('project_id', process.env.NUXT_PUBLIC_PROJECT_ID)
 		.returns<{ country: string, state: string, city: string }[]>()
 }

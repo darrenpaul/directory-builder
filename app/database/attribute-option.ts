@@ -7,5 +7,6 @@ export async function getAttributeOptions(supabaseClient: SupabaseClient) {
 	return supabaseClient
 		.from(DatabaseView.ATTRIBUTE_OPTIONS_VIEW)
 		.select(selectString)
+		.eq('project_id', process.env.NUXT_PUBLIC_PROJECT_ID)
 		.returns<{ key: string, label: string }[]>()
 }

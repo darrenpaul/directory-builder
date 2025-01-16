@@ -61,7 +61,7 @@ async function onSearchByText() {
 	const request = {
 		textQuery: textQuery.value,
 		fields: googlePlaceRequestFields,
-		maxResultCount: 10,
+		maxResultCount: 20,
 		language: 'en',
 		region: 'za',
 	}
