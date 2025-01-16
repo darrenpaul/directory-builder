@@ -26,7 +26,7 @@ const visibleRoutes = computed(() => {
 				class="text-lg lg:text-3xl font-bold flex items-center gap-3"
 				:to="homeRoute.path"
 			>
-				<IconBrand class="text-4xl" />
+				<IconBrand class="text-4xl" filled />
 
 				{{ $t("brand") }}
 			</NuxtLink>

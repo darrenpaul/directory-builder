@@ -52,6 +52,9 @@ jobs:
           STRIPE_REDIRECT_URI=${{ secrets.STRIPE_REDIRECT_URI }}
           EOF
 
+      - name: Config Project
+        run: make set-project-nearby-coffee
+
       - name: Clean up Docker
         run: |
           docker system prune -af

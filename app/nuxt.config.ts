@@ -8,6 +8,7 @@ export default defineNuxtConfig({
 		process.env.NODE_ENV === 'production'
 			? '/server/api/admin/page-meta/v1/index.post.ts'
 			: '',
+		'__projects__',
 	],
 	compatibilityDate: '2024-11-01',
 	future: {

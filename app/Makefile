@@ -21,3 +21,13 @@ start-production: ## Start the production docker container.
 .PHONY: stop-production
 stop-production: ## Stop the production docker container.
 	docker compose -f docker/production/docker-compose.yml down
+
+.PHONY: set-project-nearby-coffee
+set-project-nearby-coffee:
+	cp __project__/nearby-coffee/assets/icons/brand.svg assets/icons/brand.svg;
+	cp __project__/nearby-coffee/public/favicon.ico public/favicon.ico;
+
+.PHONY: set-project-nearby-spa
+set-project-nearby-spa:
+	cp __project__/nearby-spa/assets/icons/brand.svg assets/icons/brand.svg;
+	cp __project__/nearby-spa/public/favicon.ico public/favicon.ico;
