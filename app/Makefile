@@ -27,11 +27,11 @@ set-nearby-coffee:
 	cp __project__/nearby-coffee/assets/icons/brand.svg assets/icons/brand.svg;
 	cp __project__/nearby-coffee/public/favicon.ico public/favicon.ico;
 	cp __project__/nearby-coffee/tailwind.config.ts tailwind.config.ts;
-	cp __project__/nearby-coffee/.env .env;
+	# cp __project__/nearby-coffee/.env .env;
 
 .PHONY: set-nearby-spa
 set-nearby-spa:
 	cp __project__/nearby-spa/assets/icons/brand.svg assets/icons/brand.svg;
 	cp __project__/nearby-spa/public/favicon.ico public/favicon.ico;
 	cp __project__/nearby-spa/tailwind.config.ts tailwind.config.ts;
-	cp __project__/nearby-spa/.env .env;
+	# cp __project__/nearby-spa/.env .env;
