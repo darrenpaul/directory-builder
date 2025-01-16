@@ -11,12 +11,21 @@ export async function askQuestionsAboutPlace(
 
 	const prompts = [
 		'Read the content and answer the following questions.',
-		'Respond with only true or false, no other text.',
-		'Structure as Json.',
+		'Respond with only true or false, no other information.',
+		'system: You are a JSON processing assistant. Return only valid array ofJSON objects, with no additional text or formatting. Follow this exact format: {"label": "Has X", "key": "hasX", "value": boolean}',
 	].join('\n')
 
 	const questions = [
-		'Is there wifi? ({label:"Has Wifi",key:"hasWifi", value:??})',
+		'has wifi? ({label:"Has Wifi",key:"hasWifi", value:??})',
+		'has massages? ({label:"Has Massage",key:"hasMassage", value:??})',
+		'has facial? ({label:"Has Facial",key:"hasFacial", value:??})',
+		'has body wrap? ({label:"Has Body Wrap",key:"hasBodyWrap", value:??})',
+		'has sauna? ({label:"Has Sauna",key:"hasSauna", value:??})',
+		'has Hydrotherapy? ({label:"Has Hydrotherapy",key:"hasHydrotherapy", value:??})',
+		`has Cryotherapy?({label:"Has Cryotherapy",key:"hasCryotherapy", value:??})`,
+		'has body scrub? ({label:"Has Body Scrub",key:"hasBodyScrub", value:??})',
+		'has pedicure? ({label:"Has Pedicure",key:"hasPedicure", value:??})',
+		'has manicure? ({label:"Has Manicure",key:"hasManicure", value:??})',
 	].join('\n')
 
 	const msg = await anthropic.messages.create({
@@ -54,11 +63,11 @@ export async function genearateDescriptionAndMetaInformation(
 	const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
 	const prompts = [
-		'You are an SEO expert writing content for a coffee shop directory profile page about a specific coffee shop',
+		'You are an SEO expert writing content for a spa directory profile page about a specific spa',
 		'Write a short description for the profile page of the coffee shop, (description)',
 		'Write a SEO optimized title (metaTitle)',
 		'Write a SEO optimized description (metaDescription). Ensure this is between 110 and 160 characters,',
-		'Structure as Json. don\'t nest this data',
+		'system: You are a JSON processing assistant. Return only a valid JSON object, with no additional text or formatting. Follow this exact format: {"description": "???", "metaTitle": "???", "metaDescription": "???"}',
 	].join('\n')
 
 	const msg = await anthropic.messages.create({
@@ -105,6 +114,7 @@ export async function getUrls(content: string | null | undefined) {
 		'Please clean up phone numbers and add the dailing code +27 and only return the first phone number if there are multiple phone numbers',
 		'Please clean up urls',
 		'Respond with no other text, ',
+		'system: You are a JSON processing assistant. Return only a valid JSON object, with no additional text or formatting. Follow this exact format: {"description": "???", "metaTitle": "???", "metaDescription": "???"}',
 		'Structure as Json.',
 	].join('\n')
 

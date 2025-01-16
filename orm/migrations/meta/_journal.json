@@ -267,6 +267,34 @@
       "when": 1737041248571,
       "tag": "0037_freezing_the_leader",
       "breakpoints": true
+    },
+    {
+      "idx": 38,
+      "version": "7",
+      "when": 1737052773854,
+      "tag": "0038_supreme_matthew_murdock",
+      "breakpoints": true
+    },
+    {
+      "idx": 39,
+      "version": "7",
+      "when": 1737052832288,
+      "tag": "0039_far_revanche",
+      "breakpoints": true
+    },
+    {
+      "idx": 40,
+      "version": "7",
+      "when": 1737053028170,
+      "tag": "0040_living_mephistopheles",
+      "breakpoints": true
+    },
+    {
+      "idx": 41,
+      "version": "7",
+      "when": 1737053187404,
+      "tag": "0041_slimy_professor_monster",
+      "breakpoints": true
     }
   ]
 }

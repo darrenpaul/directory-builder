@@ -8,5 +8,6 @@ export async function getAttributeOptions(supabaseClient: SupabaseClient) {
 		.from(DatabaseView.ATTRIBUTE_OPTIONS_VIEW)
 		.select(selectString)
 		.eq('project_id', process.env.NUXT_PUBLIC_PROJECT_ID)
+		.gt('total_count', 1)
 		.returns<{ key: string, label: string }[]>()
 }

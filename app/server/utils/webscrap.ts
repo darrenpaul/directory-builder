@@ -1,5 +1,47 @@
 import puppeteer from 'puppeteer'
 
+async function scrapHeadings(page) {
+	return await page.evaluate(() => {
+		const headingTypes = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']
+		const headingsText = headingTypes.map((headingType) => {
+			return Array.from(document.querySelectorAll(headingType))
+				.map(e => e.textContent.trim())
+				.filter(t => t.length > 0)
+				.join('\n')
+		})
+
+		return headingsText
+			.filter(t => t.length > 0)
+			.flat()
+			.join('\n')
+	})
+}
+
+async function scrapParagraphs(page) {
+	return await page.evaluate(() => {
+		return Array.from(document.querySelectorAll('p'))
+			.map(p => p.textContent.trim())
+			.filter(t => t.length > 0)
+			.flat()
+			.join('\n')
+	})
+}
+
+async function scrapLink(browser, url: string) {
+	if (url) {
+		const page = await browser.newPage()
+
+		await page.goto(url, {
+			waitUntil: 'domcontentloaded',
+		})
+
+		const scrappedHeadings = await scrapHeadings(page)
+		const scrappedParagraphs = await scrapParagraphs(page)
+
+		return [scrappedHeadings, scrappedParagraphs].join('\n')
+	}
+}
+
 export async function scrapWebsite(url: string) {
 	if (!url || url.includes('facebook') || url.includes('instagram')) {
 		return { textContent: null, links: null }
@@ -45,10 +87,27 @@ export async function scrapWebsite(url: string) {
 		const headings = scrapHeadings.flat().join('\n')
 		const paragraphs = scrapParagraphs.flat().join('\n')
 		const links = scrapLinks
+		const contentFromScrappedLinks = []
+
+		const scrappedUrlLinks = []
+
+		for (const link of links) {
+			if (scrappedUrlLinks.includes(link.href)) {
+				continue
+			}
+
+			scrappedUrlLinks.push(link.href)
+
+			const scrappedLink = await scrapLink(browser, link.href)
+			if (scrappedLink) {
+				contentFromScrappedLinks.push(scrappedLink)
+			}
+		}
 
 		const contactPageUrl = links.find(link =>
 			link.text.toLowerCase().includes('contact'),
 		)?.href
+
 		if (contactPageUrl) {
 			const contactPage = await browser.newPage()
 
@@ -68,11 +127,16 @@ export async function scrapWebsite(url: string) {
 		}
 
 		return {
-			textContent: [headings, paragraphs].join('\n'),
+			textContent: [
+				headings,
+				paragraphs,
+				contentFromScrappedLinks.join('\n'),
+			].join('\n'),
 			links: JSON.stringify(links.flat()),
 		}
 	}
-	catch {
+	catch (error) {
+		console.error(error)
 		return { textContent: null, links: null }
 	}
 	finally {
