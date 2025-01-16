@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { adminPageMetaApiRoute } from '~~/constants/routes-api'
+import { useToaster } from '~~/modules/toast-notification-module/runtime'
+
+const { createNotification } = useToaster()
 
 const loading = ref(false)
 const state = reactive<{ [key: string]: string | undefined }>({
@@ -28,12 +31,25 @@ async function onSubmit() {
 			},
 		})
 
-		state.pageSlug = undefined
-		state.imageUri = undefined
-		state.comapny = undefined
-		state.location = undefined
-		state.keywordResearch = undefined
-		state.focus = undefined
+		createNotification({
+			title: '',
+			message: 'Meta data created successfully',
+			type: 'SUCCESS',
+		})
+
+		// state.pageSlug = undefined
+		// state.imageUri = undefined
+		// state.comapny = undefined
+		// state.location = undefined
+		// state.keywordResearch = undefined
+		// state.focus = undefined
+	}
+	catch (error) {
+		createNotification({
+			title: '',
+			message: error,
+			type: 'ERROR',
+		})
 	}
 	finally {
 		loading.value = false

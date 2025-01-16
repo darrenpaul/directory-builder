@@ -8,7 +8,7 @@ const props = defineProps({
 	placeId: { type: String, required: true },
 })
 
-const rating = ref(2)
+const rating = ref(5)
 
 const ratings = generateNumberArray({ start: 1, end: 5 })
 

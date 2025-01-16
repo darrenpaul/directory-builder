@@ -46,11 +46,17 @@ export default defineEventHandler(async (event) => {
 		targetAudience,
 	})
 
-	return await createPageMeta(supabaseAdmin, {
+	const { error } = await createPageMeta(supabaseAdmin, {
 		title: metaTitle,
 		description: metaDescription,
-		directoryId: process.env.NUXT_PUBLIC_DIRECTORY_ID,
 		slug,
 		image,
 	})
+
+	if (error) {
+		throw createError({
+			statusCode: 401,
+			statusMessage: error.message,
+		})
+	}
 })

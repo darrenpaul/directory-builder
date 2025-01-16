@@ -9,7 +9,6 @@ export async function createPageMeta(
 		image: string
 		title: string
 		description: string
-		directoryId: string
 	},
 ) {
 	const now = new Date()
@@ -22,7 +21,7 @@ export async function createPageMeta(
 				image: payload.image,
 				title: payload.title,
 				description: payload.description,
-				project_id: payload.directoryId,
+				project_id: process.env.NUXT_PUBLIC_PROJECT_ID,
 				created_at: now,
 				updated_at: now,
 			},
@@ -42,7 +41,7 @@ export async function createPageMeta(
 			image: payload.image,
 			title: payload.title,
 			description: payload.description,
-			project_id: payload.directoryId,
+			project_id: process.env.NUXT_PUBLIC_PROJECT_ID,
 			updated_at: now,
 		})
 		.eq('id', data.id)
@@ -69,7 +68,7 @@ export async function getPageMeta(
 		supabaseClient
 			.from(DatabaseTable.PAGE_META)
 			.select(selectString)
-			.eq('slug', slug)
+			.eq('slug', `${process.env.NUXT_PUBLIC_PROJECT_KEY}-${slug}`)
 			.eq('project_id', process.env.NUXT_PUBLIC_PROJECT_ID)
 			.maybeSingle<PageMeta>(),
 	])
