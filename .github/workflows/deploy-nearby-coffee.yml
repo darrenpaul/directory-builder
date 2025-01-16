@@ -55,7 +55,7 @@ jobs:
           EOF
 
       - name: Config Project
-        run: make set-project-nearby-coffee
+        run: make set-nearby-coffee
 
       - name: Clean up Docker
         run: |
