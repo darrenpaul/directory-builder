@@ -1,5 +1,31 @@
 import Anthropic from '@anthropic-ai/sdk'
 
+const nearbyCoffeeConfig = [
+	'has wifi? ({label:"Has Wifi",key:"hasWifi", value:??})',
+]
+
+const nearbySpaConfig = [
+	'has wifi? ({label:"Has Wifi",key:"hasWifi", value:??})',
+	'has massages? ({label:"Has Massage",key:"hasMassage", value:??})',
+	'has facial? ({label:"Has Facial",key:"hasFacial", value:??})',
+	'has body wrap? ({label:"Has Body Wrap",key:"hasBodyWrap", value:??})',
+	'has sauna? ({label:"Has Sauna",key:"hasSauna", value:??})',
+	'has Hydrotherapy? ({label:"Has Hydrotherapy",key:"hasHydrotherapy", value:??})',
+	`has Cryotherapy?({label:"Has Cryotherapy",key:"hasCryotherapy", value:??})`,
+	'has body scrub? ({label:"Has Body Scrub",key:"hasBodyScrub", value:??})',
+	'has pedicure? ({label:"Has Pedicure",key:"hasPedicure", value:??})',
+	'has manicure? ({label:"Has Manicure",key:"hasManicure", value:??})',
+]
+
+function getProjectConfig() {
+	if (process.env.NEXT_PUBLIC_PROJECT_KEY === 'nearby-spa') {
+		return nearbySpaConfig
+	}
+	else {
+		return nearbyCoffeeConfig
+	}
+}
+
 export async function askQuestionsAboutPlace(
 	content: string | null | undefined,
 ) {
@@ -10,43 +36,52 @@ export async function askQuestionsAboutPlace(
 	const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
 	const prompts = [
-		'Read the content and answer the following questions.',
-		'Respond with only true or false, no other information.',
-		'system: You are a JSON processing assistant. Return only valid array ofJSON objects, with no additional text or formatting. Follow this exact format: {"label": "Has X", "key": "hasX", "value": boolean}',
+		'Read the content and answer the following questions. with true or false, no other information.',
+		'You are a JSON processing assistant.',
+		'Return only valid array of JSON objects, with no additional text or formatting.',
+		'Follow this exact format: {"label": "Has X", "key": "hasX", "value": boolean}',
 	].join('\n')
 
-	const questions = [
-		'has wifi? ({label:"Has Wifi",key:"hasWifi", value:??})',
-		'has massages? ({label:"Has Massage",key:"hasMassage", value:??})',
-		'has facial? ({label:"Has Facial",key:"hasFacial", value:??})',
-		'has body wrap? ({label:"Has Body Wrap",key:"hasBodyWrap", value:??})',
-		'has sauna? ({label:"Has Sauna",key:"hasSauna", value:??})',
-		'has Hydrotherapy? ({label:"Has Hydrotherapy",key:"hasHydrotherapy", value:??})',
-		`has Cryotherapy?({label:"Has Cryotherapy",key:"hasCryotherapy", value:??})`,
-		'has body scrub? ({label:"Has Body Scrub",key:"hasBodyScrub", value:??})',
-		'has pedicure? ({label:"Has Pedicure",key:"hasPedicure", value:??})',
-		'has manicure? ({label:"Has Manicure",key:"hasManicure", value:??})',
-	].join('\n')
+	const questions = [...getProjectConfig()].join('\n')
 
 	const msg = await anthropic.messages.create({
 		model: 'claude-3-5-sonnet-20241022',
 		max_tokens: 1000,
 		temperature: 0,
-		system: `${prompts}${questions}`,
+		system: prompts,
 		messages: [
 			{
 				role: 'user',
 				content: [
 					{
 						type: 'text',
-						text: content,
+						text: questions,
 					},
 				],
 			},
 		],
 	})
 
-	return [JSON.parse(msg.content[0].text)].flat()
+	const textContent = msg.content[0].text
+		.replaceAll(
+			'Based on the content provided, here are the answers in the requested JSON format:\n\n',
+			'',
+		)
+		.replaceAll(
+			'Based on the content provided, here are the JSON responses for checking if the website has wifi:\n\n',
+			'',
+		)
+
+	try {
+		return [JSON.parse(textContent)].flat()
+	}
+	catch (e) {
+		console.error(e)
+		throw createError({
+			statusCode: 500,
+			statusMessage: e,
+		})
+	}
 }
 
 export async function genearateDescriptionAndMetaInformation(
@@ -62,9 +97,14 @@ export async function genearateDescriptionAndMetaInformation(
 
 	const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
+	const directoryType
+    = process.env.NEXT_PUBLIC_PROJECT_KEY === 'nearby-spa'
+    	? 'spa'
+    	: 'coffee shop'
+
 	const prompts = [
-		'You are an SEO expert writing content for a spa directory profile page about a specific spa',
-		'Write a short description for the profile page of the coffee shop, (description)',
+		`You are an SEO expert writing content for a ${directoryType} directory profile page about a specific ${directoryType}`,
+		`Write a short description for the profile page of the ${directoryType}, (description)`,
 		'Write a SEO optimized title (metaTitle)',
 		'Write a SEO optimized description (metaDescription). Ensure this is between 110 and 160 characters,',
 		'system: You are a JSON processing assistant. Return only a valid JSON object, with no additional text or formatting. Follow this exact format: {"description": "???", "metaTitle": "???", "metaDescription": "???"}',

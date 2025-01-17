@@ -27,18 +27,33 @@ async function scrapParagraphs(page) {
 	})
 }
 
+async function scrapLinks(page) {
+	return await page.evaluate(() => {
+		return Array.from(document.querySelectorAll('a')).map(anchor => ({
+			text: anchor.textContent.trim(),
+			href: anchor.href,
+		}))
+	})
+}
+
 async function scrapLink(browser, url: string) {
 	if (url) {
 		const page = await browser.newPage()
 
-		await page.goto(url, {
-			waitUntil: 'domcontentloaded',
-		})
+		try {
+			await page.goto(url, {
+				waitUntil: 'domcontentloaded',
+			})
 
-		const scrappedHeadings = await scrapHeadings(page)
-		const scrappedParagraphs = await scrapParagraphs(page)
+			const scrappedHeadings = await scrapHeadings(page)
+			const scrappedParagraphs = await scrapParagraphs(page)
 
-		return [scrappedHeadings, scrappedParagraphs].join('\n')
+			return [scrappedHeadings, scrappedParagraphs].join('\n')
+		}
+		catch (e) {
+			console.error(e)
+			return ''
+		}
 	}
 }
 
@@ -59,37 +74,12 @@ export async function scrapWebsite(url: string) {
 			waitUntil: 'domcontentloaded',
 		})
 
-		const scrapHeadings = await page.evaluate(() => {
-			const headingTypes = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']
-			const headingsText = headingTypes.map((headingType) => {
-				return Array.from(document.querySelectorAll(headingType))
-					.map(e => e.textContent.trim())
-					.filter(t => t.length > 0)
-					.join('\n')
-			})
+		const headings = await scrapHeadings(page)
+		const paragraphs = await scrapParagraphs(page)
+		const links = await scrapLinks(page)
 
-			return headingsText.filter(t => t.length > 0)
-		})
-
-		const scrapParagraphs = await page.evaluate(() => {
-			return Array.from(document.querySelectorAll('p'))
-				.map(p => p.textContent.trim())
-				.filter(t => t.length > 0)
-		})
-
-		const scrapLinks = await page.evaluate(() => {
-			return Array.from(document.querySelectorAll('a')).map(anchor => ({
-				text: anchor.textContent.trim(),
-				href: anchor.href,
-			}))
-		})
-
-		const headings = scrapHeadings.flat().join('\n')
-		const paragraphs = scrapParagraphs.flat().join('\n')
-		const links = scrapLinks
 		const contentFromScrappedLinks = []
-
-		const scrappedUrlLinks = []
+		const scrappedUrlLinks: string[] = []
 
 		for (const link of links) {
 			if (scrappedUrlLinks.includes(link.href)) {
@@ -104,40 +94,16 @@ export async function scrapWebsite(url: string) {
 			}
 		}
 
-		const contactPageUrl = links.find(link =>
-			link.text.toLowerCase().includes('contact'),
-		)?.href
-
-		if (contactPageUrl) {
-			const contactPage = await browser.newPage()
-
-			await contactPage.goto(contactPageUrl, {
-				waitUntil: 'domcontentloaded',
-			})
-
-			const scrapContactPageLinks = await contactPage.evaluate(() => {
-				return Array.from(document.querySelectorAll('a')).map(anchor => ({
-					text: anchor.textContent.trim(),
-					href: anchor.href,
-				}))
-			})
-
-			const contactPageLinks = scrapContactPageLinks
-			links.push(...contactPageLinks)
-		}
-
-		return {
-			textContent: [
-				headings,
-				paragraphs,
-				contentFromScrappedLinks.join('\n'),
-			].join('\n'),
-			links: JSON.stringify(links.flat()),
-		}
+		return [headings, paragraphs, contentFromScrappedLinks.join('\n')].join(
+			'\n',
+		)
 	}
 	catch (error) {
 		console.error(error)
-		return { textContent: null, links: null }
+		throw createError({
+			statusCode: 500,
+			statusMessage: error,
+		})
 	}
 	finally {
 		await browser.close()

@@ -2,8 +2,8 @@
 import { useGeolocation } from '@vueuse/core'
 import IconTrash from '~~/assets/icons/trash.svg'
 import { adminPlaceApiRoute } from '~~/constants/routes-api'
+import GoogleRating from '~/components/google-rating.vue'
 import PriceRating from '~/components/price-rating.vue'
-import StarRating from '~/components/star-rating.vue'
 import { googlePlaceRequestFields } from '~/constants/google-place-fields'
 import { parseGooglePlace } from '~/lib/google-place'
 
@@ -183,7 +183,7 @@ async function onSavePlaces() {
 						{{ place.displayName }}
 					</p>
 
-					<StarRating
+					<GoogleRating
 						:id="`rating-${place.googlePlaceId}`"
 						:score="place.rating"
 						:count="place.userRatingCount"

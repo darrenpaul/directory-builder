@@ -55,12 +55,12 @@ export default defineEventHandler(async (event) => {
 		operatingPeriods,
 	} = body
 
-	const { textContent, links } = await scrapWebsite(website)
+	const textContent = await scrapWebsite(website)
 
 	const questions = await askQuestionsAboutPlace(textContent)
 
 	const { menu, facebook, instagram, twitter, phone, specials }
-    = await getUrls(links)
+    = await getUrls(textContent)
 
 	const { metaTitle, metaDescription, description }
     = await genearateDescriptionAndMetaInformation(textContent)

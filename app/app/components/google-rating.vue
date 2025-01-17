@@ -9,7 +9,7 @@ const props = defineProps({
 	count: { type: Number, required: true },
 })
 
-const ratings = generateNumberArray({ start: 1, end: 5 })
+const ratings = generateNumberArray({ start: 0, end: 4 })
 const scoreRounded = computed(() => Math.floor(props.score))
 </script>
 
