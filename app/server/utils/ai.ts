@@ -17,6 +17,14 @@ const nearbySpaConfig = [
 	'has manicure? ({label:"Has Manicure",key:"hasManicure", value:??})',
 ]
 
+function getDirectoryType() {
+	if (process.env.NEXT_PUBLIC_PROJECT_KEY === 'nearby-spa') {
+		return 'spa'
+	}
+
+	return 'coffee shop'
+}
+
 function getProjectConfig() {
 	if (process.env.NEXT_PUBLIC_PROJECT_KEY === 'nearby-spa') {
 		return nearbySpaConfig
@@ -97,10 +105,7 @@ export async function genearateDescriptionAndMetaInformation(
 
 	const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
-	const directoryType
-    = process.env.NEXT_PUBLIC_PROJECT_KEY === 'nearby-spa'
-    	? 'spa'
-    	: 'coffee shop'
+	const directoryType = getDirectoryType()
 
 	const prompts = [
 		`You are an SEO expert writing content for a ${directoryType} directory profile page about a specific ${directoryType}`,

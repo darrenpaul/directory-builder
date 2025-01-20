@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import PageMeta from '~/components/admin/page-meta.vue'
+import PlaceAttributeForm from '~/components/admin/place-attribute-form.vue'
 import Places from '~/components/places.vue'
 
 definePageMeta({
@@ -21,6 +22,13 @@ definePageMeta({
 				Create Page Meta
 			</p>
 			<PageMeta />
+		</div>
+
+		<div class="w-full">
+			<p class="text-4xl font-bold">
+				Add Attribute to Place
+			</p>
+			<PlaceAttributeForm />
 		</div>
 	</div>
 </template>

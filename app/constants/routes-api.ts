@@ -70,6 +70,12 @@ export const adminPageMetaApiRoute = {
 	methods: ['POST'],
 }
 
+export const adminPlaceAttributeApiRoute = {
+	name: 'admin-place-attribute',
+	path: '/api/admin/place-attribute/v1',
+	methods: ['POST'],
+}
+
 export const ratingApiRoute = {
 	name: 'rating',
 	path: '/api/rating/v1',

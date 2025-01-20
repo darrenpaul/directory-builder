@@ -59,7 +59,7 @@ async function scrapLink(browser, url: string) {
 
 export async function scrapWebsite(url: string) {
 	if (!url || url.includes('facebook') || url.includes('instagram')) {
-		return { textContent: null, links: null }
+		return null
 	}
 
 	const browser = await puppeteer.launch({
