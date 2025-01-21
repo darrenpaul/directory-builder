@@ -67,11 +67,14 @@ export default class UrlQueryBuilder {
 		return this
 	}
 
-	withLimit({ limit }: Record<string, number>) {
+	withLimit({ limit }: Record<string, string>) {
 		this.queryParams.delete('limit')
 
 		if (limit) {
 			this.queryParams.append('limit', limit)
+		}
+		else {
+			this.queryParams.append('limit', '10')
 		}
 
 		return this

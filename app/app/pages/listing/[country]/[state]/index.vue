@@ -15,11 +15,8 @@ const {
 	public: { siteUrl },
 } = useRuntimeConfig()
 
-const initialLimit = 10
-
 const { t } = useI18n()
 const route = useRoute()
-const limit = ref<number>(initialLimit)
 
 const urlQueryBuilder = new UrlQueryBuilder(placesApiRoute.path)
 const pageMetaUrlQueryBuilder = new UrlQueryBuilder(pageMetaApiRoute.path)
@@ -36,9 +33,13 @@ const queryUrl = computed(() => {
 		.withStateName(paramsAndQueries)
 		.withPostalCode(paramsAndQueries)
 		.withUrlQueryKeys(paramsAndQueries)
-		.withLimit({ limit: limit.value })
+		.withLimit(paramsAndQueries)
 		.build()
 })
+
+const limit = computed(
+	() => Number.parseInt(route.query.limit as string) || 10,
+)
 
 const fetchPromises = []
 
@@ -68,10 +69,6 @@ if (error.value) {
 		statusCode: 500,
 		statusMessage: error.value?.message,
 	})
-}
-
-async function onLoadMore() {
-	limit.value += initialLimit
 }
 
 useHead({
@@ -141,13 +138,13 @@ const breadcrumbs = computed(() => {
 					"
 				/>
 
-				<button
+				<NuxtLink
 					v-if="data.count > limit"
 					class="btn btn-block btn-neutral btn-outline"
-					@click="onLoadMore"
+					:to="{ query: { limit: limit + 10 } }"
 				>
 					Load More
-				</button>
+				</NuxtLink>
 			</div>
 		</div>
 

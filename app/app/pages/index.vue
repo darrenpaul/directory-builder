@@ -11,11 +11,8 @@ const {
 	public: { googleAdsenseId, projectKey, siteUrl },
 } = useRuntimeConfig()
 
-const initialLimit = 10
-
 const { t } = useI18n()
 const route = useRoute()
-const limit = ref<number>(initialLimit)
 
 const urlQueryBuilder = new UrlQueryBuilder(placesApiRoute.path)
 const pageMetaUrlQueryBuilder = new UrlQueryBuilder(pageMetaApiRoute.path)
@@ -31,9 +28,13 @@ const queryUrl = computed(() => {
 		.withCityName(paramsAndQueries)
 		.withPostalCode(paramsAndQueries)
 		.withUrlQueryKeys(paramsAndQueries)
-		.withLimit({ limit: limit.value })
+		.withLimit(paramsAndQueries)
 		.build()
 })
+
+const limit = computed(
+	() => Number.parseInt(route.query.limit as string) || 10,
+)
 
 const fetchPromises = []
 
@@ -57,9 +58,6 @@ if (error.value) {
 	})
 }
 
-async function onLoadMore() {
-	limit.value += initialLimit
-}
 useHead({
 	link: [
 		{
@@ -108,13 +106,13 @@ useSchemaOrg([
 					:label="$t('home.latestPlace')"
 				/>
 
-				<button
+				<NuxtLink
 					v-if="data.count > limit"
 					class="btn btn-block btn-neutral btn-outline"
-					@click="onLoadMore"
+					:to="{ query: { limit: limit + 10 } }"
 				>
 					Load More
-				</button>
+				</NuxtLink>
 			</div>
 
 			<div class="block max-h-96 mb-8">
