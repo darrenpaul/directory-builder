@@ -55,7 +55,7 @@ jobs:
           EOF
 
       - name: Config Project
-        run: make set-nearby-spa
+        run: make set-nearby-spa-production
 
       - name: Clean up Docker
         run: |
