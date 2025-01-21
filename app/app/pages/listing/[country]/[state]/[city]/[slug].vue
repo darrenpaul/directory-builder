@@ -9,7 +9,6 @@ import IconVerified from '~~/assets/icons/verified.svg'
 import IconWebsite from '~~/assets/icons/website.svg'
 import IconX from '~~/assets/icons/x.svg'
 import { placesApiRoute } from '~~/constants/routes-api'
-import settings from '~~/constants/settings'
 import { Status } from '~~/constants/status'
 import OperatingPeriods from '~/components/operating-periods.vue'
 import PageBreadcrumbs from '~/components/page-breadcrumbs.vue'
@@ -17,6 +16,10 @@ import StarRating from '~/components/star-rating.vue'
 import { joinUrlDirectories } from '~/lib/url-directory-join'
 
 defineOgImageComponent('NuxtSeo')
+
+const {
+	public: { siteUrl },
+} = useRuntimeConfig()
 
 const route = useRoute()
 const user = useSupabaseUser()
@@ -51,7 +54,7 @@ useHead({
 		{
 			hid: 'canonical',
 			rel: 'canonical',
-			href: `${settings.siteUrl}${route.path}`,
+			href: `${siteUrl}${route.path}`,
 		},
 	],
 })

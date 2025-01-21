@@ -18,7 +18,7 @@ const nearbySpaConfig = [
 ]
 
 function getDirectoryType() {
-	if (process.env.NEXT_PUBLIC_PROJECT_KEY === 'nearby-spa') {
+	if (process.env.NUXT_PUBLIC_PROJECT_KEY === 'nearby-spa') {
 		return 'spa'
 	}
 
@@ -26,7 +26,7 @@ function getDirectoryType() {
 }
 
 function getProjectConfig() {
-	if (process.env.NEXT_PUBLIC_PROJECT_KEY === 'nearby-spa') {
+	if (process.env.NUXT_PUBLIC_PROJECT_KEY === 'nearby-spa') {
 		return nearbySpaConfig
 	}
 	else {

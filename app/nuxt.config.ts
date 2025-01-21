@@ -16,10 +16,11 @@ export default defineNuxtConfig({
 	},
 	devtools: { enabled: true },
 	nitro: {
-		compressPublicAssets: true,
+		compressPublicAssets: { gzip: true, brotli: true },
 		prerender: {
 			routes: ['/sitemap.xml', '/robots.txt'],
 		},
+		minify: true,
 	},
 	modules: [
 		'@nuxt/eslint',
@@ -134,5 +135,8 @@ export default defineNuxtConfig({
 	robots: {
 		blockNonSeoBots: true,
 		blockAiBots: true,
+	},
+	image: {
+		provider: 'ipx',
 	},
 })

@@ -79,7 +79,7 @@ async function onNewsletterSubmit() {
 			<a class="link link-hover">Advertisement</a>
 		</nav> -->
 		<nav>
-			<p class="footer-title">
+			<p class="text-neutral-950 font-semibold">
 				Company
 			</p>
 
@@ -87,8 +87,9 @@ async function onNewsletterSubmit() {
 				{{ contactRoute.label }}
 			</NuxtLink>
 		</nav>
+
 		<nav>
-			<p class="footer-title">
+			<p class="text-neutral-950 font-semibold">
 				Legal
 			</p>
 
@@ -96,14 +97,17 @@ async function onNewsletterSubmit() {
 				{{ termsAndConditionsRoute.label }}
 			</NuxtLink>
 		</nav>
+
 		<form>
-			<p class="footer-title">
+			<p class="text-neutral-950 font-semibold">
 				Newsletter
 			</p>
+
 			<fieldset class="form-control w-80">
 				<label class="label p-0 px-1 pb-1">
 					<span class="label-text">Email Address</span>
 				</label>
+
 				<div class="join">
 					<input
 						v-model="emailAddress"

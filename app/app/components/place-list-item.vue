@@ -6,7 +6,6 @@ import PriceRating from '~/components/price-rating.vue'
 import { joinUrlDirectories } from '~/lib/url-directory-join'
 
 const props = defineProps({
-	keyId: { type: String, required: true },
 	place: { type: Object as PropType<Place>, required: true },
 	index: { type: Number, required: true },
 })
@@ -35,7 +34,7 @@ const profileUrl = computed(() => {
 				v-if="firstImage"
 				:src="firstImage.imageUrl"
 				:alt="props.place.name"
-				:loading="index < 4 ? 'eager' : 'lazy'"
+				loading="lazy"
 				class="w-full lg:w-64 h-64 lg:h-full object-cover"
 			/>
 			<IconNoImage v-else filled :font-controlled="false" class="w-24 h-24" />

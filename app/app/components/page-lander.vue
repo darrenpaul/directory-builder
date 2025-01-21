@@ -13,6 +13,7 @@ const props = defineProps({
 				:width="2400"
 				:height="3613"
 				:src="props.image"
+				loading="eager"
 				:alt="$t('home.lander.imageAlt')"
 			/>
 		</div>

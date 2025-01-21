@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
 		})
 	}
 
-	if (!user.app_metadata.claims_site_admin) {
+	if (!user.app_metadata.claims_admin) {
 		throw createError({
 			statusCode: 401,
 			statusMessage: 'Unauthorized',

@@ -2,7 +2,6 @@
 import type { City } from '~~/types/city'
 import type { Country } from '~~/types/country'
 import type { State } from '~~/types/state'
-import { useGeolocation } from '@vueuse/core'
 import {
 	cityApiRoute,
 	countryApiRoute,
@@ -14,7 +13,7 @@ import {
 } from '~~/modules/toast-notification-module/runtime'
 import Footer from '~/components/footer.vue'
 import Navigation from '~/components/navigation.vue'
-import SearchByList from '~/components/search-by/search-by-list.vue'
+// import SearchByList from '~/components/search-by/search-by-list.vue'
 import useFilters from '~/composables/use-filters'
 
 import {
@@ -39,8 +38,6 @@ const [{ data: countryData }, { data: stateData }, { data: cityData }]
   = await Promise.all(fetchPromises)
 
 const { notification } = useToaster()
-
-useGeolocation()
 </script>
 
 <template>
@@ -54,21 +51,21 @@ useGeolocation()
 		<div
 			class="w-full grid grid-cols-1 lg:grid-cols-3 max-w-screen-2xl mx-auto px-4 mb-6"
 		>
-			<SearchByList
+			<LazySearchByList
 				id="countries"
 				class="mb-4"
 				:search-by-links="searchByLinkForCountries(countryData!)"
 				label="What country are you looking in?"
 			/>
 
-			<SearchByList
+			<LazySearchByList
 				id="states"
 				class="mb-4"
 				:search-by-links="searchByLinkForStates(stateData!)"
 				label="What state are you looking in?"
 			/>
 
-			<SearchByList
+			<LazySearchByList
 				id="cities"
 				class="mb-4"
 				:search-by-links="searchByLinkForCities(cityData!)"

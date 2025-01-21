@@ -1,8 +1,60 @@
 import puppeteer from 'puppeteer'
+import sleep from '~~/lib/sleep'
 
-async function scrapHeadings(page) {
+function removeDuplicateText(textList: string[]) {
+	const wanted: string[] = []
+
+	for (const text of textList) {
+		if (!wanted.includes(text)) {
+			wanted.push(text)
+		}
+	}
+
+	return wanted.join('\n')
+}
+
+function filterUnwantedLinks(links: { text: string, href: string }[]) {
+	const filterKeywords = [
+		'facebook',
+		'instagram',
+		'godaddy',
+		'login',
+		'account',
+		'mailchimp',
+		'youtube',
+		'linkedin',
+		'earthcheck',
+		'terms',
+		'policy',
+		'cookieyes',
+		'google',
+		'tiktok',
+		'protect-za',
+	]
+	const toSaveLinks: { text: string, href: string }[] = []
+
+	const emptyLinksRemoved = links.filter(link => link.href !== '')
+
+	emptyLinksRemoved.forEach((link) => {
+		let saveLink = true
+
+		for (const keyword of filterKeywords) {
+			if (link.href.toLowerCase().includes(keyword)) {
+				saveLink = false
+			}
+		}
+
+		if (saveLink) {
+			toSaveLinks.push(link)
+		}
+	})
+
+	return toSaveLinks
+}
+
+async function scrapTextElements(page) {
 	return await page.evaluate(() => {
-		const headingTypes = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']
+		const headingTypes = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p']
 		const headingsText = headingTypes.map((headingType) => {
 			return Array.from(document.querySelectorAll(headingType))
 				.map(e => e.textContent.trim())
@@ -11,16 +63,6 @@ async function scrapHeadings(page) {
 		})
 
 		return headingsText
-			.filter(t => t.length > 0)
-			.flat()
-			.join('\n')
-	})
-}
-
-async function scrapParagraphs(page) {
-	return await page.evaluate(() => {
-		return Array.from(document.querySelectorAll('p'))
-			.map(p => p.textContent.trim())
 			.filter(t => t.length > 0)
 			.flat()
 			.join('\n')
@@ -37,7 +79,7 @@ async function scrapLinks(page) {
 }
 
 async function scrapLink(browser, url: string) {
-	if (url) {
+	if (url && url.startsWith('http')) {
 		const page = await browser.newPage()
 
 		try {
@@ -45,10 +87,9 @@ async function scrapLink(browser, url: string) {
 				waitUntil: 'domcontentloaded',
 			})
 
-			const scrappedHeadings = await scrapHeadings(page)
-			const scrappedParagraphs = await scrapParagraphs(page)
+			const scrappedHeadings = await scrapTextElements(page)
 
-			return [scrappedHeadings, scrappedParagraphs].join('\n')
+			return [scrappedHeadings].join('\n')
 		}
 		catch (e) {
 			console.error(e)
@@ -71,17 +112,19 @@ export async function scrapWebsite(url: string) {
 		const page = await browser.newPage()
 
 		await page.goto(url, {
-			waitUntil: 'domcontentloaded',
+			waitUntil: 'networkidle0',
+			timeout: 30000,
 		})
 
-		const headings = await scrapHeadings(page)
-		const paragraphs = await scrapParagraphs(page)
+		const headings = await scrapTextElements(page)
 		const links = await scrapLinks(page)
+
+		const wantedLinks = filterUnwantedLinks(links)
 
 		const contentFromScrappedLinks = []
 		const scrappedUrlLinks: string[] = []
 
-		for (const link of links) {
+		for (const link of wantedLinks) {
 			if (scrappedUrlLinks.includes(link.href)) {
 				continue
 			}
@@ -89,14 +132,18 @@ export async function scrapWebsite(url: string) {
 			scrappedUrlLinks.push(link.href)
 
 			const scrappedLink = await scrapLink(browser, link.href)
+
 			if (scrappedLink) {
 				contentFromScrappedLinks.push(scrappedLink)
 			}
+
+			await sleep(2)
 		}
 
-		return [headings, paragraphs, contentFromScrappedLinks.join('\n')].join(
-			'\n',
-		)
+		return [
+			removeDuplicateText(headings.split('\n')),
+			removeDuplicateText(contentFromScrappedLinks),
+		].join('\n')
 	}
 	catch (error) {
 		console.error(error)
@@ -120,7 +167,8 @@ export async function scrapWebsiteForSeo(url: string) {
 		const page = await browser.newPage()
 
 		await page.goto(url, {
-			waitUntil: 'domcontentloaded',
+			waitUntil: 'networkidle0',
+			timeout: 30000,
 		})
 
 		const metadata = await page.evaluate(() => {
@@ -160,8 +208,9 @@ export async function scrapWebsiteForSeo(url: string) {
 
 		return metadata
 	}
-	catch {
-		return { textContent: null, links: null }
+	catch (e) {
+		console.error(e)
+		return null
 	}
 	finally {
 		await browser.close()

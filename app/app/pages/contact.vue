@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import type { PageMeta } from '~~/types/page-meta'
 import { pageMetaApiRoute } from '~~/constants/routes-api'
-import settings from '~~/constants/settings'
 import ContactForm from '~/components/contact-form.vue'
 import UrlQueryBuilder from '~/lib/builders/url-query-builder'
 
 defineOgImageComponent('NuxtSeo')
+
+const {
+	public: { siteUrl },
+} = useRuntimeConfig()
 
 const pageMetaUrlQueryBuilder = new UrlQueryBuilder(pageMetaApiRoute.path)
 const route = useRoute()
@@ -20,7 +23,7 @@ useHead({
 		{
 			hid: 'canonical',
 			rel: 'canonical',
-			href: `${settings.siteUrl}${route.path}`,
+			href: `${siteUrl}${route.path}`,
 		},
 	],
 })

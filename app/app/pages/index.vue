@@ -2,16 +2,13 @@
 import type { PageMeta } from '~~/types/page-meta'
 import type { Place } from '~~/types/place'
 import { pageMetaApiRoute, placesApiRoute } from '~~/constants/routes-api'
-import settings from '~~/constants/settings'
-import Filter from '~/components/filter.vue'
 import PageLander from '~/components/page-lander.vue'
-import PlaceList from '~/components/place-list.vue'
 import UrlQueryBuilder from '~/lib/builders/url-query-builder'
 
 defineOgImageComponent('NuxtSeo')
 
 const {
-	public: { googleAdsenseId, projectKey },
+	public: { googleAdsenseId, projectKey, siteUrl },
 } = useRuntimeConfig()
 
 const initialLimit = 10
@@ -63,13 +60,12 @@ if (error.value) {
 async function onLoadMore() {
 	limit.value += initialLimit
 }
-
 useHead({
 	link: [
 		{
 			hid: 'canonical',
 			rel: 'canonical',
-			href: `${settings.siteUrl}`,
+			href: `${siteUrl}`,
 		},
 	],
 })
@@ -101,10 +97,10 @@ useSchemaOrg([
 		<PageLander class="mb-8" :image="pageMetaData.image" />
 
 		<div class="w-full max-w-screen-2xl mx-auto px-4">
-			<Filter />
+			<LazyFilter />
 
 			<div class="border-b border-neutral-200 pb-3 mb-6">
-				<PlaceList
+				<LazyPlaceList
 					v-if="data.data"
 					key-id="latest"
 					class="mb-4"
@@ -122,7 +118,7 @@ useSchemaOrg([
 			</div>
 
 			<div class="block max-h-96 mb-8">
-				<ScriptGoogleAdsense
+				<LazyScriptGoogleAdsense
 					:data-ad-client="googleAdsenseId"
 					data-ad-slot="8638864193"
 				/>

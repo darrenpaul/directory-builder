@@ -3,7 +3,6 @@ import type { PageMeta } from '~~/types/page-meta'
 import type { Place } from '~~/types/place'
 import { kebabCase, startCase } from 'lodash-es'
 import { pageMetaApiRoute, placesApiRoute } from '~~/constants/routes-api'
-import settings from '~~/constants/settings'
 import Filter from '~/components/filter.vue'
 import PageBreadcrumbs from '~/components/page-breadcrumbs.vue'
 import PlaceList from '~/components/place-list.vue'
@@ -11,6 +10,10 @@ import UrlQueryBuilder from '~/lib/builders/url-query-builder'
 import { joinUrlDirectories } from '~/lib/url-directory-join'
 
 defineOgImageComponent('NuxtSeo')
+
+const {
+	public: { siteUrl },
+} = useRuntimeConfig()
 
 const initialLimit = 10
 
@@ -76,7 +79,7 @@ useHead({
 		{
 			hid: 'canonical',
 			rel: 'canonical',
-			href: `${settings.siteUrl}${route.path}`,
+			href: `${siteUrl}${route.path}`,
 		},
 	],
 })
