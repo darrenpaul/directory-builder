@@ -1,17 +1,28 @@
 <script setup lang="ts">
+import Image from '@tiptap/extension-image'
+import Link from '@tiptap/extension-link'
 import IconOrderedList from '~~/assets/icons/ordered-list.svg'
 import IconUnorderedList from '~~/assets/icons/unordered-list.svg'
 
 const props = defineProps({
 	labelTitle: { type: String, required: true },
 	labelDescription: { type: String, required: true },
+	blogId: { type: String, required: false },
+	blogSlug: { type: String, required: false },
 })
 
 const text = defineModel<string>()
 
 const editor = useEditor({
 	content: text.value,
-	extensions: [TiptapStarterKit],
+	extensions: [
+		TiptapStarterKit,
+		Image,
+		Link.configure({
+			openOnClick: false,
+			defaultProtocol: 'https',
+		}),
+	],
 })
 
 onBeforeUnmount(() => {
@@ -57,6 +68,37 @@ const textFormatType = computed(() => {
 
 	return 'Paragraph'
 })
+
+function setLink() {
+	const previousUrl = editor.value.getAttributes('link').href
+	const url = window.prompt('URL', previousUrl)
+
+	// cancelled
+	if (url === null) {
+		return
+	}
+
+	// empty
+	if (url === '') {
+		editor.value.chain().focus().extendMarkRange('link').unsetLink().run()
+
+		return
+	}
+
+	// update link
+	editor.value
+		.chain()
+		.focus()
+		.extendMarkRange('link')
+		.setLink({ href: url })
+		.run()
+}
+
+function onImageUpdated(value: string) {
+	if (editor.value && value) {
+		editor.value.chain().focus().setImage({ src: value }).run()
+	}
+}
 </script>
 
 <template>
@@ -72,10 +114,18 @@ const textFormatType = computed(() => {
 		</div>
 
 		<div v-if="editor" class="flex gap-6 items-center mb-2">
+			<RichTextImage
+				v-if="props.blogId && props.blogSlug"
+				:id="props.blogId"
+				:slug="props.blogSlug"
+				@updated="onImageUpdated"
+			/>
+
 			<div class="dropdown">
 				<button tabindex="0" type="button" class="btn btn-sm">
 					{{ textFormatType }}
 				</button>
+
 				<ul
 					tabindex="0"
 					class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
@@ -91,6 +141,7 @@ const textFormatType = computed(() => {
 							paragraph
 						</button>
 					</li>
+
 					<li>
 						<button
 							:class="
@@ -103,6 +154,7 @@ const textFormatType = computed(() => {
 							h1
 						</button>
 					</li>
+
 					<li>
 						<button
 							:class="
@@ -115,6 +167,7 @@ const textFormatType = computed(() => {
 							h2
 						</button>
 					</li>
+
 					<li>
 						<button
 							:class="
@@ -127,6 +180,7 @@ const textFormatType = computed(() => {
 							h3
 						</button>
 					</li>
+
 					<li>
 						<button
 							:class="
@@ -139,6 +193,7 @@ const textFormatType = computed(() => {
 							h4
 						</button>
 					</li>
+
 					<li>
 						<button
 							:class="
@@ -151,6 +206,7 @@ const textFormatType = computed(() => {
 							h5
 						</button>
 					</li>
+
 					<li>
 						<button
 							:class="
@@ -163,6 +219,7 @@ const textFormatType = computed(() => {
 							h6
 						</button>
 					</li>
+
 					<li>
 						<button
 							:class="editor.isActive('code') ? 'font-bold' : 'font-normal'"
@@ -172,6 +229,17 @@ const textFormatType = computed(() => {
 						</button>
 					</li>
 				</ul>
+			</div>
+
+			<div class="flex gap-1">
+				<button
+					:disabled="!editor.can().chain().focus().toggleBold().run()"
+					class="btn btn-sm font-bold"
+					:class="editor.isActive('link') ? 'btn-neutral' : 'btn'"
+					@click="setLink"
+				>
+					Link
+				</button>
 			</div>
 
 			<div class="flex gap-1">

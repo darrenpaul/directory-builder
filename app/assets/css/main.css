@@ -16,6 +16,7 @@
   ol {
     li {
       @apply list-decimal;
+      @apply mb-12;
     }
   }
 
@@ -29,5 +30,17 @@
     @apply ml-3;
     @apply border-l-4 border-neutral-200;
     @apply text-neutral-500;
+  }
+
+  h3 {
+    @apply text-3xl mb-3;
+  }
+
+  p {
+    @apply mb-2;
+  }
+
+  a {
+    @apply underline;
   }
 }

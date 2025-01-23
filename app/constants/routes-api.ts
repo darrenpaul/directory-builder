@@ -76,6 +76,18 @@ export const adminPlaceAttributeApiRoute = {
 	methods: ['POST'],
 }
 
+export const adminBlogsApiRoute = {
+	name: 'admin-blogs',
+	path: '/api/admin/blogs/v1',
+	methods: ['GET', 'POST', 'PATCH'],
+}
+
+export const blogsApiRoute = {
+	name: 'blogs',
+	path: '/api/blogs/v1',
+	methods: ['GET'],
+}
+
 export const ratingApiRoute = {
 	name: 'rating',
 	path: '/api/rating/v1',
