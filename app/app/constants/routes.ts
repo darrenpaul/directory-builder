@@ -75,10 +75,25 @@ export const termsAndConditionsRoute = {
 	auth: false,
 }
 
+export const blogsRoute = {
+	name: 'blogs',
+	label: 'Blogs',
+	path: '/blogs',
+	auth: false,
+}
+
+export const adminBlogsRoute = {
+	name: 'admin-blogs',
+	label: 'Blogs',
+	path: '/admin/blogs',
+	auth: true,
+}
+
 export const navigationRoutes = [homeRoute, contactRoute, signInRoute]
 
 export const navigationAuthenticatedRoutes = [
 	homeRoute,
+	blogsRoute,
 	contactRoute,
 	accountRoute,
 	logoutRoute,

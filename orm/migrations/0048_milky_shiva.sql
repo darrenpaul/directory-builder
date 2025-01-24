@@ -1,0 +1,1 @@
+ALTER TABLE "blog_metadata" ADD CONSTRAINT "blog_metadata_blog_id_unique" UNIQUE("blog_id");

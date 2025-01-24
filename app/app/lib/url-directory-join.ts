@@ -1,5 +1,4 @@
 import { kebabCase } from 'lodash-es'
-import { listingRoute } from '~/constants/routes'
 
 export function joinUrlDirectories(directories: string[]) {
 	const trailingSlashesRemoved = directories.map(directory =>
@@ -10,5 +9,5 @@ export function joinUrlDirectories(directories: string[]) {
 		kebabCase(directory),
 	)
 
-	return `${listingRoute.path}/${kebabCaseDirectories.join('/')}`
+	return `/${kebabCaseDirectories.join('/')}`
 }

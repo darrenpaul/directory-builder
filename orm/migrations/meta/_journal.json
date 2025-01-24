@@ -295,6 +295,62 @@
       "when": 1737053187404,
       "tag": "0041_slimy_professor_monster",
       "breakpoints": true
+    },
+    {
+      "idx": 42,
+      "version": "7",
+      "when": 1737537205766,
+      "tag": "0042_lumpy_scrambler",
+      "breakpoints": true
+    },
+    {
+      "idx": 43,
+      "version": "7",
+      "when": 1737537941012,
+      "tag": "0043_special_iron_lad",
+      "breakpoints": true
+    },
+    {
+      "idx": 44,
+      "version": "7",
+      "when": 1737570356397,
+      "tag": "0044_flat_old_lace",
+      "breakpoints": true
+    },
+    {
+      "idx": 45,
+      "version": "7",
+      "when": 1737634733217,
+      "tag": "0045_furry_elektra",
+      "breakpoints": true
+    },
+    {
+      "idx": 46,
+      "version": "7",
+      "when": 1737706124192,
+      "tag": "0046_slimy_madame_masque",
+      "breakpoints": true
+    },
+    {
+      "idx": 47,
+      "version": "7",
+      "when": 1737707863899,
+      "tag": "0047_unique_the_hood",
+      "breakpoints": true
+    },
+    {
+      "idx": 48,
+      "version": "7",
+      "when": 1737708734823,
+      "tag": "0048_milky_shiva",
+      "breakpoints": true
+    },
+    {
+      "idx": 49,
+      "version": "7",
+      "when": 1737710598297,
+      "tag": "0049_luxuriant_thundra",
+      "breakpoints": true
     }
   ]
 }

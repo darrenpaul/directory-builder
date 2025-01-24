@@ -70,13 +70,12 @@ async function onNewsletterSubmit() {
 			</p>
 		</aside>
 		<!-- <nav>
-			<p class="footer-title">
+			<p class="text-neutral-950 font-semibold">
 				Services
 			</p>
-			<a class="link link-hover">Branding</a>
-			<a class="link link-hover">Design</a>
-			<a class="link link-hover">Marketing</a>
-			<a class="link link-hover">Advertisement</a>
+			<NuxtLink :to="blogsRoute.path">
+				{{ blogsRoute.label }}
+			</NuxtLink>
 		</nav> -->
 		<nav>
 			<p class="text-neutral-950 font-semibold">

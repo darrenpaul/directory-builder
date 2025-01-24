@@ -1,6 +1,7 @@
 import type { asSitemapUrl } from '#imports'
 import { defineSitemapEventHandler } from '#imports'
 import { placesApiRoute } from '~~/constants/routes-api'
+import { listingRoute } from '~/constants/routes'
 import { joinUrlDirectories } from '~/lib/url-directory-join'
 
 export default defineSitemapEventHandler(async () => {
@@ -9,6 +10,12 @@ export default defineSitemapEventHandler(async () => {
 	)
 
 	return places.data.map(({ address, slug }) =>
-		joinUrlDirectories([address.country, address.state, address.city, slug]),
+		joinUrlDirectories([
+			listingRoute.path,
+			address.country,
+			address.state,
+			address.city,
+			slug,
+		]),
 	)
 })

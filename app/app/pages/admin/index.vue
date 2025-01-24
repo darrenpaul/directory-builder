@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import PageMeta from '~/components/admin/page-meta.vue'
-import PlaceAttributeForm from '~/components/admin/place-attribute-form.vue'
-import Places from '~/components/places.vue'
-
 definePageMeta({
 	layout: 'account-layout',
 })
@@ -14,21 +10,21 @@ definePageMeta({
 			<p class="text-4xl font-bold">
 				Search for new places
 			</p>
-			<Places />
+			<AdminPlaces />
 		</div>
 
 		<div class="w-full">
 			<p class="text-4xl font-bold">
 				Create Page Meta
 			</p>
-			<PageMeta />
+			<AdminPageMeta />
 		</div>
 
 		<div class="w-full">
 			<p class="text-4xl font-bold">
 				Add Attribute to Place
 			</p>
-			<PlaceAttributeForm />
+			<AdminPlaceAttributeForm />
 		</div>
 	</div>
 </template>

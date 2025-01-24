@@ -41,6 +41,7 @@ const fetchPromises = []
 fetchPromises.push(
 	useFetch<Place[]>(queryUrl, { method: 'GET', watch: [queryUrl] }),
 )
+
 fetchPromises.push(
 	useFetch<PageMeta>(
 		pageMetaUrlQueryBuilder.withSlug({ slug: `home-${projectKey}` }).build(),

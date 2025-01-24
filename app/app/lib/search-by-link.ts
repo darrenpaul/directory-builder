@@ -1,6 +1,7 @@
 import type { City } from '~~/types/city'
 import type { Country } from '~~/types/country'
 import type { State } from '~~/types/state'
+import { listingRoute } from '~/constants/routes'
 import { joinUrlDirectories } from '~/lib/url-directory-join'
 
 export function searchByLinkForCountries(countries: Country[]) {
@@ -10,7 +11,7 @@ export function searchByLinkForCountries(countries: Country[]) {
 
 	return countries.map(({ country }) => ({
 		id: `country-${country}`,
-		url: joinUrlDirectories([country]),
+		url: joinUrlDirectories([listingRoute.path, country]),
 		label: country,
 	}))
 }
@@ -22,7 +23,7 @@ export function searchByLinkForStates(states: State[]) {
 
 	return states.map(({ country, state }) => ({
 		id: `state-${state}`,
-		url: joinUrlDirectories([country, state]),
+		url: joinUrlDirectories([listingRoute.path, country, state]),
 		label: state,
 	}))
 }
@@ -34,7 +35,7 @@ export function searchByLinkForCities(cities: City[]) {
 
 	return cities.map(({ country, state, city }) => ({
 		id: `city-${city}`,
-		url: joinUrlDirectories([country, state, city]),
+		url: joinUrlDirectories([listingRoute.path, country, state, city]),
 		label: city,
 	}))
 }

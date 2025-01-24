@@ -12,6 +12,8 @@ export enum DatabaseTable {
 	USER = 'user',
 	PLACE_OPERATING_PERIOD = 'place_operating_period',
 	RATING = 'rating',
+	BLOG = 'blog',
+	BLOG_METADATA = 'blog_metadata',
 }
 
 export enum DatabaseView {
