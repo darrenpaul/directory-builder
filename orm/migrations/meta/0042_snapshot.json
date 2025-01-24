@@ -58,12 +58,8 @@
           "name": "blog_owner_id_user_id_fk",
           "tableFrom": "blog",
           "tableTo": "user",
-          "columnsFrom": [
-            "owner_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["owner_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -71,12 +67,8 @@
           "name": "blog_project_id_project_id_fk",
           "tableFrom": "blog",
           "tableTo": "project",
-          "columnsFrom": [
-            "project_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["project_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -86,9 +78,7 @@
         "blog_slug_unique": {
           "name": "blog_slug_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "slug"
-          ]
+          "columns": ["slug"]
         }
       },
       "policies": {},
@@ -162,12 +152,8 @@
           "name": "contact_project_id_project_id_fk",
           "tableFrom": "contact",
           "tableTo": "project",
-          "columnsFrom": [
-            "project_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["project_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -220,12 +206,8 @@
           "name": "newsletter_project_id_project_id_fk",
           "tableFrom": "newsletter",
           "tableTo": "project",
-          "columnsFrom": [
-            "project_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["project_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -235,9 +217,7 @@
         "newsletter_email_address_unique": {
           "name": "newsletter_email_address_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "email_address"
-          ]
+          "columns": ["email_address"]
         }
       },
       "policies": {},
@@ -304,12 +284,8 @@
           "name": "page_meta_project_id_project_id_fk",
           "tableFrom": "page_meta",
           "tableTo": "project",
-          "columnsFrom": [
-            "project_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["project_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -319,9 +295,7 @@
         "page_meta_slug_unique": {
           "name": "page_meta_slug_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "slug"
-          ]
+          "columns": ["slug"]
         }
       },
       "policies": {},
@@ -454,12 +428,8 @@
           "name": "place_owner_id_user_id_fk",
           "tableFrom": "place",
           "tableTo": "user",
-          "columnsFrom": [
-            "owner_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["owner_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -467,12 +437,8 @@
           "name": "place_project_id_project_id_fk",
           "tableFrom": "place",
           "tableTo": "project",
-          "columnsFrom": [
-            "project_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["project_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -482,16 +448,12 @@
         "place_google_place_id_unique": {
           "name": "place_google_place_id_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "google_place_id"
-          ]
+          "columns": ["google_place_id"]
         },
         "place_slug_unique": {
           "name": "place_slug_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "slug"
-          ]
+          "columns": ["slug"]
         }
       },
       "policies": {},
@@ -564,12 +526,8 @@
           "name": "place_address_place_id_place_id_fk",
           "tableFrom": "place_address",
           "tableTo": "place",
-          "columnsFrom": [
-            "place_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["place_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -579,9 +537,7 @@
         "place_address_place_id_unique": {
           "name": "place_address_place_id_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "place_id"
-          ]
+          "columns": ["place_id"]
         }
       },
       "policies": {},
@@ -643,12 +599,8 @@
           "name": "place_attribute_place_id_place_id_fk",
           "tableFrom": "place_attribute",
           "tableTo": "place",
-          "columnsFrom": [
-            "place_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["place_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -658,9 +610,7 @@
         "place_attribute_slug_unique": {
           "name": "place_attribute_slug_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "slug"
-          ]
+          "columns": ["slug"]
         }
       },
       "policies": {},
@@ -710,12 +660,8 @@
           "name": "place_image_place_id_place_id_fk",
           "tableFrom": "place_image",
           "tableTo": "place",
-          "columnsFrom": [
-            "place_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["place_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -725,9 +671,7 @@
         "place_image_image_url_unique": {
           "name": "place_image_image_url_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "image_url"
-          ]
+          "columns": ["image_url"]
         }
       },
       "policies": {},
@@ -794,12 +738,8 @@
           "name": "place_operating_period_place_id_place_id_fk",
           "tableFrom": "place_operating_period",
           "tableTo": "place",
-          "columnsFrom": [
-            "place_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["place_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -809,9 +749,7 @@
         "place_operating_period_slug_unique": {
           "name": "place_operating_period_slug_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "slug"
-          ]
+          "columns": ["slug"]
         }
       },
       "policies": {},
@@ -862,12 +800,8 @@
           "name": "place_rating_place_id_place_id_fk",
           "tableFrom": "place_rating",
           "tableTo": "place",
-          "columnsFrom": [
-            "place_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["place_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -877,9 +811,7 @@
         "place_rating_place_id_unique": {
           "name": "place_rating_place_id_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "place_id"
-          ]
+          "columns": ["place_id"]
         }
       },
       "policies": {},
@@ -997,12 +929,8 @@
           "name": "place_verified_place_id_place_id_fk",
           "tableFrom": "place_verified",
           "tableTo": "place",
-          "columnsFrom": [
-            "place_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["place_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1012,9 +940,7 @@
         "place_verified_place_id_unique": {
           "name": "place_verified_place_id_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "place_id"
-          ]
+          "columns": ["place_id"]
         }
       },
       "policies": {},
@@ -1113,12 +1039,8 @@
           "name": "rating_user_id_user_id_fk",
           "tableFrom": "rating",
           "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -1126,12 +1048,8 @@
           "name": "rating_place_id_place_id_fk",
           "tableFrom": "rating",
           "tableTo": "place",
-          "columnsFrom": [
-            "place_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["place_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1141,9 +1059,7 @@
         "rating_slug_unique": {
           "name": "rating_slug_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "slug"
-          ]
+          "columns": ["slug"]
         }
       },
       "policies": {
@@ -1151,27 +1067,21 @@
           "name": "Enable INSERT for authenticated users",
           "as": "PERMISSIVE",
           "for": "INSERT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "withCheck": "true"
         },
         "Enable SELECT for users based on id (user_id)": {
           "name": "Enable SELECT for users based on id (user_id)",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "public"
-          ],
+          "to": ["public"],
           "using": "(true)"
         },
         "Enable UPDATE for users based on id (user_id)": {
           "name": "Enable UPDATE for users based on id (user_id)",
           "as": "PERMISSIVE",
           "for": "UPDATE",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "(SELECT auth.uid() AS uid) = user_id"
         }
       },
@@ -1220,12 +1130,8 @@
           "tableFrom": "user",
           "tableTo": "users",
           "schemaTo": "auth",
-          "columnsFrom": [
-            "id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1237,27 +1143,21 @@
           "name": "Enable INSERT for authenticated users",
           "as": "PERMISSIVE",
           "for": "INSERT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "withCheck": "true"
         },
         "Enable SELECT for users based on id (user_id)": {
           "name": "Enable SELECT for users based on id (user_id)",
           "as": "PERMISSIVE",
           "for": "SELECT",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "(SELECT auth.uid() AS uid) = id"
         },
         "Enable UPDATE for users based on id (user_id)": {
           "name": "Enable UPDATE for users based on id (user_id)",
           "as": "PERMISSIVE",
           "for": "UPDATE",
-          "to": [
-            "authenticated"
-          ],
+          "to": ["authenticated"],
           "using": "(SELECT auth.uid() AS uid) = id"
         }
       },
@@ -1324,12 +1224,8 @@
           "name": "user_subscription_user_id_user_id_fk",
           "tableFrom": "user_subscription",
           "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -1337,12 +1233,8 @@
           "name": "user_subscription_place_id_place_id_fk",
           "tableFrom": "user_subscription",
           "tableTo": "place",
-          "columnsFrom": [
-            "place_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["place_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }

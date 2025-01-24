@@ -2,6 +2,8 @@
 import type { Blog } from '~~/types/blog'
 import { blogsApiRoute } from '~~/constants/routes-api'
 
+defineOgImageComponent('NuxtSeo')
+
 const { data } = await useFetch<{ data: Blog[], count: number }>(
 	blogsApiRoute.path,
 	{ method: 'GET' },
@@ -10,6 +12,6 @@ const { data } = await useFetch<{ data: Blog[], count: number }>(
 
 <template>
 	<div class="mt-8">
-		<BlogList v-if="data" :blogs="data.data" />
+		<BlogList v-if="data" class="mb-16" :blogs="data.data" />
 	</div>
 </template>

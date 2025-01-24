@@ -57,6 +57,7 @@ export async function getBlogs(supabaseClient: SupabaseClient) {
 		'title',
 		'slug',
 		'description',
+		'projectId:project_id',
 		'thumbnailUri:thumbnail_uri',
 		'createdAt:created_at',
 	].join(',')
@@ -64,6 +65,8 @@ export async function getBlogs(supabaseClient: SupabaseClient) {
 	return supabaseClient
 		.from(DatabaseTable.BLOG)
 		.select(selectString)
+		.eq('published', true)
+		.eq('project_id', process.env.NUXT_PUBLIC_PROJECT_ID)
 		.returns<Blog[]>()
 }
 
@@ -71,19 +74,25 @@ export async function findBlogBySlug(
 	supabaseClient: SupabaseClient,
 	slug: string,
 ) {
+	const metadataSelectString = ['id', 'title', 'description'].join(',')
 	const selectString = [
 		'id',
 		'title',
 		'slug',
 		'content',
 		'description',
+		'projectId:project_id',
 		'thumbnailUri:thumbnail_uri',
 		'createdAt:created_at',
+		'updatedAt:updated_at',
+		`metadata:${DatabaseTable.BLOG_METADATA}!inner(${metadataSelectString})`,
 	].join(',')
 
 	return supabaseClient
 		.from(DatabaseTable.BLOG)
 		.select(selectString)
 		.eq('slug', slug)
+		.eq('published', true)
+		.eq('project_id', process.env.NUXT_PUBLIC_PROJECT_ID)
 		.maybeSingle<Blog>()
 }

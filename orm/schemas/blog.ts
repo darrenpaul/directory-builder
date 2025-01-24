@@ -1,4 +1,4 @@
-import { pgTable, timestamp, uuid, varchar } from 'drizzle-orm/pg-core';
+import { pgTable, timestamp, uuid, varchar, boolean } from 'drizzle-orm/pg-core';
 import { user } from './user';
 import { project } from './project';
 
@@ -12,9 +12,10 @@ export const blog = pgTable(
     projectId: uuid('project_id')
       .references(() => project.id, { onDelete: 'cascade' })
       .notNull(),
-      content: varchar('content'),
-      description: varchar('description'),
-      thumbnailUri: varchar('thumbnail_uri'),
+    content: varchar('content'),
+    description: varchar('description'),
+    thumbnailUri: varchar('thumbnail_uri'),
+    published: boolean('published').default(false).notNull(),
     updatedAt: timestamp('updated_at', { precision: 6, withTimezone: true }).notNull(),
     createdAt: timestamp('created_at', { precision: 6, withTimezone: true }).notNull(),
   },

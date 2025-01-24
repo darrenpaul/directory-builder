@@ -1,6 +1,6 @@
 {
-  "id": "c294c857-ed24-4537-b5dc-3c616df2230f",
-  "prevId": "fba95dad-a301-4958-8abf-53145ce0442d",
+  "id": "4d5fa5b5-1ad7-4bd9-9726-be4517f4eb9f",
+  "prevId": "16f79c4f-3a30-46fa-ac3d-fe1e8adc55b4",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -38,6 +38,24 @@
           "type": "uuid",
           "primaryKey": false,
           "notNull": true
+        },
+        "content": {
+          "name": "content",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "description": {
+          "name": "description",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "thumbnail_uri": {
+          "name": "thumbnail_uri",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
         },
         "updated_at": {
           "name": "updated_at",
@@ -81,6 +99,72 @@
           "columns": ["slug"]
         }
       },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": true
+    },
+    "public.blog_metadata": {
+      "name": "blog_metadata",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "blog_id": {
+          "name": "blog_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "image": {
+          "name": "image",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp (6) with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp (6) with time zone",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "blog_metadata_blog_id_blog_id_fk": {
+          "name": "blog_metadata_blog_id_blog_id_fk",
+          "tableFrom": "blog_metadata",
+          "tableTo": "blog",
+          "columnsFrom": ["blog_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": true

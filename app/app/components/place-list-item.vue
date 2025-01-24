@@ -3,6 +3,7 @@ import type { Place } from '~~/types/place'
 import IconNoImage from '~~/assets/icons/no-image.svg'
 import GoogleRating from '~/components/google-rating.vue'
 import PriceRating from '~/components/price-rating.vue'
+import { listingRoute } from '~/constants/routes'
 import { joinUrlDirectories } from '~/lib/url-directory-join'
 
 const props = defineProps({
@@ -19,6 +20,7 @@ const firstImage = computed(() => {
 
 const profileUrl = computed(() => {
 	return joinUrlDirectories([
+		listingRoute.path,
 		props.place.address.country,
 		props.place.address.state,
 		props.place.address.city,

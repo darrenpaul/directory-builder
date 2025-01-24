@@ -1,3 +1,5 @@
+import type { SeoMetadata } from '~~/types/seo-metadata'
+
 export interface Blog {
 	id: string
 	title: string
@@ -6,4 +8,6 @@ export interface Blog {
 	content: string
 	thumbnailUri: string
 	createdAt: string
+	updatedAt: string
+	metadata: SeoMetadata
 }

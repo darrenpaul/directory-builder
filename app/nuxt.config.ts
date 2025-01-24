@@ -104,6 +104,7 @@ export default defineNuxtConfig({
 			'/api/__sitemap__/states',
 			'/api/__sitemap__/cities',
 			'/api/__sitemap__/places',
+			'/api/__sitemap__/blogs',
 		],
 	},
 	schemaOrg: {

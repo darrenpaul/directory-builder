@@ -70,28 +70,24 @@ const textFormatType = computed(() => {
 })
 
 function setLink() {
-	const previousUrl = editor.value.getAttributes('link').href
-	const url = window.prompt('URL', previousUrl)
-
-	// cancelled
-	if (url === null) {
-		return
-	}
-
-	// empty
-	if (url === '') {
-		editor.value.chain().focus().extendMarkRange('link').unsetLink().run()
-
-		return
-	}
-
-	// update link
-	editor.value
-		.chain()
-		.focus()
-		.extendMarkRange('link')
-		.setLink({ href: url })
-		.run()
+	// const previousUrl = editor.value.getAttributes('link').href
+	// const url = window.prompt('URL', previousUrl)
+	// // cancelled
+	// if (url === null) {
+	// 	return
+	// }
+	// // empty
+	// if (url === '') {
+	// 	editor.value.chain().focus().extendMarkRange('link').unsetLink().run()
+	// 	return
+	// }
+	// // update link
+	// editor.value
+	// 	.chain()
+	// 	.focus()
+	// 	.extendMarkRange('link')
+	// 	.setLink({ href: url })
+	// 	.run()
 }
 
 function onImageUpdated(value: string) {

@@ -1,6 +1,6 @@
 {
-  "id": "c294c857-ed24-4537-b5dc-3c616df2230f",
-  "prevId": "fba95dad-a301-4958-8abf-53145ce0442d",
+  "id": "e4c2f70d-5056-4229-b2a1-58e13b3ff043",
+  "prevId": "a19fdd73-965b-4d38-8417-4ce2b93732ce",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -38,6 +38,31 @@
           "type": "uuid",
           "primaryKey": false,
           "notNull": true
+        },
+        "content": {
+          "name": "content",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "description": {
+          "name": "description",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "thumbnail_uri": {
+          "name": "thumbnail_uri",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "published": {
+          "name": "published",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
         },
         "updated_at": {
           "name": "updated_at",
@@ -79,6 +104,78 @@
           "name": "blog_slug_unique",
           "nullsNotDistinct": false,
           "columns": ["slug"]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": true
+    },
+    "public.blog_metadata": {
+      "name": "blog_metadata",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "blog_id": {
+          "name": "blog_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "description": {
+          "name": "description",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "image": {
+          "name": "image",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp (6) with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp (6) with time zone",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "blog_metadata_blog_id_blog_id_fk": {
+          "name": "blog_metadata_blog_id_blog_id_fk",
+          "tableFrom": "blog_metadata",
+          "tableTo": "blog",
+          "columnsFrom": ["blog_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "blog_metadata_blog_id_unique": {
+          "name": "blog_metadata_blog_id_unique",
+          "nullsNotDistinct": false,
+          "columns": ["blog_id"]
         }
       },
       "policies": {},

@@ -13,6 +13,7 @@ import { Status } from '~~/constants/status'
 import OperatingPeriods from '~/components/operating-periods.vue'
 import PageBreadcrumbs from '~/components/page-breadcrumbs.vue'
 import StarRating from '~/components/star-rating.vue'
+import { listingRoute } from '~/constants/routes'
 import { joinUrlDirectories } from '~/lib/url-directory-join'
 
 defineOgImageComponent('NuxtSeo')
@@ -88,12 +89,16 @@ const breadcrumbs = computed(() => {
 	return [
 		{
 			id: kebabCase(placeData.value.address.country),
-			url: joinUrlDirectories([placeData.value.address.country]),
+			url: joinUrlDirectories([
+				listingRoute.path,
+				placeData.value.address.country,
+			]),
 			label: placeData.value.address.country,
 		},
 		{
 			id: kebabCase(placeData.value.address.state),
 			url: joinUrlDirectories([
+				listingRoute.path,
 				placeData.value.address.country,
 				placeData.value.address.state,
 			]),
@@ -102,6 +107,7 @@ const breadcrumbs = computed(() => {
 		{
 			id: kebabCase(placeData.value.address.city),
 			url: joinUrlDirectories([
+				listingRoute.path,
 				placeData.value.address.country,
 				placeData.value.address.state,
 				placeData.value.address.city,

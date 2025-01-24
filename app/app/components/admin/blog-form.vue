@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import type { Blog } from '~~/types/blog'
-import { adminBlogsApiRoute } from '~~/constants/routes-api'
+import {
+	adminBlogsApiRoute,
+	adminSeoMetadataBlogsApiRoute,
+} from '~~/constants/routes-api'
 
 const props = defineProps({
 	data: { type: Object as PropType<Blog>, required: true },
@@ -11,11 +14,18 @@ const description = ref<string>('')
 const content = ref<string>('')
 const thumbnailUri = ref<string>('')
 
+const metadataState = reactive<{ [key: string]: string | undefined }>({
+	title: undefined,
+	description: undefined,
+})
+
 onMounted(() => {
 	title.value = props.data?.title || ''
 	content.value = props.data?.content || ''
 	description.value = props.data?.description || ''
 	thumbnailUri.value = props.data?.thumbnailUri || ''
+	metadataState.title = props.data?.metadata?.title || ''
+	metadataState.description = props.data?.metadata?.description || ''
 })
 
 function onImageUpdated(value: string) {
@@ -31,6 +41,15 @@ async function handleBlogSave() {
 			slug: props.data.slug,
 			description: description.value,
 			thumbnailUri: thumbnailUri.value,
+		},
+	})
+
+	await $fetch(adminSeoMetadataBlogsApiRoute.path, {
+		method: 'PATCH',
+		body: {
+			blogId: props.data.id,
+			id: props.data.metadata.id,
+			...metadataState,
 		},
 	})
 }
@@ -85,6 +104,11 @@ async function handleBlogSave() {
 				:blog-slug="data.slug"
 			/>
 		</ClientOnly>
+
+		<AdminSeoMetadataForm
+			v-model:title="metadataState.title"
+			v-model:description="metadataState.description"
+		/>
 
 		<div class="tiptap max-w-[80ch]" v-html="content" />
 

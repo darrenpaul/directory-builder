@@ -15,6 +15,6 @@ const { data } = await useFetch(
 
 <template>
 	<div class="w-full mx-auto flex flex-col gap-16 px-4">
-		<AdminBlogForm :data="data" />
+		<AdminBlogForm v-if="data" :data="data" />
 	</div>
 </template>

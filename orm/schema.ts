@@ -18,6 +18,7 @@ import { project } from './schemas/project';
 import { placeOperatingPeriod } from './schemas/place-operating-period';
 import { rating } from './schemas/rating';
 import { blog } from './schemas/blog';
+import { blogMetadata } from './schemas/blog-metadata';
 
 export {
   place,
@@ -38,5 +39,7 @@ export {
   attributeOptionsView,
   project,
   placeOperatingPeriod,
-  rating,blog
+  rating,
+  blog,
+  blogMetadata,
 };

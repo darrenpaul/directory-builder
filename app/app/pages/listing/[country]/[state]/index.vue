@@ -6,6 +6,7 @@ import { pageMetaApiRoute, placesApiRoute } from '~~/constants/routes-api'
 import Filter from '~/components/filter.vue'
 import PageBreadcrumbs from '~/components/page-breadcrumbs.vue'
 import PlaceList from '~/components/place-list.vue'
+import { listingRoute } from '~/constants/routes'
 import UrlQueryBuilder from '~/lib/builders/url-query-builder'
 import { joinUrlDirectories } from '~/lib/url-directory-join'
 
@@ -111,7 +112,7 @@ const breadcrumbs = computed(() => {
 	return [
 		{
 			id: route.params.country,
-			url: joinUrlDirectories([route.params.country]),
+			url: joinUrlDirectories([listingRoute.path, route.params.country]),
 			label: startCase(route.params.country),
 		},
 	]

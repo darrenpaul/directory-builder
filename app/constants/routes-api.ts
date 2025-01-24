@@ -82,6 +82,12 @@ export const adminBlogsApiRoute = {
 	methods: ['GET', 'POST', 'PATCH'],
 }
 
+export const adminSeoMetadataBlogsApiRoute = {
+	name: 'admin-seo-metadata-blogs',
+	path: '/api/admin/seo-metadata/blogs',
+	methods: ['POST'],
+}
+
 export const blogsApiRoute = {
 	name: 'blogs',
 	path: '/api/blogs/v1',

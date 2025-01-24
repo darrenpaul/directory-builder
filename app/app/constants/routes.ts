@@ -93,6 +93,7 @@ export const navigationRoutes = [homeRoute, contactRoute, signInRoute]
 
 export const navigationAuthenticatedRoutes = [
 	homeRoute,
+	blogsRoute,
 	contactRoute,
 	accountRoute,
 	logoutRoute,

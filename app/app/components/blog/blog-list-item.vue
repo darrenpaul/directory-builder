@@ -14,7 +14,7 @@ const props = defineProps({
 				:src="props.blog.thumbnailUri"
 				:alt="props.blog.title"
 				loading="lazy"
-				class="w-full lg:w-64 h-64 lg:h-full object-cover"
+				class="w-full lg:w-64 h-64 2lg:h-full object-cover"
 			/>
 		</figure>
 
