@@ -18,7 +18,7 @@ const description = defineModel<string>('description')
 				type="text"
 				class="input input-bordered w-full"
 			>
-			<small>title length is between 50 and 60 characters.</small>
+			<small>Title length is between 50 and 60 characters.</small>
 		</div>
 
 		<div class="input-group w-full">
