@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Blog } from '~~/types/blog'
-import { kebabCase, startCase } from 'lodash-es'
+import { kebabCase } from 'lodash-es'
 import { blogsApiRoute, pageMetaApiRoute } from '~~/constants/routes-api'
 import UrlQueryBuilder from '~/lib/builders/url-query-builder'
 
@@ -17,15 +17,16 @@ const {
 const fetchPromises = []
 
 fetchPromises.push(
-	useFetch<{ data: Blog[], count: number }>(
-		blogsApiRoute.path,
-		{ method: 'GET' },
-	),
+	useFetch<{ data: Blog[], count: number }>(blogsApiRoute.path, {
+		method: 'GET',
+	}),
 )
 
 fetchPromises.push(
 	useFetch<PageMeta>(
-		pageMetaUrlQueryBuilder.withSlug({ slug: kebabCase(route.path as string) }).build(),
+		pageMetaUrlQueryBuilder
+			.withSlug({ slug: kebabCase(route.path as string) })
+			.build(),
 		{ method: 'GET' },
 	),
 )

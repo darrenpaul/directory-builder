@@ -8,7 +8,7 @@ import UrlQueryBuilder from '~/lib/builders/url-query-builder'
 defineOgImageComponent('NuxtSeo')
 
 const {
-	public: { googleAdsenseId, projectKey, siteUrl },
+	public: { googleAdsense, projectKey, siteUrl },
 } = useRuntimeConfig()
 
 const { t } = useI18n()
@@ -115,13 +115,15 @@ useSchemaOrg([
 					Load More
 				</NuxtLink>
 			</div>
-
-			<div class="block max-h-96 mb-8">
-				<LazyScriptGoogleAdsense
-					:data-ad-client="googleAdsenseId"
-					data-ad-slot="8638864193"
-				/>
-			</div>
+			<LazyScriptGoogleAdsense
+				:data-ad-client="googleAdsense.id as string"
+				data-ad-slot="'8638864193'"
+			>
+				<template #error>
+					<!-- Fallback ad -->
+					Please support us by disabling your ad blocker.
+				</template>
+			</LazyScriptGoogleAdsense>
 
 			<div>
 				<p class="text-2xl mb-3">

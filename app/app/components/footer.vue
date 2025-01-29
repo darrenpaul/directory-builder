@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import isEmail from 'validator/lib/isEmail'
 import IconBrand from '~~/assets/icons/brand.svg'
+import { directoryRoutes } from '~~/constants/directories'
 import { newsletterApiRoute } from '~~/constants/routes-api'
 import {
 	ERROR,
@@ -69,14 +70,20 @@ async function onNewsletterSubmit() {
 				Your local guide to the city's vibrant café culture.
 			</p>
 		</aside>
-		<!-- <nav>
+		<nav>
 			<p class="text-neutral-950 font-semibold">
-				Services
+				Local Directories
 			</p>
-			<NuxtLink :to="blogsRoute.path">
-				{{ blogsRoute.label }}
+
+			<NuxtLink
+				v-for="directory in directoryRoutes"
+				:key="directory.name"
+				:to="directory.path"
+				target="_blank"
+			>
+				{{ directory.label }}
 			</NuxtLink>
-		</nav> -->
+		</nav>
 		<nav>
 			<p class="text-neutral-950 font-semibold">
 				Company

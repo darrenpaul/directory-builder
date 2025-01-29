@@ -89,7 +89,12 @@ export const adminBlogsRoute = {
 	auth: true,
 }
 
-export const navigationRoutes = [homeRoute, blogsRoute, contactRoute, signInRoute]
+export const navigationRoutes = [
+	homeRoute,
+	blogsRoute,
+	contactRoute,
+	signInRoute,
+]
 
 export const navigationAuthenticatedRoutes = [
 	homeRoute,

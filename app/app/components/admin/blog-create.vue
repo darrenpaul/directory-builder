@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { kebabCase } from 'lodash-es'
-import { adminBlogsApiRoute, adminSeoMetadataBlogsApiRoute } from '~~/constants/routes-api'
+import {
+	adminBlogsApiRoute,
+	adminSeoMetadataBlogsApiRoute,
+} from '~~/constants/routes-api'
 import { adminBlogsRoute } from '~/constants/routes'
 
 const router = useRouter()

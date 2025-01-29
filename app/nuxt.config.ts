@@ -30,11 +30,11 @@ export default defineNuxtConfig({
 		'@nuxtjs/seo',
 		'@nuxt/scripts',
 		'@vueuse/nuxt',
-		'nuxt-svgo',
+		'@nuxtjs/i18n',
 		'@nuxt/image',
+		'nuxt-svgo',
 		'nuxt-umami',
 		'nuxt-tiptap-editor',
-		'@nuxtjs/i18n',
 		'nuxt-og-image',
 	],
 	typescript: {
@@ -52,7 +52,9 @@ export default defineNuxtConfig({
 			siteUrl: process.env.NUXT_PUBLIC_SITE_URL,
 			stripePublicKey: process.env.NUXT_PUBLIC_STRIPE_PUBLIC_KEY,
 			googleMapsApiKey: process.env.NUXT_PUBLIC_GOOGLE_MAPS_API_KEY,
-			googleAdsenseId: process.env.NUXT_PUBLIC_GOOGLE_ADSENSE_ID,
+			googleAdsense: {
+				id: process.env.NUXT_PUBLIC_GOOGLE_ADSENSE_ID,
+			},
 		},
 	},
 	eslint: {
@@ -139,6 +141,10 @@ export default defineNuxtConfig({
 	},
 	image: {
 		provider: 'ipx',
+	},
+	googleAdsense: {
+		onPageLoad: false,
+		pageLevelAds: false,
 	},
 	// devServer: {
 	// 	port: 3001,
