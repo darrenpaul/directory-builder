@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { kebabCase } from 'lodash-es'
-import { adminBlogsApiRoute } from '~~/constants/routes-api'
+import { adminBlogsApiRoute, adminSeoMetadataBlogsApiRoute } from '~~/constants/routes-api'
 import { adminBlogsRoute } from '~/constants/routes'
 
 const router = useRouter()
@@ -53,6 +53,13 @@ async function handleBlogCreate() {
 		body: {
 			title: title.value.trim(),
 			slug: slug.value.trim(),
+		},
+	})
+
+	await $fetch(adminSeoMetadataBlogsApiRoute.path, {
+		method: 'POST',
+		body: {
+			id: data.id,
 		},
 	})
 

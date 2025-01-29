@@ -83,6 +83,13 @@ useSchemaOrg([
 			{{ data!.title }}
 		</h1>
 
+		<NuxtImg
+			v-if="data!.thumbnailUri"
+			class="w-full h-96 mb-4 object-cover rounded-lg"
+			:src="data!.thumbnailUri"
+			:alt="data!.title"
+		/>
+
 		<div class="tiptap" v-html="data!.content" />
 	</div>
 </template>

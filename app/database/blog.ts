@@ -67,6 +67,7 @@ export async function getBlogs(supabaseClient: SupabaseClient) {
 		.select(selectString)
 		.eq('published', true)
 		.eq('project_id', process.env.NUXT_PUBLIC_PROJECT_ID)
+		.order('created_at', { ascending: false })
 		.returns<Blog[]>()
 }
 

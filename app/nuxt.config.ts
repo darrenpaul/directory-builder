@@ -140,4 +140,7 @@ export default defineNuxtConfig({
 	image: {
 		provider: 'ipx',
 	},
+	// devServer: {
+	// 	port: 3001,
+	// },
 })
