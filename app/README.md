@@ -73,3 +73,14 @@ bun run preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+
+## Hetzner Cloud Server Setup
+
+sudo apt update
+sudo apt install docker.io
+sudo apt update
+sudo systemctl start docker
+sudo apt install docker.io
+sudo systemctl start docker
+sudo systemctl enable docker
+docker

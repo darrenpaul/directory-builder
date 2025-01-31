@@ -131,7 +131,7 @@ export default defineNuxtConfig({
 		// logErrors: true,
 	},
 	i18n: {
-		vueI18n: `./locale/${process.env.NUXT_PUBLIC_PROJECT_KEY}.ts`,
+		vueI18n: `./locale/en.ts`,
 		locales: ['en'],
 		defaultLocale: 'en',
 	},

@@ -11,7 +11,11 @@ export async function createPlaceAttributeBatch(
 ) {
 	const now = new Date()
 
-	const attributes = payload.attributes.map((attribute) => {
+	const duplicatesRemoved = Array.from(
+		new Map(payload.attributes.map(item => [item.key, item])).values(),
+	)
+
+	const attributes = duplicatesRemoved.map((attribute) => {
 		return {
 			place_id: payload.placeId,
 			created_at: now,
@@ -22,7 +26,13 @@ export async function createPlaceAttributeBatch(
 		}
 	})
 
-	return supabaseClient
+	const { data, error } = await supabaseClient
 		.from(DatabaseTable.PLACE_ATTRIBUTE)
 		.upsert(attributes, { onConflict: 'slug' })
+
+	if (error) {
+		console.error(error.message)
+	}
+
+	return { data, error }
 }

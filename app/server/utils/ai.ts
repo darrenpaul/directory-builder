@@ -1,38 +1,5 @@
 import Anthropic from '@anthropic-ai/sdk'
-
-const nearbyCoffeeConfig = [
-	'has wifi? ({label:"Has Wifi",key:"hasWifi", value:??})',
-]
-
-const nearbySpaConfig = [
-	'has wifi? ({label:"Has Wifi",key:"hasWifi", value:??})',
-	'has massages? ({label:"Has Massage",key:"hasMassage", value:??})',
-	'has facial? ({label:"Has Facial",key:"hasFacial", value:??})',
-	'has body wrap? ({label:"Has Body Wrap",key:"hasBodyWrap", value:??})',
-	'has sauna? ({label:"Has Sauna",key:"hasSauna", value:??})',
-	'has Hydrotherapy? ({label:"Has Hydrotherapy",key:"hasHydrotherapy", value:??})',
-	`has Cryotherapy?({label:"Has Cryotherapy",key:"hasCryotherapy", value:??})`,
-	'has body scrub? ({label:"Has Body Scrub",key:"hasBodyScrub", value:??})',
-	'has pedicure? ({label:"Has Pedicure",key:"hasPedicure", value:??})',
-	'has manicure? ({label:"Has Manicure",key:"hasManicure", value:??})',
-]
-
-function getDirectoryType() {
-	if (process.env.NUXT_PUBLIC_PROJECT_KEY === 'nearby-spa') {
-		return 'spa'
-	}
-
-	return 'coffee shop'
-}
-
-function getProjectConfig() {
-	if (process.env.NUXT_PUBLIC_PROJECT_KEY === 'nearby-spa') {
-		return nearbySpaConfig
-	}
-	else {
-		return nearbyCoffeeConfig
-	}
-}
+import { directoryInformation, projectQuestions } from './config'
 
 export async function askQuestionsAboutPlace(
 	content: string | null | undefined,
@@ -50,8 +17,6 @@ export async function askQuestionsAboutPlace(
 		'Follow this exact format: {"label": "Has X", "key": "hasX", "value": boolean}',
 	].join('\n')
 
-	const questions = [...getProjectConfig()].join('\n')
-
 	const msg = await anthropic.messages.create({
 		model: 'claude-3-5-sonnet-20241022',
 		max_tokens: 1000,
@@ -63,7 +28,7 @@ export async function askQuestionsAboutPlace(
 				content: [
 					{
 						type: 'text',
-						text: questions,
+						text: projectQuestions.join('\n'),
 					},
 				],
 			},
@@ -105,7 +70,7 @@ export async function genearateDescriptionAndMetaInformation(
 
 	const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
-	const directoryType = getDirectoryType()
+	const directoryType = directoryInformation.join(', ')
 
 	const prompts = [
 		`You are an SEO expert writing content for a ${directoryType} directory profile page about a specific ${directoryType}`,

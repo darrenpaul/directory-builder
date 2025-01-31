@@ -1,3 +1,5 @@
+import crypto from 'node:crypto'
+import { readFile, writeFile } from 'node:fs/promises'
 import {
 	serverSupabaseClient,
 	serverSupabaseServiceRole,
@@ -15,6 +17,28 @@ import {
 	getUrls,
 } from '~~/server/utils/ai'
 import { scrapWebsite } from '~~/server/utils/webscrap'
+
+async function writeText(text: string, filename = 'output2.txt') {
+	try {
+		await writeFile(filename, text, 'utf8')
+		return true
+	}
+	catch (error) {
+		console.error('Error:', error)
+		return false
+	}
+}
+
+async function readText(filename = 'output.txt') {
+	try {
+		const text = await readFile(filename, 'utf8')
+		return text
+	}
+	catch (error) {
+		console.error('Error:', error)
+		return null
+	}
+}
 
 export default defineEventHandler(async (event) => {
 	const supabaseAdmin = serverSupabaseServiceRole(event)
@@ -55,7 +79,23 @@ export default defineEventHandler(async (event) => {
 		operatingPeriods,
 	} = body
 
-	const textContent = await scrapWebsite(website)
+	let textContent = (await readText()) || (await scrapWebsite(website))
+
+	const hashedLines: string[] = []
+	const savedLines = []
+
+	for (const line of textContent?.split('\n')) {
+		const hashedLine = crypto.createHash('sha256').update(line).digest('hex')
+		if (!hashedLines.includes(hashedLine)) {
+			if (line.length > 100) {
+				hashedLines.push(hashedLine)
+				savedLines.push(line)
+			}
+		}
+	}
+
+	textContent = savedLines.join('\n')
+	writeText(textContent)
 
 	const questions = await askQuestionsAboutPlace(textContent)
 
@@ -130,7 +170,7 @@ export default defineEventHandler(async (event) => {
 		])
 	}
 	catch (e) {
-		conols.log(e)
+		console.error(e)
 	}
 
 	return { data, error }

@@ -104,7 +104,7 @@ export async function scrapWebsite(url: string) {
 	}
 
 	const browser = await puppeteer.launch({
-		headless: false,
+		headless: 'shell',
 		defaultViewport: null,
 	})
 

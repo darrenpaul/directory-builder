@@ -27,6 +27,7 @@ set-nearby-coffee:
 	cp __project__/nearby-coffee/assets/icons/brand.svg assets/icons/brand.svg;
 	cp __project__/nearby-coffee/public/favicon.ico public/favicon.ico;
 	cp __project__/nearby-coffee/tailwind.config.ts tailwind.config.ts;
+	cp __project__/nearby-coffee/locale/en.ts locale/en.ts;
 	cp __project__/nearby-coffee/.env .env;
 
 .PHONY: set-nearby-coffee-production
@@ -34,12 +35,14 @@ set-nearby-coffee-production:
 	cp __project__/nearby-coffee/assets/icons/brand.svg assets/icons/brand.svg;
 	cp __project__/nearby-coffee/public/favicon.ico public/favicon.ico;
 	cp __project__/nearby-coffee/tailwind.config.ts tailwind.config.ts;
+	cp __project__/nearby-coffee/locale/en.ts locale/en.ts;
 
 .PHONY: set-nearby-spa
 set-nearby-spa:
 	cp __project__/nearby-spa/assets/icons/brand.svg assets/icons/brand.svg;
 	cp __project__/nearby-spa/public/favicon.ico public/favicon.ico;
 	cp __project__/nearby-spa/tailwind.config.ts tailwind.config.ts;
+	cp __project__/nearby-spa/locale/en.ts locale/en.ts;
 	cp __project__/nearby-spa/.env .env;
 
 .PHONY: set-nearby-spa-production
@@ -47,3 +50,20 @@ set-nearby-spa-production:
 	cp __project__/nearby-spa/assets/icons/brand.svg assets/icons/brand.svg;
 	cp __project__/nearby-spa/public/favicon.ico public/favicon.ico;
 	cp __project__/nearby-spa/tailwind.config.ts tailwind.config.ts;
+	cp __project__/nearby-spa/locale/en.ts locale/en.ts;
+
+.PHONY: set-mzansi-designs
+set-mzansi-designs:
+	cp __project__/mzansi-designs/assets/icons/brand.svg assets/icons/brand.svg;
+	cp __project__/mzansi-designs/public/favicon.ico public/favicon.ico;
+	cp __project__/mzansi-designs/tailwind.config.ts tailwind.config.ts;
+	cp __project__/mzansi-designs/locale/en.ts locale/en.ts;
+	cp __project__/mzansi-designs/.env .env;
+
+.PHONY: set-mzansi-designs-production
+set-mzansi-designs-production:
+	cp __project__/mzansi-designs/assets/icons/brand.svg assets/icons/brand.svg;
+	cp __project__/mzansi-designs/public/favicon.ico public/favicon.ico;
+	cp __project__/mzansi-designs/tailwind.config.ts tailwind.config.ts;
+	cp __project__/mzansi-designs/locale/en.ts locale/en.ts;
+
