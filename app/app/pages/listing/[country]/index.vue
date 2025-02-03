@@ -35,10 +35,6 @@ const queryUrl = computed(() => {
 		.build()
 })
 
-const limit = computed(
-	() => Number.parseInt(route.query.limit as string) || 10,
-)
-
 const fetchPromises = []
 
 fetchPromises.push(
@@ -106,27 +102,17 @@ useSchemaOrg([
 
 			<Filter />
 
-			<div class="border-b border-neutral-200 mb-6">
-				<PlaceList
-					v-if="data.data"
-					key-id="latest"
-					class="mb-4"
-					:places="data.data"
-					:label="
-						t('placeList.label', {
-							city: startCase(route.params.country as string),
-						})
-					"
-				/>
-
-				<NuxtLink
-					v-if="data.count > limit"
-					class="btn btn-block btn-neutral btn-outline"
-					:to="{ query: { limit: limit + 10 } }"
-				>
-					Load More
-				</NuxtLink>
-			</div>
+			<PlaceList
+				v-if="data.data"
+				key-id="latest"
+				class="mb-4"
+				:places="data.data"
+				:label="
+					t('placeList.label', {
+						city: startCase(route.params.country as string),
+					})
+				"
+			/>
 		</div>
 
 		<div class="bg-base-200 p-3 mb-6">

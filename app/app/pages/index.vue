@@ -32,10 +32,6 @@ const queryUrl = computed(() => {
 		.build()
 })
 
-const limit = computed(
-	() => Number.parseInt(route.query.limit as string) || 10,
-)
-
 const fetchPromises = []
 
 fetchPromises.push(
@@ -98,23 +94,13 @@ useSchemaOrg([
 		<div class="w-full max-w-screen-2xl mx-auto px-4">
 			<LazyFilter />
 
-			<div class="border-b border-neutral-200 pb-3 mb-6">
-				<LazyPlaceList
-					v-if="data.data"
-					key-id="latest"
-					class="mb-4"
-					:places="data.data"
-					:label="$t('home.latestPlace')"
-				/>
-
-				<NuxtLink
-					v-if="data.count > limit"
-					class="btn btn-block btn-neutral btn-outline"
-					:to="{ query: { limit: limit + 10 } }"
-				>
-					Load More
-				</NuxtLink>
-			</div>
+			<LazyPlaceList
+				v-if="data.data"
+				key-id="latest"
+				class="mb-4"
+				:places="data.data"
+				:label="$t('home.latestPlace')"
+			/>
 			<LazyScriptGoogleAdsense
 				:data-ad-client="googleAdsense.id as string"
 				data-ad-slot="'8638864193'"

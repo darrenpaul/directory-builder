@@ -8,6 +8,11 @@ const props = defineProps({
 	places: { type: Array as PropType<Place[]>, required: true },
 	label: { type: String, required: false },
 })
+
+const route = useRoute()
+const { trackEvent } = useAnalytics()
+
+const limit = computed(() => Number.parseInt(route.query.limit as string) || 5)
 </script>
 
 <template>
@@ -15,19 +20,29 @@ const props = defineProps({
 		<h3 v-if="props.label" class="text-3xl font-bold mb-3">
 			{{ props.label }}
 		</h3>
+		<div class="border-b border-neutral-200 pb-3 mb-6 flex flex-col gap-3">
+			<div
+				v-if="props.places.length > 0"
+				class="grid grid-cols-1 xl:grid-cols-2 gap-6"
+			>
+				<PlaceListItem
+					v-for="(place, index) in props.places"
+					:key="`${props.keyId}-${place.id}`"
+					:key-id="keyId"
+					:place="place"
+					:index="index"
+				/>
+			</div>
+			<NoEntriesFoundForm v-else />
 
-		<div
-			v-if="props.places.length > 0"
-			class="grid grid-cols-1 xl:grid-cols-2 gap-6"
-		>
-			<PlaceListItem
-				v-for="(place, index) in props.places"
-				:key="`${props.keyId}-${place.id}`"
-				:key-id="keyId"
-				:place="place"
-				:index="index"
-			/>
+			<NuxtLink
+				v-if="props.places.length > limit"
+				class="btn btn-block btn-neutral btn-outline"
+				:to="{ query: { limit: limit + 10 } }"
+				@click="() => trackEvent('view-featured-list')"
+			>
+				Load More
+			</NuxtLink>
 		</div>
-		<NoEntriesFoundForm v-else />
 	</div>
 </template>

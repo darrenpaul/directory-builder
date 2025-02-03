@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import { kebabCase } from 'lodash-es'
 import SearchInput from '~/components/search-input.vue'
 import useFilters from '~/composables/use-filters'
 
 const route = useRoute()
 const router = useRouter()
+const { trackEvent } = useAnalytics()
 
 const { t } = useI18n()
 const { attributeOptions } = useFilters()
@@ -17,6 +19,8 @@ const queryPostalCode = ref<string | undefined>(
 )
 
 function onAttributeOptionChange(key: string) {
+	trackEvent(`apply-filter-${kebabCase(key)}`)
+
 	const currentUrlQueries = {
 		...(route.query as Record<string, string | null>),
 	}
